@@ -1,0 +1,14 @@
+/.idea/
+/node_modules/
+/.tmp/
+/.demo/
+/*.tgz
+/dist/
+/.awcache
+/*.tmp.js
+/*.tmp.json
+/coverage/
+/package.json.bak
+/README.md.bak
+/documentation/
+/*.tar.gz
