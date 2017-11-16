@@ -1,7 +1,7 @@
-import {NgModule} from "@angular/core";
-import {CalendarFetcher} from "./CalendarFetcher/CalendarFetcher";
-import {CommonModule} from "@angular/common";
-import {NgForageModule} from "@ngforage/ngforage-ng5";
+import {CommonModule} from '@angular/common';
+import {NgModule} from '@angular/core';
+import {NgForageModule} from '@ngforage/ngforage-ng5';
+import {CalendarFetcher} from './CalendarFetcher/CalendarFetcher';
 
 @NgModule({
   imports: [

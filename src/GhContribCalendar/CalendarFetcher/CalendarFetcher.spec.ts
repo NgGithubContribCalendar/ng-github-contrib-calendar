@@ -1,5 +1,5 @@
-describe("CalendarFetcher", () => {
-  it("stub", () => {
+describe('CalendarFetcher', () => {
+  it('stub', () => {
     expect('foo').toBe('foo');
   });
 });
