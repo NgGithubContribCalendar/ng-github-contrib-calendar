@@ -152,6 +152,7 @@ class WebpackFactory {
   get externals() {
     return this.mode === MODE.DIST_UMD ? [
       'tslib',
+      /^@ngforage/i,
       require('webpack-angular-externals')(),
       require('webpack-rxjs-externals')()
     ] : [];

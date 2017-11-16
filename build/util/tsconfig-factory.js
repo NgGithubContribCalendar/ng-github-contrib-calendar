@@ -90,7 +90,7 @@ class TsConfigFactory {
         strictMetadataEmit: true,
         strictInjectionParameters: true,
         generateCodeForLibraries: this.mode === MODE.DEMO_PRE_AOT,
-        fullTemplateTypeCheck: this.mode !== MODE.DEMO_PRE_AOT,
+        fullTemplateTypeCheck: false,
         annotateForClosureCompiler: false,
         annotationsAs: 'static fields',
         preserveWhitespaces: true,

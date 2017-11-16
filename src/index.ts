@@ -1,1 +1,1 @@
-export * from './NgGhContribCalendar/GhContribCalendarModule';
+export * from './GhContribCalendar/GhContribCalendarModule';

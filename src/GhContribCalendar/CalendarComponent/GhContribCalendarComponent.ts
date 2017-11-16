@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from "@angular/core";
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'gh-contrib-calendar',
-  template: '<span>foo</span>'
+  template: 'foo'
 })
 export class GhContribCalendarComponent {
 
