@@ -15,15 +15,15 @@ const path = require('path');
 const webpack = require('webpack');
 
 class WebpackFactory {
-
+  
   constructor(mode) {
     this.mode = mode;
   }
-
+  
   get tsConfigFileName() {
     return this.mode === MODE.TEST ? 'tsconfig.json' : new TsConfigFactory(this.mode).file;
   }
-
+  
   get entry() {
     switch (this.mode) {
       case MODE.DIST_UMD:
@@ -41,11 +41,11 @@ class WebpackFactory {
         }
     }
   }
-
+  
   get banner() {
     const pkg = require('./package.json');
     const _ = require('lodash');
-
+    
     return `
 /**
  * ${pkg.name} - ${pkg.description}
@@ -56,10 +56,10 @@ class WebpackFactory {
  */
 `.trim();
   }
-
+  
   get uglifyJSPlugin() {
     const include = this.mode === MODE.DEMO_AOT ? /\.js$/ : /\.min\.js$/;
-
+    
     return new webpack.optimize.UglifyJsPlugin({
       include,
       sourceMap: true,
@@ -68,7 +68,7 @@ class WebpackFactory {
       uglifyOptions: require('./build/conf/uglify-options')
     })
   }
-
+  
   get plugins() {
     const out = [
       new webpack.LoaderOptionsPlugin({
@@ -77,7 +77,7 @@ class WebpackFactory {
         }
       })
     ];
-
+    
     if (this.mode === MODE.DIST_UMD) {
       out.push(this.uglifyJSPlugin);
       out.push(new webpack.BannerPlugin({
@@ -86,11 +86,11 @@ class WebpackFactory {
         entryOnly: true
       }))
     }
-
+    
     if (this.mode !== MODE.DEMO_AOT) {
       out.push(new CheckerPlugin());
     }
-
+    
     if (this.mode !== MODE.DEMO_JIT) {
       out.push(new webpack.DefinePlugin({
         'process.env': {
@@ -98,7 +98,7 @@ class WebpackFactory {
         }
       }));
     }
-
+    
     if ([MODE.DEMO_JIT, MODE.DEMO_AOT].includes(this.mode)) {
       out.push(
         new webpack.optimize.CommonsChunkPlugin({
@@ -125,7 +125,7 @@ class WebpackFactory {
         new ResourceHintWebpackPlugin()
       );
     }
-
+    
     if ([MODE.TEST, MODE.DEMO_JIT, MODE.DEMO_AOT].includes(this.mode)) {
       out.push(
         new webpack.ContextReplacementPlugin(
@@ -134,7 +134,7 @@ class WebpackFactory {
         )
       );
     }
-
+    
     if (this.mode === MODE.TEST) {
       out.push(
         new webpack.SourceMapDevToolPlugin({
@@ -142,13 +142,13 @@ class WebpackFactory {
           test: /\.(ts|js)($|\?)/i
         })
       );
-
+      
       out.push(new webpack.NoEmitOnErrorsPlugin());
     }
-
+    
     return out;
   }
-
+  
   get externals() {
     return this.mode === MODE.DIST_UMD ? [
       'tslib',
@@ -156,17 +156,17 @@ class WebpackFactory {
       require('webpack-rxjs-externals')()
     ] : [];
   }
-
+  
   get target() {
     if (this.mode !== MODE.DIST_UMD) {
       return 'web';
     }
   }
-
+  
   get devtool() {
     return this.mode === MODE.DEMO_JIT ? 'eval' : 'source-map';
   }
-
+  
   get output() {
     switch (this.mode) {
       case MODE.DIST_UMD:
@@ -188,7 +188,7 @@ class WebpackFactory {
         };
     }
   }
-
+  
   get conf() {
     const rules = [
       {
@@ -237,7 +237,7 @@ class WebpackFactory {
         ]
       }
     ];
-
+    
     if (this.mode === MODE.TEST) {
       rules.push({
         test: /.ts$/,
@@ -252,7 +252,7 @@ class WebpackFactory {
         enforce: 'post'
       })
     }
-
+    
     const out = {
       devtool: this.devtool,
       cache: true,
@@ -273,19 +273,19 @@ class WebpackFactory {
         rules
       }
     };
-
+    
     if (this.entry) {
       out.entry = this.entry;
     }
-
+    
     if (this.output) {
       out.output = this.output;
     }
-
+    
     if (this.target) {
       out.target = this.target;
     }
-
+    
     return out;
   }
 }

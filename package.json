@@ -1,7 +1,7 @@
 {
   "name": "@ng-github-contrib-calendar/calendar-ng5",
   "description": "GitHub contributions calendar component for Angular 4 and 5",
-  "version": "1.0.3",
+  "version": "1.0.0-rc.0",
   "browser": "dist/umd/index.js",
   "jsdelivr": "dist/umd/index.min.js",
   "main": "dist/es5/index.js",
@@ -100,7 +100,7 @@
     "ts-node": "^3.3.0",
     "tslib": "^1.8",
     "tslint": "^5.8.0",
-    "typescript": ">=2.6.1",
+    "typescript": ">=2.4.2 <2.5",
     "uglify-es": "^3.1",
     "uuid": "^3.1.0",
     "webpack": "^3.8",
