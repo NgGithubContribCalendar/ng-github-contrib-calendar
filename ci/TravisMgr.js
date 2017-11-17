@@ -164,7 +164,8 @@ const TravisMgr = (() => {
         
         const importingFiles = [
           'src/GhContribCalendar/GhContribCalendarModule.ts',
-          'src/GhContribCalendar/CalendarFetcher/CalendarFetcher.ts'
+          'src/GhContribCalendar/CalendarFetcher/CalendarFetcher.ts',
+          'karma-test-entry.ts'
         ];
         
         for (const file of importingFiles) {
