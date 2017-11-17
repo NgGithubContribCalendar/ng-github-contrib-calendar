@@ -136,16 +136,20 @@ const TravisMgr = (() => {
       this.writePkgJson(json);
     }
     
+    get defaultNgforageVersion() {
+      return '@ngforage/ngforage-ng5';
+    }
+    
     get ngForagePkgName() {
       if (this.CI_NG_VERSION === '4') {
         return '@ngforage/ngforage-ng4';
       }
       
-      return '@ngforage/ngforage-ng5';
+      return this.defaultNgforageVersion;
     }
     
     writeNgforage() {
-      if (this.ngForagePkgName !== '@ngforage/ngforage-ng5') {
+      if (this.ngForagePkgName !== this.defaultNgforageVersion) {
         const json = this.pkgJsonContents;
         
         for (const k of this.keys) {
@@ -156,6 +160,17 @@ const TravisMgr = (() => {
               break;
             }
           }
+        }
+        
+        const importingFiles = [
+          'src/GhContribCalendar/GhContribCalendarModule.ts',
+          'src/GhContribCalendar/CalendarFetcher/CalendarFetcher.ts'
+        ];
+        
+        for (const file of importingFiles) {
+          let contents = fs.readFileSync(file, 'utf8');
+          contents = contents.replace(this.defaultNgforageVersion, this.ngForagePkgName);
+          fs.writeFileSync(file, contents);
         }
         
         this.writePkgJson(json);
