@@ -1,3 +1,4 @@
+//tslint:disable:unified-signatures
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {IParsedPayload} from '@ng-github-contrib-calendar/common-types';
@@ -14,7 +15,12 @@ import {defaultFormatterFunction} from './defaultFormatterFunction';
 import {ProxyURLFormatterFunction} from './ProxyURLFormatterFunction';
 
 function makeCacheKey(user: string, y?: string | number, m?: string, d?: string): string {
-  return JSON.stringify({user, y, m, d});
+  return JSON.stringify({
+    d,
+    m,
+    user,
+    y: y ? parseInt(<string>y, StaticConf.STD_RADIX) : undefined
+  });
 }
 
 @Injectable()
@@ -27,12 +33,30 @@ export class CalendarFetcher {
     cache.description = 'GhContribCalendar store';
   }
 
+  public fetch(user: string): Observable<IParsedPayload>;
+  public fetch(user: string, formatterFn: ProxyURLFormatterFunction): Observable<IParsedPayload>;
+  public fetch(user: string, toYear: string | number, toMonth: string, toDay: string): Observable<IParsedPayload>;
   public fetch(user: string,
-               toYear?: string | number,
-               toMonth?: string,
-               toDay?: string,
-               formatterFn?: ProxyURLFormatterFunction): Observable<IParsedPayload> {
-    const cacheKey: string = makeCacheKey(user, toYear, toMonth, toDay);
+               toYear: string | number,
+               toMonth: string,
+               toDay: string,
+               formatterFn: ProxyURLFormatterFunction): Observable<IParsedPayload>;
+
+  public fetch(user: string,
+               fnOrYear?: ProxyURLFormatterFunction | string | number,
+               month?: string,
+               day?: string,
+               possibleFn?: ProxyURLFormatterFunction): Observable<IParsedPayload> {
+
+    const fnOrYearIsFunction = typeof fnOrYear === 'function';
+
+    const actualFn: ProxyURLFormatterFunction = fnOrYearIsFunction ?
+      <ProxyURLFormatterFunction>fnOrYear :
+      possibleFn || defaultFormatterFunction;
+
+    const actualYear: string | number = fnOrYearIsFunction ? undefined : <string | number>fnOrYear;
+
+    const cacheKey: string = makeCacheKey(user, actualYear, month, day);
 
     return fromPromise(this.cache.getCached<IParsedPayload>(cacheKey))
       .switchMap((cached: CachedItem<IParsedPayload>) => {
@@ -40,7 +64,7 @@ export class CalendarFetcher {
           return of(cached.data);
         }
 
-        const url: string = (formatterFn || defaultFormatterFunction)(user, toYear, toMonth, toDay);
+        const url: string = actualFn(user, actualYear, month, day);
         const subj = new BehaviorSubject<IParsedPayload>(cached.hasData ? cached.data : null);
 
         setTimeout(() => {

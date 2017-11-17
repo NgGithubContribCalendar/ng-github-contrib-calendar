@@ -8,9 +8,21 @@ import 'zone.js/dist/fake-async-test';
 import 'zone.js/dist/sync-test';
 import 'zone.js/dist/proxy';
 import 'zone.js/dist/jasmine-patch';
-import {TestBed} from '@angular/core/testing';
+import {TestBed, TestModuleMetadata} from '@angular/core/testing';
 import {BrowserDynamicTestingModule, platformBrowserDynamicTesting} from '@angular/platform-browser-dynamic/testing';
+import {CalendarFetcher} from "./src/GhContribCalendar/CalendarFetcher/CalendarFetcher";
+import {NgForageModule} from "@ngforage/ngforage-ng5";
+import {HttpClientModule} from "@angular/common/http";
+import {CommonModule} from "@angular/common";
 
+export const def: TestModuleMetadata = {
+  imports: [
+    CommonModule,
+    HttpClientModule,
+    NgForageModule
+  ],
+  providers: [CalendarFetcher]
+};
 
 TestBed.initTestEnvironment(
   BrowserDynamicTestingModule,

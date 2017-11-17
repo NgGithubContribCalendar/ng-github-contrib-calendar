@@ -20,7 +20,8 @@
     "build:demo:aot": "gulp build:demo:aot",
     "build:demo:aot:prod": "gulp build:demo:aot:prod",
     "snyk:wizard": "snyk wizard",
-    "precommit": "npm run tslint:fix"
+    "precommit": "npm run tslint:fix",
+    "prepush": "npm run tslint"
   },
   "peerDependencies": {
     "@angular/common": "^5.0",
