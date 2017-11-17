@@ -16,27 +16,28 @@ stages:
   - Lint
   - Test
 
+before_install: curl https://gh-contrib-parser-public.herokuapp.com/ping &
+
 lint_job: &lint_job
-  stage: Lint
-  before_install: curl https://gh-contrib-parser-public.herokuapp.com/ping &
+  stage: Test
   script: npm run tslint
 
 jobs:
   include:
     - <<: *lint_job
       if: type IN (push, cron)
-      install: npm install tslint greenkeeper-lockfile
       before_script: greenkeeper-lockfile-update
       after_script: greenkeeper-lockfile-upload
       env:
         - secure: "bhOHYAMm9I+hsSiX+iY57XsVmY26zbxHAFHuItIld3EZLL7cFLpsWHprBO+DVz7lPVFpKXnpB6Y7BRAbTfkiRcjFs1cRhy65JZoQKrdmDgy3skncLdlvNjyBjc9mySS3amMr5T/RVam4V6vfI3Z345QkFpZxZ81m55ueo19B6QVH/f8knnmX8HT1JU5qBlu/41ZHvOKBPVSERkiQHyvzThKsNiuVfkcRbZdH3Cske+b66SlgBCW/icWjD3AdkiXoApcHpIFlbAhlnecM0x6xkIfjuqoOGvEpLtAgiywP2lvSl5sqZs1sGuprTf8FhK9/TUjV6uKAvIiWt7Zj7L3QHPW+TtoG62fewCxrTXIX4gIO/kOC2mZWNcMq92ZHwOlIuXxFgwvJ8wtS8UJTcfppeliMP1f46PFiht/0B7Tn8CHQkJPDFrZKMza/H2RjYGCzaQ7wrYjt66j14YimXy9/7R+lgHCOLhwq8LbCKlJiNOwIcHVj6YoHWBFebP6NRg8sFCtTnX1izUXu2nUUONCDvHcxrIZrrjiGcVJQO8gXWs1pFpePJsuFIaiXc7U7CSwrH2lDkUu5ah4pOAbnZm/nPJEdbdUgkLaqoX3zdA/ugH5O1X3DkNv/LxrmqBIIlgo9LrgUfT0YfELaPdmYwb579VKpmeT8IS21WWPfmI4NXWc="
         - LINT=1
         - GK=1
+        - CI_NG_VERSION=5
     - <<: *lint_job
       if: NOT type IN (push, cron)
-      install: npm install tslint
       env:
         - LINT=1
+        - CI_NG_VERSION=5
     - <<: *std_job
       env:
         - CI_NG_VERSION=5
