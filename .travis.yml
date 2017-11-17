@@ -8,18 +8,19 @@ cache:
   directories:
     - node_modules
 
+std_stage_name: &std_stage_name Test & Lint
+
 std_job: &std_job
-  stage: Test
+  stage: *std_stage_name
   after_success: cat ./coverage/lcov.info | coveralls
 
 stages:
-  - Lint
-  - Test
+  - *std_stage_name
 
 before_install: curl https://gh-contrib-parser-public.herokuapp.com/ping &
 
 lint_job: &lint_job
-  stage: Test
+  stage: *std_stage_name
   script: npm run tslint
 
 jobs:
