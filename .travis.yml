@@ -38,6 +38,7 @@ jobs:
       if: NOT type IN (push, cron)
       env:
         - LINT=1
+        - GK=0
         - CI_NG_VERSION=5
     - <<: *std_job
       env:
