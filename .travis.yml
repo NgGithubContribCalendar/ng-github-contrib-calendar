@@ -18,7 +18,7 @@ stages:
   - name: &deploy_stage_name Deploy
     if: tag IS present
 
-before_install: curl https://gh-contrib-parser-public.herokuapp.com/ping &
+before_install: &wake_server curl https://gh-contrib-parser-public.herokuapp.com/ping &
 
 lint_job: &lint_job
   stage: *std_stage_name
