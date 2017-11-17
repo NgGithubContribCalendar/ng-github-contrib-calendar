@@ -4,36 +4,34 @@ node_js: 9
 
 before_cache: rm -rf ./node_modules/puppeteer
 
-# Wake server up
-before_install: curl https://gh-contrib-parser-public.herokuapp.com/ping &
-
 cache:
   directories:
     - node_modules
 
 std_job: &std_job
   stage: Test
+  before_install: curl https://gh-contrib-parser-public.herokuapp.com/ping &
   after_success: cat ./coverage/lcov.info | coveralls
 
 stages:
-  - Lint
   - Test
+
+lint_job: &lint_job
+  stage: Test
+  script: npm run tslint
 
 jobs:
   include:
-    - stage: Lint
+    - <<: *lint_job
       if: type IN (push, cron)
-      script: snyk test --peer
       before_script: greenkeeper-lockfile-update
       after_script: greenkeeper-lockfile-upload
-      after_success: snyk monitor --peer
       env:
         - secure: "bhOHYAMm9I+hsSiX+iY57XsVmY26zbxHAFHuItIld3EZLL7cFLpsWHprBO+DVz7lPVFpKXnpB6Y7BRAbTfkiRcjFs1cRhy65JZoQKrdmDgy3skncLdlvNjyBjc9mySS3amMr5T/RVam4V6vfI3Z345QkFpZxZ81m55ueo19B6QVH/f8knnmX8HT1JU5qBlu/41ZHvOKBPVSERkiQHyvzThKsNiuVfkcRbZdH3Cske+b66SlgBCW/icWjD3AdkiXoApcHpIFlbAhlnecM0x6xkIfjuqoOGvEpLtAgiywP2lvSl5sqZs1sGuprTf8FhK9/TUjV6uKAvIiWt7Zj7L3QHPW+TtoG62fewCxrTXIX4gIO/kOC2mZWNcMq92ZHwOlIuXxFgwvJ8wtS8UJTcfppeliMP1f46PFiht/0B7Tn8CHQkJPDFrZKMza/H2RjYGCzaQ7wrYjt66j14YimXy9/7R+lgHCOLhwq8LbCKlJiNOwIcHVj6YoHWBFebP6NRg8sFCtTnX1izUXu2nUUONCDvHcxrIZrrjiGcVJQO8gXWs1pFpePJsuFIaiXc7U7CSwrH2lDkUu5ah4pOAbnZm/nPJEdbdUgkLaqoX3zdA/ugH5O1X3DkNv/LxrmqBIIlgo9LrgUfT0YfELaPdmYwb579VKpmeT8IS21WWPfmI4NXWc="
-        - secure: "ReQMsJFyRouQAcGpaSg1HaDfohJF4JUFfy66E29yIthArYRCGp+px2+KkdXhBx7pEfYyFrBsTztujY3Vigh8b8hT4Gc4i03XBZX8/op5+cD4SF046ZwyEBRDCJpzHQbTLz9d9JhyZQlO63xfZBZm2dp7bDW+sx2YV6jDnlXTfJgtSsIkv0znS3z0bIZb36wOIHWyhMYD1dpGw4SVayQjs2HNT4ONXZqlTKodVVRFw9qqp67iG32jSDhbHGANi2rgp57lHumj4yU1yGIBqNuCko6M6h7ehdkxE7ye1GVP/C+6mN2fPUB0SxLrNoDD/LiowrBVEGc5eLvf0LR7pZXdAdWl9axRvLkmn3debaoX3DEf0SB+kpFXESUXSIUhYESlXEOlHtohoa2QW1E+emXrOflrlL8i9lWEpqif92w2+qOJ4zmCYvjJGNqmL2m7ox/nS9EgIWRyVhiOJwCPS1cAkHZxWVXooUbA7KfDBSUsr3bomO+C2EzyNIJlWDxyZBdeXB8mi3ankji3Lfdw8zIOewO3xsiv/i/wcGUq7WUz9/5iacr/TdOGjvy0e93KvzSOctXNq7w1bG9e/QX/LoJ48lS5m78iTQMiiQYp7zaIClURlBWAOon7M17GWWr5Yi7r0YWEpB8CagLfDSTOGWDjRQKhfEsruMso64us0ggVizw="
         - CI_NG_VERSION=5
         - PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1
-    - stage: Lint
-      script: npm run tslint
+    - <<: *lint_job
+      if: NOT type IN (push, cron)
       env:
         - CI_NG_VERSION=5
         - PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1
