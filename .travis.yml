@@ -21,6 +21,7 @@ jobs:
     - stage: Lint
       if: type IN (push, cron)
       script: snyk test --peer
+      before_install: curl https://gh-contrib-parser-public.herokuapp.com/ping & # Wake server up
       before_script: greenkeeper-lockfile-update
       after_script: greenkeeper-lockfile-upload
       after_success: snyk monitor --peer
@@ -30,6 +31,7 @@ jobs:
         - CI_NG_VERSION=5
         - PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1
     - stage: Lint
+      before_install: curl https://gh-contrib-parser-public.herokuapp.com/ping & # Wake server up
       script: npm run tslint
       env:
         - CI_NG_VERSION=5

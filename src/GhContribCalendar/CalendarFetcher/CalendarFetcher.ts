@@ -89,7 +89,7 @@ export class CalendarFetcher {
             });
         },         0);
 
-        return subj.filter((v: IParsedPayload) => !!v);
+        return subj.filter(v => !!v);
       });
   }
 }
