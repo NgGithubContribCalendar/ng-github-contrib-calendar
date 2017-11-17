@@ -1,3 +1,4 @@
+/** @internal */
 export const enum StaticConf {
   CACHE_TIME = 3600000,
   STD_RADIX = 10,

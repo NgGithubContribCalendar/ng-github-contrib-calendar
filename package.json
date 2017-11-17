@@ -19,7 +19,7 @@
     "tslint:fix": "tslint -p ./tsconfig.tslint.json --fix -s node_modules/custom-tslint-formatters/formatters -t grouped 'src/**/*.ts'",
     "build:demo:aot": "gulp build:demo:aot",
     "build:demo:aot:prod": "gulp build:demo:aot:prod",
-    "snyk:wizard": "snyk wizard",
+    "snyk:wizard": "snyk wizard --peer",
     "precommit": "npm run tslint:fix",
     "prepush": "npm run tslint"
   },
@@ -127,5 +127,6 @@
   "license": "GPL-3.0",
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "dependencies": {}
 }

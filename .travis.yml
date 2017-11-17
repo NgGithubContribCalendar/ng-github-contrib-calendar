@@ -8,8 +8,42 @@ cache:
   directories:
     - node_modules
 
-before_script: greenkeeper-lockfile-update
-after_script: greenkeeper-lockfile-upload
+std_job: &std_job
+  stage: Test
+  after_success: cat ./coverage/lcov.info | coveralls
+
+stages:
+  - Lint
+  - Test
+
+jobs:
+  include:
+    - stage: Lint
+      if: type IN (push, cron)
+      script: snyk test --peer
+      before_script: greenkeeper-lockfile-update
+      after_script: greenkeeper-lockfile-upload
+      after_success: snyk monitor --peer
+      env:
+        - secure: "bhOHYAMm9I+hsSiX+iY57XsVmY26zbxHAFHuItIld3EZLL7cFLpsWHprBO+DVz7lPVFpKXnpB6Y7BRAbTfkiRcjFs1cRhy65JZoQKrdmDgy3skncLdlvNjyBjc9mySS3amMr5T/RVam4V6vfI3Z345QkFpZxZ81m55ueo19B6QVH/f8knnmX8HT1JU5qBlu/41ZHvOKBPVSERkiQHyvzThKsNiuVfkcRbZdH3Cske+b66SlgBCW/icWjD3AdkiXoApcHpIFlbAhlnecM0x6xkIfjuqoOGvEpLtAgiywP2lvSl5sqZs1sGuprTf8FhK9/TUjV6uKAvIiWt7Zj7L3QHPW+TtoG62fewCxrTXIX4gIO/kOC2mZWNcMq92ZHwOlIuXxFgwvJ8wtS8UJTcfppeliMP1f46PFiht/0B7Tn8CHQkJPDFrZKMza/H2RjYGCzaQ7wrYjt66j14YimXy9/7R+lgHCOLhwq8LbCKlJiNOwIcHVj6YoHWBFebP6NRg8sFCtTnX1izUXu2nUUONCDvHcxrIZrrjiGcVJQO8gXWs1pFpePJsuFIaiXc7U7CSwrH2lDkUu5ah4pOAbnZm/nPJEdbdUgkLaqoX3zdA/ugH5O1X3DkNv/LxrmqBIIlgo9LrgUfT0YfELaPdmYwb579VKpmeT8IS21WWPfmI4NXWc="
+        - secure: "ReQMsJFyRouQAcGpaSg1HaDfohJF4JUFfy66E29yIthArYRCGp+px2+KkdXhBx7pEfYyFrBsTztujY3Vigh8b8hT4Gc4i03XBZX8/op5+cD4SF046ZwyEBRDCJpzHQbTLz9d9JhyZQlO63xfZBZm2dp7bDW+sx2YV6jDnlXTfJgtSsIkv0znS3z0bIZb36wOIHWyhMYD1dpGw4SVayQjs2HNT4ONXZqlTKodVVRFw9qqp67iG32jSDhbHGANi2rgp57lHumj4yU1yGIBqNuCko6M6h7ehdkxE7ye1GVP/C+6mN2fPUB0SxLrNoDD/LiowrBVEGc5eLvf0LR7pZXdAdWl9axRvLkmn3debaoX3DEf0SB+kpFXESUXSIUhYESlXEOlHtohoa2QW1E+emXrOflrlL8i9lWEpqif92w2+qOJ4zmCYvjJGNqmL2m7ox/nS9EgIWRyVhiOJwCPS1cAkHZxWVXooUbA7KfDBSUsr3bomO+C2EzyNIJlWDxyZBdeXB8mi3ankji3Lfdw8zIOewO3xsiv/i/wcGUq7WUz9/5iacr/TdOGjvy0e93KvzSOctXNq7w1bG9e/QX/LoJ48lS5m78iTQMiiQYp7zaIClURlBWAOon7M17GWWr5Yi7r0YWEpB8CagLfDSTOGWDjRQKhfEsruMso64us0ggVizw="
+        - CI_NG_VERSION=5
+        - PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1
+    - stage: Lint
+      script: npm run tslint
+      env:
+        - CI_NG_VERSION=5
+        - PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1
+    - <<: *std_job
+      env:
+        - CI_NG_VERSION=5
+      script:
+        - gulp build
+        - npm test
+
+###### GH TOKEN NO ENV
+# secure: "ilvBBuJbYKefovNLs/qqN27foTfc/+8N0ajHBHIWrToFvzoR9vMXFHlFDoDqWAGNA7XE6hkRfcnh0mwScbiZq5f/rWhWPskBk9fkXsNlFGCY0jpHEl01JmUb0SjCaiB9F6S0rqVyUXGFjd5RIizML72jebsDYYVpkpdY3iHzj1n6LVw5MQ4xgRzrSSHBKH++POQ2Gp/Pj6N4ayMQmHg3uWsKNJ1+37rD9Mg2G0kc6iAxwjRWuSDd2PGIMAmeJqGfECx9SVfV7HuLbdQjQjLkBIEodFbrIkgk+kY2LEc0o6Y8vAAFBYuSK2AujNYK/LL2B8bx/eU1To4DEgv17gXdMhogYFXd6FqTtwBPKAKda+ik1KIB7kkg+PjoGJ/kKa7H0YBgWpjmwqL4K5EmIDZIQLH+knn/thReZr4ksYpkFwRAtQbCgstdVFAMlqlGp9v6xqfU+HxyS2oBctPyEuRO2N1izAdrkPMxaOjOsj2YVpfe4oHooOrwHp3Hp9dthKSpUaBia1cPNoNgFJU+oI6eb4QfNcYEu9gAb2bLfK+kR9UNRpaGe47W+oMnQP+w2zIztPx2aReZPO6Yc12C3+jxgKs9vWOenWRYHWaWgFeNhuHY9wVgVN56ZZAbwEU8CP5/ou8UC9XRO59mSKONSaNHd6GPukveSFL2U4F3/jYYGfA="
+#########
 
 #stages:
 #  - Lint

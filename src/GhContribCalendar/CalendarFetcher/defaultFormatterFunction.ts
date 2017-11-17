@@ -1,6 +1,7 @@
 import {StaticConf} from '../util/StaticConf';
 import {ProxyURLFormatterFunction} from './ProxyURLFormatterFunction';
 
+/** @internal */
 export const defaultFormatterFunction: ProxyURLFormatterFunction =
   function(username: string, toYear?: string | number, toMonth?: string, toDay?: string): string {
     let url = `${StaticConf.DEFAULT_PUBLIC_HOST}/${username}`;
