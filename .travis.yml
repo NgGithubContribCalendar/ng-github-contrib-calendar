@@ -10,6 +10,11 @@ cache:
 
 std_job: &std_job
   stage: &std_stage_name Test & Lint
+  script:
+    - gulp build
+    - gulp build:demo:aot
+    - tsc -p tsconfig.json
+    - npm test
   before_install: node ./ci/TravisMgr.js set-version
   after_success: cat ./coverage/lcov.info | coveralls
 
@@ -59,10 +64,6 @@ jobs:
     - <<: *std_job
       env:
         - CI_NG_VERSION=5
-      script:
-        - gulp build
-        - gulp build:demo:aot
-        - npm test
     - <<: *std_job
       env:
         - CI_NG_VERSION=4

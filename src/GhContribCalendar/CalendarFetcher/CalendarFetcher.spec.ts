@@ -1,10 +1,10 @@
 //tslint:disable:no-magic-numbers
 import {TestBed} from '@angular/core/testing';
-import {IParsedPayload} from '@ng-github-contrib-calendar/common-types';
 import {isArray} from 'lodash';
 import {def} from '../../../karma-test-entry';
 import {CalendarFetcher} from './CalendarFetcher';
 import {defaultFormatterFunction} from './defaultFormatterFunction';
+import {FormattedPayload} from './Formatted';
 
 describe('CalendarFetcher', () => {
   let inst: CalendarFetcher;
@@ -15,7 +15,7 @@ describe('CalendarFetcher', () => {
   });
 
   describe('No fn, no date', () => {
-    let data: IParsedPayload;
+    let data: FormattedPayload;
 
     beforeAll(async done => {
       data = await inst.fetch('Alorel').toPromise();
@@ -32,7 +32,7 @@ describe('CalendarFetcher', () => {
   });
 
   describe('Fn, no date', () => {
-    let data: IParsedPayload;
+    let data: FormattedPayload;
 
     beforeAll(async done => {
       data = await inst.fetch('Alorel', defaultFormatterFunction).toPromise();
@@ -49,7 +49,7 @@ describe('CalendarFetcher', () => {
   });
 
   describe('No fn, with string year', () => {
-    let data: IParsedPayload;
+    let data: FormattedPayload;
 
     beforeAll(async done => {
       data = await inst.fetch('Alorel', '1111', '11', '11').toPromise();
@@ -66,11 +66,11 @@ describe('CalendarFetcher', () => {
   });
 
   describe('Fn, with string year', () => {
-    let data: IParsedPayload;
+    let data: FormattedPayload;
 
     beforeAll(async done => {
       data = await inst.fetch('Alorel', '1111', '11', '11', defaultFormatterFunction)
-        .toPromise();
+                       .toPromise();
       done();
     });
 
@@ -84,7 +84,7 @@ describe('CalendarFetcher', () => {
   });
 
   describe('No fn, with num year', () => {
-    let data: IParsedPayload;
+    let data: FormattedPayload;
 
     beforeAll(async done => {
       data = await inst.fetch('Alorel', 1111, '11', '11').toPromise();
@@ -101,11 +101,11 @@ describe('CalendarFetcher', () => {
   });
 
   describe('Fn, with num year', () => {
-    let data: IParsedPayload;
+    let data: FormattedPayload;
 
     beforeAll(async done => {
       data = await inst.fetch('Alorel', 1111, '11', '11', defaultFormatterFunction)
-        .toPromise();
+                       .toPromise();
       done();
     });
 
@@ -127,6 +127,6 @@ describe('CalendarFetcher', () => {
       return;
     }
 
-    throw new Error("Didn't throw");
+    throw new Error('Didn\'t throw');
   });
 });
