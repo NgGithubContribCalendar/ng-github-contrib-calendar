@@ -1,5 +1,5 @@
 {
-  "compilerOptions":                {
+  "compilerOptions": {
     "target":                 "es5",
     "module":                 "commonjs",
     "moduleResolution":       "node",
@@ -19,19 +19,5 @@
       "ES2016",
       "ES2017"
     ]
-  },
-  "include":                        [
-    "src/**/*.ts"
-  ],
-  "exclude":                        [
-    "node_modules",
-    ".demo",
-    "ci",
-    "src/demo/**/*",
-    "dist"
-  ],
-  "awesomeTypescriptLoaderOptions": {
-    "useCache":       true,
-    "cacheDirectory": ".awcache/test"
   }
 }

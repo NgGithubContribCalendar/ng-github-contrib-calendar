@@ -6,6 +6,10 @@ const TravisMgr = (() => {
   
   class TravisMgr {
     
+    constructor() {
+      this.defaultNgforageVersion = '@ngforage/ngforage-ng5';
+    }
+    
     /** @private */
     get root() {
       return resolve(__dirname, '..');
@@ -136,10 +140,6 @@ const TravisMgr = (() => {
       this.writePkgJson(json);
     }
     
-    get defaultNgforageVersion() {
-      return '@ngforage/ngforage-ng5';
-    }
-    
     get ngForagePkgName() {
       if (this.CI_NG_VERSION === '4') {
         return '@ngforage/ngforage-ng4';
@@ -237,6 +237,7 @@ for (const cmd of cmds) {
       } else {
         console.log(`Setting package name to ${TravisMgr.pkgName}`);
         console.log(`Setting package description to ${TravisMgr.pkgDesc}`);
+        console.log(`Replacing ngForage import refs with ${TravisMgr.ngForagePkgName}`);
         TravisMgr.writeNameDesc();
         TravisMgr.writeNgforage();
       }

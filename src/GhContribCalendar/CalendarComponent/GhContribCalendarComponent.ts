@@ -11,6 +11,7 @@ import {combineLatest} from 'rxjs/observable/combineLatest';
 import {CalendarFetcher} from '../CalendarFetcher/CalendarFetcher';
 import {ProxyURLFormatterFunction} from '../CalendarFetcher/ProxyURLFormatterFunction';
 import {Day, Month, NumericDay, NumericMonth} from '../util/CalendarTypes';
+import {StaticConf} from '../util/StaticConf';
 
 const currDate = new Date();
 
@@ -64,13 +65,14 @@ export class GhContribCalendarComponent implements OnDestroy, OnInit {
 
   public ngOnInit(): void {
     this.data = combineLatest(
-      this.user$.filter(v => !!v).distinctUntilChanged(),
+      this.user$.distinctUntilChanged(),
       this.y$.distinctUntilChanged(),
       this.m$.map(formatAndPad).distinctUntilChanged(),
       this.d$.map(formatAndPad).distinctUntilChanged(),
       this.formatterFn$
     )
-      .debounceTime(250) // tslint:disable-line:no-magic-numbers
+      .filter((v: any[]) => !!v[0])
+      .debounceTime(StaticConf.FETCH_DEBOUNCE_TIME)
       .switchMap((v: [string, string | number, string, string, ProxyURLFormatterFunction]) => {
         // tslint:disable-next-line:no-magic-numbers
         return this.fetcher.fetch(v[0], v[1], v[2], v[3], v[4]);

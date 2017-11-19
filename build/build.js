@@ -1,5 +1,5 @@
 const gulp = require('gulp');
-const seq = require('gulp-sequence');
+const seq  = require('gulp-sequence');
 
 gulp.task('build', cb => {
   seq(
@@ -35,10 +35,10 @@ const aotTask = isProd => {
       'inline-templates',
       'copy:demo-to-pre-aot',
       'compile:demo:aot:prepare',
-      `compile:demo:aot:finalise`,
+      `compile:demo:aot:finalise${isProd ? ':prod' : ''}`,
       lastStep,
       cb
-    )
+    );
   };
 };
 
@@ -50,5 +50,5 @@ gulp.task('build:demo:jit', cb => {
     'clean:demo',
     'compile:demo',
     cb
-  )
+  );
 });
