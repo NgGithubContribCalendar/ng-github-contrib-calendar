@@ -56,7 +56,7 @@ jobs:
         - GK=0
         - CI_NG_VERSION=5
         - PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1
-    - <<: *std_job # TODO: AoT test for ng5
+    - <<: *std_job
       env:
         - CI_NG_VERSION=5
       script:
