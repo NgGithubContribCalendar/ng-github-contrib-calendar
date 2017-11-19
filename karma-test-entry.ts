@@ -10,20 +10,28 @@ import 'zone.js/dist/proxy';
 import 'zone.js/dist/jasmine-patch';
 import {TestBed, TestModuleMetadata} from '@angular/core/testing';
 import {BrowserDynamicTestingModule, platformBrowserDynamicTesting} from '@angular/platform-browser-dynamic/testing';
-import {CalendarFetcher} from "./src/GhContribCalendar/CalendarFetcher/CalendarFetcher";
 import {NgForageModule} from "@ngforage/ngforage-ng5";
 import {HttpClientModule} from "@angular/common/http";
 import {CommonModule} from "@angular/common";
+import {GhContribCalendarComponent} from './src/GhContribCalendar/CalendarComponent/GhContribCalendarComponent';
+import {DayDetails} from './src/GhContribCalendar/DayDetails/DayDetails';
+import {Chevron} from './src/GhContribCalendar/Chevron/Chevron';
+import {CalendarFetcher} from './src/GhContribCalendar/CalendarFetcher/CalendarFetcher';
 
 import './src/index';
 
 export const def: TestModuleMetadata = {
-  imports: [
+  declarations: [
+    GhContribCalendarComponent,
+    Chevron,
+    DayDetails
+  ],
+  providers: [CalendarFetcher],
+  imports:      [
     CommonModule,
     HttpClientModule,
     NgForageModule
-  ],
-  providers: [CalendarFetcher]
+  ]
 };
 
 TestBed.initTestEnvironment(

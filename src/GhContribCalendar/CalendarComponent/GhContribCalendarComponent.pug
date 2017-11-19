@@ -22,7 +22,7 @@
           text.gh-calendar-wday(text-anchor='start', dx='-14', dy='69') {{tr.translate('Friday')}}
     .gh-footer.flex.row.sp-bw
       div
-        button(*ngIf='showControls', chevron='left', (click)='updateRange(-1)')
+        button(*ngIf='showControls', chevron-btn, chevron='left', (click)='updateRange(-1)')
       gh-contrib-calendar-details(
       *ngIf='_enteredRect',
       [tr]='tr',
@@ -30,4 +30,4 @@
       [count]='_enteredRect.count'
       )
       div
-        button(*ngIf='showControls', chevron='right', (click)='updateRange(1)', [disabled]='atMaxRange')
+        button(*ngIf='showControls', chevron-btn, chevron='right', (click)='updateRange(1)', [disabled]='atMaxRange')
