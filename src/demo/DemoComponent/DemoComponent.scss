@@ -1,0 +1,23 @@
+:host {
+  max-width: 820px;
+  margin:    auto;
+  display:   block;
+}
+
+gh-contrib-calendar {
+  margin: auto;
+}
+
+.flex {
+  display:        flex;
+  flex-wrap:      wrap;
+  flex-direction: row;
+
+  &.sp {
+    justify-content: space-between;
+  }
+}
+
+.right {
+  text-align: right;
+}

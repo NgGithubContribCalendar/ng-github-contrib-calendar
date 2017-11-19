@@ -1,0 +1,46 @@
+/*!
+ * GitHub contributions calendar component for Angular 4 and 5
+ * @author Arturas Molcanovas <a.molcanovas@gmail.com>
+ * @link https://github.com/NgGithubContribCalendar/ng-github-contrib-calendar
+ * @license GPL-3.0
+ */
+@mixin gh-contrib-calendar-skin(
+  $noContributionsColour,
+  $level1Colour,
+  $level2Colour,
+  $level3Colour,
+  $level4Colour,
+  $backgroundColour,
+  $borderColour,
+  $textColour
+) {
+  gh-contrib-calendar {
+    border-color: $borderColour;
+    background:   $backgroundColour;
+    color:        $textColour;
+
+    .gh-calendar-month, .gh-calendar-wday {
+      fill: $textColour;
+    }
+
+    .l-0 {
+      fill: $noContributionsColour;
+    }
+
+    .l-1 {
+      fill: $level1Colour;
+    }
+
+    .l-2 {
+      fill: $level2Colour;
+    }
+
+    .l-3 {
+      fill: $level3Colour;
+    }
+
+    .l-4 {
+      fill: $level4Colour;
+    }
+  }
+}

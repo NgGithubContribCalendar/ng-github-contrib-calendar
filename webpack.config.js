@@ -352,7 +352,7 @@ class WebpackFactory {
         ]
       },
       {
-        test:   /demo\.scss$/,
+        test:   path => path.endsWith('demo.scss'),
         loader: ExtractTextPlugin.extract({
                                             use: ['css-loader'].concat(scssLoaderBase)
                                           })

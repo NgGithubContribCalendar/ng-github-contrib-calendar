@@ -8,7 +8,7 @@ const {dirname}    = require('path');
 const seq          = require('gulp-sequence');
 
 const conf = {
-  src:          './src/**/*.ts',
+  src:          './src/**/*',
   dest:         './.tmp/src-inlined-templates',
   autoprefixer: {
     browsers: 'last 1000 versions',

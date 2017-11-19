@@ -1,0 +1,18 @@
+mat-toolbar(color='primary')
+  mat-toolbar-row.flex.sp
+    ghcc-icon
+    .flex
+      mat-menu(#docMenu="matMenu", yPosition='below', xPosition='after')
+        a(mat-menu-item, target='_blank', rel='noopener', href='documentation/1.0/index.html') 1.0
+      button(mat-button, [matMenuTriggerFor]="docMenu") Documentation
+      gh-icon
+
+mat-card
+  mat-card-content
+    .right
+      span Theme:
+      mat-radio-group(#theme, name='theme', [(ngModel)]="selectedTheme")
+        mat-radio-button(value='light') Light
+        mat-radio-button(value='dark') Dark
+    div([ngClass]="selectedTheme")
+      gh-contrib-calendar(user='Alorel')

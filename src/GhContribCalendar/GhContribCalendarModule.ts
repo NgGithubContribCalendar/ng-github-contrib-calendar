@@ -3,22 +3,22 @@ import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {NgForageModule} from '@ngforage/ngforage-ng5';
 import {GhContribCalendarComponent} from './CalendarComponent/GhContribCalendarComponent';
-import {CalendarFetcher} from './CalendarFetcher/CalendarFetcher';
+import {DayDetails} from './DayDetails/DayDetails';
 
 @NgModule({
-  declarations: [
-    GhContribCalendarComponent
-  ],
-  exports: [
-    GhContribCalendarComponent
-  ],
-  imports: [
-    CommonModule,
-    HttpClientModule,
-    NgForageModule
-  ],
-  providers: [CalendarFetcher]
-})
+            declarations: [
+              GhContribCalendarComponent,
+              DayDetails
+            ],
+            exports:      [
+              GhContribCalendarComponent
+            ],
+            imports:      [
+              CommonModule,
+              HttpClientModule,
+              NgForageModule
+            ]
+          })
 export class GhContribCalendarModule {
 
 }

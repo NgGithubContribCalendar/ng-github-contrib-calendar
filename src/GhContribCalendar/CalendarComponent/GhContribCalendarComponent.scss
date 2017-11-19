@@ -1,0 +1,37 @@
+$line-height: 21px;
+
+:host {
+  border-width:     1px;
+  border-style:     solid;
+  border-radius:    5px;
+  width:            712px;
+  line-height:      $line-height;
+  display:          block;
+  text-align:       center;
+  padding:          8px;
+  font-size:        1em;
+  text-size-adjust: 100%;
+  font-family:      -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+.gh-detail-container {
+  height: 21px;
+}
+
+.gh-calendar {
+  width:  676px;
+  height: 104px;
+}
+
+.gh-calendar-month {
+  font-size: 10px;
+}
+
+.gh-calendar-wday {
+  font-size: 9px;
+}
+
+.gh-calendar-day {
+  width:  10px;
+  height: 10px;
+}

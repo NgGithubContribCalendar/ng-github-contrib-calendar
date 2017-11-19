@@ -7,6 +7,7 @@ const {join}       = require('path');
 
 const rimrafJobs = {
   'demo':                      '.demo',
+  styles:                      'dist/styling',
   'dist:esm5':                 'dist/esm5',
   'dist:es5':                  'dist/es5',
   'dist:esm2015':              'dist/esm2015',

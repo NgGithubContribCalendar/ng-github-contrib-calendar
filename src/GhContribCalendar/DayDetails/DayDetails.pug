@@ -1,0 +1,6 @@
+ng-container(*ngFor='let item of tr.order')
+  span(*ngIf='item === ccEl.TEXT; else timeBlock') {{tr.translate('contributions', count)}}
+  ng-template(#timeBlock)
+    time(*ngIf='item === ccEl.DATE; else countBlock', [attr.datetime]='date.toISOString()') {{date.toLocaleDateString()}}
+    ng-template(#countBlock)
+      span.count(*ngIf='count !== 0 || !tr.hideZero') {{count.toLocaleString()}}

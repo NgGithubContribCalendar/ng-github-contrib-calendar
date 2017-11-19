@@ -2,6 +2,9 @@ const gulp            = require('gulp');
 const spawn           = require('./util/x-spawn');
 const {join}          = require('path');
 const TsConfigFactory = require('./util/tsconfig-factory');
+const gulpSass        = require('gulp-sass');
+const gulpPostcss     = require('gulp-postcss');
+const autoprefixer    = require('autoprefixer');
 
 const binDir = join(process.cwd(), 'node_modules', '.bin');
 
@@ -22,6 +25,18 @@ const webpackEnv = (env, prod = false) => {
   
   return {env: ret};
 };
+
+gulp.task('compile:styles', ['copy:styles'], () => {
+  const plugins = [autoprefixer({
+                                  browsers: 'last 1000 versions',
+                                  grid:     true
+                                })];
+  
+  return gulp.src('./dist/styling/*-theme.scss')
+             .pipe(gulpSass({outputStyle: 'compressed'}))
+             .pipe(gulpPostcss(plugins))
+             .pipe(gulp.dest('./dist/styling'));
+});
 
 gulp.task('compile:esm2015', ['clean:dist:esm2015'], () => {
   return spawn(ngcPath, ['-p', new TsConfigFactory(MODE.DIST_ESM2015).file]);

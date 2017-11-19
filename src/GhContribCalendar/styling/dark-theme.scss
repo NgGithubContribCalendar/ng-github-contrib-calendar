@@ -1,0 +1,12 @@
+@import "style-builder";
+
+@include gh-contrib-calendar-skin(
+    #222,
+    rgba(65, 131, 196, .25),
+    rgba(65, 131, 196, .5),
+    rgba(65, 131, 196, .75),
+    #4183c4,
+    #181818,
+    #484848,
+    #ccc
+);

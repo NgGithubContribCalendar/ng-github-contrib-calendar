@@ -1,0 +1,7 @@
+span:not(:last-child)::after {
+  content: ' ';
+}
+
+.count, time {
+  font-weight: bold;
+}
