@@ -1,19 +1,20 @@
 .flex.col(*ngIf='data|async as data')
-  svg.gh-calendar
-    g(transform='translate(16,20)')
-      g([attr.transform]='transformAtIndex(gi)', *ngFor='let g of data.gs; index as gi')
-        rect.gh-calendar-day(
-        *ngFor='let rect of g; index as ri',
-        [attr.x]='13 - gi',
-        [attr.y]='12 * ri',
-        [ngClass]="'l-' + rect.fill",
-        (mouseenter)='_enteredRect=rect',
-        (mouseleave)='_enteredRect=null'
-        )
-      text.gh-calendar-month(y='-10', [attr.x]='mth.x', *ngFor='let mth of data.months') {{tr.translate(mth.txt)}}
-      text.gh-calendar-wday(text-anchor='start', dx='-14', dy='20') {{tr.translate('Monday')}}
-      text.gh-calendar-wday(text-anchor='start', dx='-14', dy='44') {{tr.translate('Wednesday')}}
-      text.gh-calendar-wday(text-anchor='start', dx='-14', dy='69') {{tr.translate('Friday')}}
+  .gh-calendar-container
+    svg.gh-calendar
+      g(transform='translate(16,20)')
+        g([attr.transform]='transformAtIndex(gi)', *ngFor='let g of data.gs; index as gi')
+          rect.gh-calendar-day(
+          *ngFor='let rect of g; index as ri',
+          [attr.x]='13 - gi',
+          [attr.y]='12 * ri',
+          [ngClass]="'l-' + rect.fill",
+          (mouseenter)='_enteredRect=rect',
+          (mouseleave)='_enteredRect=null'
+          )
+        text.gh-calendar-month(y='-10', [attr.x]='mth.x', *ngFor='let mth of data.months') {{tr.translate(mth.txt)}}
+        text.gh-calendar-wday(text-anchor='start', dx='-14', dy='20') {{tr.translate('Monday')}}
+        text.gh-calendar-wday(text-anchor='start', dx='-14', dy='44') {{tr.translate('Wednesday')}}
+        text.gh-calendar-wday(text-anchor='start', dx='-14', dy='69') {{tr.translate('Friday')}}
   .gh-footer.flex.row.sp-bw
     div
       button(*ngIf='showControls', chevron='left', (click)='updateRange(-1)')
