@@ -11,6 +11,7 @@ export class GitHubIcon {
 
   @Proto(DemoConf.HOMEPAGE)
   public readonly homepage: string;
+
   @Proto(DemoConf.GITHUB_ICON_SIZE)
   public readonly iconSize: number;
 }

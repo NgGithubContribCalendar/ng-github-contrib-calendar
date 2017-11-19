@@ -45,27 +45,39 @@ export class GhContribCalendarComponent implements OnDestroy, OnInit {
 
   /** @internal */
   public _enteredRect: IRect;
+
   /** @internal */
   public _numLoading            = 0;
+
   /** @internal */
   public data: Observable<FormattedPayload>;
+
   @Output('error')
   public readonly error         = new EventEmitter<HttpErrorResponse>();
+
   @Input('show-controls')
   public showControls           = true;
+
   /** @internal */
   public readonly tr: Translator;
+
   public readonly user$         = new BehaviorSubject<string>(null);
+
   /** @internal */
   private readonly cdr: ChangeDetectorRef;
+
   /** @internal */
   private readonly d$           = new BehaviorSubject<Day>(<NumericDay>currDate.getUTCDate());
+
   /** @internal */
   private readonly fetcher: CalendarFetcher;
+
   /** @internal */
   private readonly formatterFn$ = new BehaviorSubject<ProxyURLFormatterFunction>(null);
+
   /** @internal */
   private readonly m$           = new BehaviorSubject<Month>(<NumericMonth>(currDate.getUTCMonth() + 1));
+
   /** @internal */
   private readonly y$           = new BehaviorSubject<number | string>(currDate.getUTCFullYear());
 
@@ -155,7 +167,7 @@ export class GhContribCalendarComponent implements OnDestroy, OnInit {
   }
 
   /** @internal */
-  private get numLoading():number {
+  private get numLoading(): number {
     return this._numLoading;
   }
 

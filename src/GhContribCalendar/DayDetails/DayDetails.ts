@@ -13,10 +13,13 @@ export class DayDetails {
 
   @Proto(ContributionCountElement)
   public readonly ccEl: ContributionCountElement;
+
   @Input('count')
   public count: number;
+
   @Input('date')
   public date: Date;
+
   @Input('tr')
   public tr: Translator;
 }

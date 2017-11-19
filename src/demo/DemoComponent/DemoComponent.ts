@@ -15,7 +15,9 @@ import {DemoConf} from '../DemoConf';
 export class DemoComponent implements OnInit {
 
   public userToFetch      = 'Alorel';
+
   private _locale: Locale = 'en';
+
   private _selectedTheme  = 'light';
 
   public constructor(private readonly ngf: NgForage,

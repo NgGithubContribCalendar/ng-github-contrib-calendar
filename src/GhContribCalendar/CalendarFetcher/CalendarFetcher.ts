@@ -16,6 +16,7 @@ import {defaultFormatterFunction} from './defaultFormatterFunction';
 import {FormattedPayload, FormattedRect} from './Formatted';
 import {ProxyURLFormatterFunction} from './ProxyURLFormatterFunction';
 
+/** @internal */
 function makeCacheKey(user: string, y?: string | number, m?: string, d?: string): string {
   return JSON.stringify({
                           d,
@@ -25,10 +26,12 @@ function makeCacheKey(user: string, y?: string | number, m?: string, d?: string)
                         });
 }
 
+/** @internal */
 function intifyStr(str: string): number {
   return parseInt(str, StaticConf.STD_RADIX);
 }
 
+/** @internal */
 function formatRect(rect: IRect): FormattedRect {
   const split: number[] = rect.date.split('-').map(intifyStr);
   const date            = new Date();
@@ -44,10 +47,12 @@ function formatRect(rect: IRect): FormattedRect {
   };
 }
 
+/** @internal */
 function formatRects(rects: IRect[]): FormattedRect[] {
   return rects.map(formatRect);
 }
 
+/** @internal */
 function formatPayload(input: IParsedPayload): FormattedPayload {
   return {
     gs:     input.gs.map(formatRects),
