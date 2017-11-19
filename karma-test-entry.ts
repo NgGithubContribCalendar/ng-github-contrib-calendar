@@ -15,6 +15,8 @@ import {NgForageModule} from "@ngforage/ngforage-ng5";
 import {HttpClientModule} from "@angular/common/http";
 import {CommonModule} from "@angular/common";
 
+import './src/index';
+
 export const def: TestModuleMetadata = {
   imports: [
     CommonModule,
