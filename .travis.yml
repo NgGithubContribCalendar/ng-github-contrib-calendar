@@ -61,6 +61,7 @@ jobs:
         - CI_NG_VERSION=5
       script:
         - gulp build
+        - gulp build:demo:aot
         - npm test
     - <<: *std_job
       env:
