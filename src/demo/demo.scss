@@ -14,6 +14,9 @@ $theme: mat-light-theme($app-primary, $app-accent, $app-warn);
 @include mat-menu-theme($theme);
 @include mat-radio-theme($theme);
 @include mat-tooltip-theme($theme);
+@include mat-form-field-theme($theme);
+@include mat-input-theme($theme);
+@include mat-snack-bar-theme($theme);
 
 .light {
   @import '../GhContribCalendar/styling/light-theme.scss';

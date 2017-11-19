@@ -1,4 +1,6 @@
+import {HttpErrorResponse} from '@angular/common/http';
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {MatSnackBar} from '@angular/material';
 import {NgForage} from '@ngforage/ngforage-ng5';
 import {Locale} from '../../GhContribCalendar/Translate/types/Locale';
 import {DemoConf} from '../DemoConf';
@@ -12,10 +14,13 @@ import {DemoConf} from '../DemoConf';
            })
 export class DemoComponent implements OnInit {
 
+  public userToFetch      = 'Alorel';
   private _locale: Locale = 'en';
   private _selectedTheme  = 'light';
 
-  public constructor(private readonly ngf: NgForage, private readonly cdr: ChangeDetectorRef) {
+  public constructor(private readonly ngf: NgForage,
+                     private readonly cdr: ChangeDetectorRef,
+                     private snack: MatSnackBar) {
   }
 
   public get locale(): Locale {
@@ -36,6 +41,14 @@ export class DemoComponent implements OnInit {
     this._selectedTheme = theme;
     this.ngf.setItem(DemoConf.THEME_KEY, theme)
         .catch(console.error); // tslint:disable-line:no-unbound-method
+  }
+
+  public handleError(e: HttpErrorResponse) {
+    this.snack.open(
+      `[${e.error}] ${e.message}`,
+      null,
+      {duration: 5000} // tslint:disable-line:no-magic-numbers
+    );
   }
 
   public async ngOnInit() {

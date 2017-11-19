@@ -1,5 +1,16 @@
-import {ChangeDetectionStrategy, Component, Inject, Input, OnDestroy, OnInit} from '@angular/core';
+import {HttpErrorResponse} from '@angular/common/http';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output
+} from '@angular/core';
 import {IRect} from '@ng-github-contrib-calendar/common-types';
+import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/filter';
@@ -8,6 +19,7 @@ import 'rxjs/add/operator/switchMap';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Observable} from 'rxjs/Observable';
 import {combineLatest} from 'rxjs/observable/combineLatest';
+import {of} from 'rxjs/observable/of';
 import {CalendarFetcher} from '../CalendarFetcher/CalendarFetcher';
 import {FormattedPayload} from '../CalendarFetcher/Formatted';
 import {ProxyURLFormatterFunction} from '../CalendarFetcher/ProxyURLFormatterFunction';
@@ -33,6 +45,8 @@ export class GhContribCalendarComponent implements OnDestroy, OnInit {
   public _enteredRect: IRect;
   /** @internal */
   public data: Observable<FormattedPayload>;
+  @Output('error')
+  public readonly error = new EventEmitter<HttpErrorResponse>();
   @Input('show-controls')
   public showControls   = true;
   /** @internal */
@@ -173,6 +187,10 @@ export class GhContribCalendarComponent implements OnDestroy, OnInit {
 
   /** @internal */
   public ngOnInit(): void {
+    this.setupData();
+  }
+
+  private setupData(): void {
     this.data = combineLatest(
       this.user$.distinctUntilChanged(),
       this.y$.distinctUntilChanged(),
@@ -185,6 +203,15 @@ export class GhContribCalendarComponent implements OnDestroy, OnInit {
       .switchMap((v: [string, string | number, string, string, ProxyURLFormatterFunction]) => {
         // tslint:disable-next-line:no-magic-numbers
         return this.fetcher.fetch(v[0], v[1], v[2], v[3], v[4]);
+      })
+      .catch((e: HttpErrorResponse) => {
+        this.error.emit(e);
+        this.user$.next(null);
+        setTimeout(() => {
+          this.setupData();
+        },         0);
+
+        return of(null);
       });
   }
 }

@@ -29,4 +29,9 @@ mat-card
           mat-radio-button(value='light') Light
           mat-radio-button(value='dark') Dark
     .mt([ngClass]="selectedTheme")
-      gh-contrib-calendar(user='Alorel', [locale]='locale')
+      gh-contrib-calendar([user]='userToFetch', [locale]='locale', (error)='handleError($event)')
+    .mt.center
+      form((submit)='userToFetch = userInp.value')
+        mat-form-field
+          input(matInput, placeholder='User to fetch', value='Alorel', #userInp)
+        button(type='submit', mat-button, mat-raised-button) FETCH

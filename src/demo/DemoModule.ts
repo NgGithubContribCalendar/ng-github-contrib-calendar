@@ -3,8 +3,11 @@ import {FormsModule} from '@angular/forms';
 import {
   MatButtonModule,
   MatCardModule,
+  MatFormFieldModule,
+  MatInputModule,
   MatMenuModule,
   MatRadioModule,
+  MatSnackBarModule,
   MatToolbarModule,
   MatTooltipModule
 } from '@angular/material';
@@ -28,6 +31,9 @@ import {GitHubIcon} from './Icon/GitHubIcon';
             entryComponents: [DemoComponent],
             imports:         [
               BrowserModule,
+              MatFormFieldModule,
+              MatInputModule,
+              MatSnackBarModule,
               FormsModule,
               BrowserAnimationsModule,
               GhContribCalendarModule,
