@@ -1,0 +1,22 @@
+:host {
+  border:     none;
+  color:      inherit;
+  padding:    0;
+  background: transparent;
+  cursor:     pointer;
+
+  &[disabled] {
+    opacity: .5 !important;
+    cursor:  default;
+  }
+}
+
+svg {
+  height: 21px;
+  width:  21px;
+  fill:   currentColor;
+}
+
+.left {
+  transform: rotate(180deg);
+}

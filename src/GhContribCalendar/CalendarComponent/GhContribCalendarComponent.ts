@@ -17,6 +17,7 @@ import {Day, Month, NumericDay, NumericMonth} from '../util/CalendarTypes';
 import {StaticConf} from '../util/StaticConf';
 
 const currDate = new Date();
+currDate.setUTCHours(0, 0, 0, 0);
 
 @Component({
              changeDetection: ChangeDetectionStrategy.OnPush,
@@ -31,13 +32,13 @@ export class GhContribCalendarComponent implements OnDestroy, OnInit {
   public _enteredRect: IRect;
   /** @internal */
   public data: Observable<FormattedPayload>;
+  @Input('show-controls')
+  public showControls   = true;
   /** @internal */
   public readonly tr: Translator;
-
   public readonly user$ = new BehaviorSubject<string>(null);
-
   /** @internal */
-  private readonly d$ = new BehaviorSubject<Day>(<NumericDay>currDate.getUTCDate());
+  private readonly d$   = new BehaviorSubject<Day>(<NumericDay>currDate.getUTCDate());
 
   /** @internal */
   private readonly fetcher: CalendarFetcher;
@@ -53,6 +54,10 @@ export class GhContribCalendarComponent implements OnDestroy, OnInit {
   public constructor(@Inject(CalendarFetcher) fetcher: CalendarFetcher, @Inject(Translator) tr: Translator) {
     this.tr      = tr;
     this.fetcher = fetcher;
+  }
+
+  public get atMaxRange(): boolean {
+    return currDate.getTime() === this.toDate.getTime();
   }
 
   public get day(): Day {
@@ -123,6 +128,19 @@ export class GhContribCalendarComponent implements OnDestroy, OnInit {
     this.y$.next(v);
   }
 
+  /** @internal */
+  private get toDate(): Date {
+    const d = new Date();
+    d.setUTCHours(0, 0, 0, 0);
+    d.setFullYear(
+      parseInt(<string>this.year, StaticConf.STD_RADIX),
+      parseInt(<string>this.month, StaticConf.STD_RADIX) - 1,
+      parseInt(<string>this.day, StaticConf.STD_RADIX)
+    );
+
+    return d;
+  }
+
   public ngOnDestroy(): void {
     for (const s of [this.user$, this.y$, this.m$, this.d$, this.formatterFn$]) {
       s.complete();
@@ -135,6 +153,19 @@ export class GhContribCalendarComponent implements OnDestroy, OnInit {
     return `translate(${index * StaticConf.OUTER_G_TRANSFORM_MULTIPLIER},0)`;
   }
 
+  /** @internal */
+  public updateRange(dir: 1 | -1) {
+    if (dir === -1) {
+      this.y$.next(parseInt(<string>this.year, StaticConf.STD_RADIX) - 1);
+    } else {
+      const td = this.toDate;
+      td.setUTCFullYear(td.getUTCFullYear() + 1);
+
+      this.to = td > currDate ? currDate : td;
+    }
+  }
+
+  /** @internal */
   public ngOnInit(): void {
     this.data = combineLatest(
       this.user$.distinctUntilChanged(),

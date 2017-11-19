@@ -1,4 +1,4 @@
-ng-container(*ngIf='data|async as data')
+.flex.col(*ngIf='data|async as data')
   svg.gh-calendar
     g(transform='translate(16,20)')
       g([attr.transform]='transformAtIndex(gi)', *ngFor='let g of data.gs; index as gi')
@@ -14,10 +14,12 @@ ng-container(*ngIf='data|async as data')
       text.gh-calendar-wday(text-anchor='start', dx='-14', dy='20') {{tr.translate('Monday')}}
       text.gh-calendar-wday(text-anchor='start', dx='-14', dy='44') {{tr.translate('Wednesday')}}
       text.gh-calendar-wday(text-anchor='start', dx='-14', dy='69') {{tr.translate('Friday')}}
-  .gh-detail-container
+  .gh-footer.flex.row.sp-bw
+    button(chevron='left', (click)='updateRange(-1)')
     gh-contrib-calendar-details(
     *ngIf='_enteredRect',
     [tr]='tr',
     [date]='_enteredRect.date',
     [count]='_enteredRect.count'
     )
+    button(chevron='right', (click)='updateRange(1)', [disabled]='atMaxRange')
