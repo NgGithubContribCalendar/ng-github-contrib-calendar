@@ -12,6 +12,7 @@ import {CalendarFetcher} from '../CalendarFetcher/CalendarFetcher';
 import {FormattedPayload} from '../CalendarFetcher/Formatted';
 import {ProxyURLFormatterFunction} from '../CalendarFetcher/ProxyURLFormatterFunction';
 import {Translator} from '../Translate/Translator';
+import {Locale} from '../Translate/types/Locale';
 import {TranslationSpec} from '../Translate/types/TranslationSpec';
 import {Day, Month, NumericDay, NumericMonth} from '../util/CalendarTypes';
 import {StaticConf} from '../util/StaticConf';
@@ -80,6 +81,11 @@ export class GhContribCalendarComponent implements OnDestroy, OnInit {
     } else {
       throw new Error('formatter-fn must be falsy or a function');
     }
+  }
+
+  @Input('locale')
+  public set locale(val: Locale) {
+    this.tr.setLocale(val);
   }
 
   public get month(): Month {

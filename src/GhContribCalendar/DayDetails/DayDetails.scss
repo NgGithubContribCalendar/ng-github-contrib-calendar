@@ -1,5 +1,7 @@
-span:not(:last-child)::after {
-  content: ' ';
+span, time {
+  &:not(:last-child)::after {
+    content: ' ';
+  }
 }
 
 .count, time {

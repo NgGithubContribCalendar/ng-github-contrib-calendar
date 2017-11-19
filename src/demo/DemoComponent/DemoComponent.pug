@@ -9,10 +9,24 @@ mat-toolbar(color='primary')
 
 mat-card
   mat-card-content
-    .right
-      span Theme:
-      mat-radio-group(#theme, name='theme', [(ngModel)]="selectedTheme")
-        mat-radio-button(value='light') Light
-        mat-radio-button(value='dark') Dark
-    div([ngClass]="selectedTheme")
-      gh-contrib-calendar(user='Alorel')
+    .flex.sp
+      div
+        span Locale:
+        |
+        |
+        mat-radio-group(name='locale', [(ngModel)]="locale")
+          mat-radio-button(value='en')
+            gh-demo-flag(flag='en')
+          mat-radio-button(value='ru')
+            gh-demo-flag(flag='ru')
+          mat-radio-button(value='lt')
+            gh-demo-flag(flag='lt')
+      div
+        span Theme:
+        |
+        |
+        mat-radio-group(name='theme', [(ngModel)]="selectedTheme")
+          mat-radio-button(value='light') Light
+          mat-radio-button(value='dark') Dark
+    .mt([ngClass]="selectedTheme")
+      gh-contrib-calendar(user='Alorel', [locale]='locale')

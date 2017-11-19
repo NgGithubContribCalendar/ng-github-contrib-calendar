@@ -13,6 +13,7 @@ $theme: mat-light-theme($app-primary, $app-accent, $app-warn);
 @include mat-button-theme($theme);
 @include mat-menu-theme($theme);
 @include mat-radio-theme($theme);
+@include mat-tooltip-theme($theme);
 
 .light {
   @import '../GhContribCalendar/styling/light-theme.scss';
@@ -21,13 +22,3 @@ $theme: mat-light-theme($app-primary, $app-accent, $app-warn);
 .dark {
   @import '../GhContribCalendar/styling/dark-theme.scss';
 }
-
-//@include mat-input-theme($theme);
-//@include mat-form-field-theme($theme);
-//@include mat-list-theme($theme);
-//@include mat-select-theme($theme);
-//@include mat-snack-bar-theme($theme);
-//
-//.cdk-overlay-pane {
-//  bottom: 0;
-//}

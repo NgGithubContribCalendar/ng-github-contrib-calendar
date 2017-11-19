@@ -1,7 +1,10 @@
 import {Injectable} from '@angular/core';
 import {englishTranslations} from './defaultTranslations/en';
+import {ltTranslations} from './defaultTranslations/lt';
+import {russianTranslations} from './defaultTranslations/ru';
 import {ContributionCountElement, ContributionCountElement as cce} from './types/ContributionCountElement';
 import {ContributionCountOrder} from './types/ContributionCountOrder';
+import {Locale} from './types/Locale';
 import {Translation} from './types/Translation';
 import {Translations} from './types/Translations';
 import {TranslationSpec} from './types/TranslationSpec';
@@ -46,6 +49,22 @@ export class Translator {
       this.result          = Object.assign({}, englishTranslations, tr || {});
       this.order           = calculateOrder(this.result.order);
       Object.freeze(this.order);
+    }
+  }
+
+  public setLocale(locale: Locale) {
+    switch (locale) {
+      case 'en':
+        this.registerTranslations(englishTranslations);
+        break;
+      case 'ru':
+        this.registerTranslations(russianTranslations);
+        break;
+      case 'lt':
+        this.registerTranslations(ltTranslations);
+        break;
+      default:
+        throw new Error(`Unknown locale: ${locale}`);
     }
   }
 

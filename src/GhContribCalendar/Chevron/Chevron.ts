@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 
-type direction = 'left' | 'right';
+export type direction = 'left' | 'right';
 
 @Component({
              changeDetection: ChangeDetectionStrategy.OnPush,
