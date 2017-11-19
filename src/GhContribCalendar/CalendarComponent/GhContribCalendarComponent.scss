@@ -1,3 +1,5 @@
+@import "loader";
+
 $line-height: 21px;
 
 :host {
@@ -16,7 +18,7 @@ $line-height: 21px;
 
 .gh-calendar-container {
   overflow-x: auto;
-  height:     112px;
+  height:     118px;
 }
 
 .gh-footer {

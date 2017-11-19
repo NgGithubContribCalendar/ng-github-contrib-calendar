@@ -1,6 +1,7 @@
 import {HttpErrorResponse} from '@angular/common/http';
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   Inject,
@@ -16,6 +17,7 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/toPromise';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Observable} from 'rxjs/Observable';
 import {combineLatest} from 'rxjs/observable/combineLatest';
@@ -44,31 +46,35 @@ export class GhContribCalendarComponent implements OnDestroy, OnInit {
   /** @internal */
   public _enteredRect: IRect;
   /** @internal */
+  public _numLoading            = 0;
+  /** @internal */
   public data: Observable<FormattedPayload>;
   @Output('error')
-  public readonly error = new EventEmitter<HttpErrorResponse>();
+  public readonly error         = new EventEmitter<HttpErrorResponse>();
   @Input('show-controls')
-  public showControls   = true;
+  public showControls           = true;
   /** @internal */
   public readonly tr: Translator;
-  public readonly user$ = new BehaviorSubject<string>(null);
+  public readonly user$         = new BehaviorSubject<string>(null);
   /** @internal */
-  private readonly d$   = new BehaviorSubject<Day>(<NumericDay>currDate.getUTCDate());
-
+  private readonly cdr: ChangeDetectorRef;
+  /** @internal */
+  private readonly d$           = new BehaviorSubject<Day>(<NumericDay>currDate.getUTCDate());
   /** @internal */
   private readonly fetcher: CalendarFetcher;
-
   /** @internal */
   private readonly formatterFn$ = new BehaviorSubject<ProxyURLFormatterFunction>(null);
-
   /** @internal */
-  private readonly m$ = new BehaviorSubject<Month>(<NumericMonth>(currDate.getUTCMonth() + 1));
+  private readonly m$           = new BehaviorSubject<Month>(<NumericMonth>(currDate.getUTCMonth() + 1));
   /** @internal */
-  private readonly y$ = new BehaviorSubject<number | string>(currDate.getUTCFullYear());
+  private readonly y$           = new BehaviorSubject<number | string>(currDate.getUTCFullYear());
 
-  public constructor(@Inject(CalendarFetcher) fetcher: CalendarFetcher, @Inject(Translator) tr: Translator) {
+  public constructor(@Inject(ChangeDetectorRef) cdr,
+                     @Inject(CalendarFetcher) fetcher: CalendarFetcher,
+                     @Inject(Translator) tr: Translator) {
     this.tr      = tr;
     this.fetcher = fetcher;
+    this.cdr     = cdr;
   }
 
   public get atMaxRange(): boolean {
@@ -149,6 +155,17 @@ export class GhContribCalendarComponent implements OnDestroy, OnInit {
   }
 
   /** @internal */
+  private get numLoading():number {
+    return this._numLoading;
+  }
+
+  /** @internal */
+  private set numLoading(num: number) {
+    this._numLoading = num;
+    this.cdr.detectChanges();
+  }
+
+  /** @internal */
   private get toDate(): Date {
     const d = new Date();
     d.setUTCHours(0, 0, 0, 0);
@@ -191,6 +208,10 @@ export class GhContribCalendarComponent implements OnDestroy, OnInit {
   }
 
   private setupData(): void {
+    const decrease = () => {
+      this.numLoading--;
+    };
+
     this.data = combineLatest(
       this.user$.distinctUntilChanged(),
       this.y$.distinctUntilChanged(),
@@ -201,8 +222,13 @@ export class GhContribCalendarComponent implements OnDestroy, OnInit {
       .filter((v: any[]) => !!v[0])
       .debounceTime(StaticConf.FETCH_DEBOUNCE_TIME)
       .switchMap((v: [string, string | number, string, string, ProxyURLFormatterFunction]) => {
+        this.numLoading++;
         // tslint:disable-next-line:no-magic-numbers
-        return this.fetcher.fetch(v[0], v[1], v[2], v[3], v[4]);
+        const r = this.fetcher.fetch(v[0], v[1], v[2], v[3], v[4]);
+
+        r.toPromise().then(decrease).catch(decrease);
+
+        return r;
       })
       .catch((e: HttpErrorResponse) => {
         this.error.emit(e);
