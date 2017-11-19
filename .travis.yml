@@ -67,9 +67,9 @@ jobs:
     - <<: *std_job
       env:
         - CI_NG_VERSION=4
-      script:
-        - gulp build
-        - npm test
+#      script:
+#        - gulp build
+#        - npm test
     - <<: *npm_deploy
       env:
         - CI_NG_VERSION=5
