@@ -48,7 +48,7 @@ export class GhContribCalendarComponent implements OnDestroy, OnInit {
   public _enteredRect: IRect;
 
   /** @internal */
-  public _numLoading            = 0;
+  public _numLoading = 0;
 
   /** @internal */
   public data: Observable<FormattedPayload>;
@@ -57,18 +57,18 @@ export class GhContribCalendarComponent implements OnDestroy, OnInit {
   public readonly error = new EventEmitter<HttpErrorResponse>();
 
   @Input('show-controls')
-  public showControls   = true;
+  public showControls = true;
 
   /** @internal */
   public readonly tr: Translator;
 
-  public readonly user$         = new BehaviorSubject<string>(null);
+  public readonly user$ = new BehaviorSubject<string>(null);
 
   /** @internal */
   private readonly cdr: ChangeDetectorRef;
 
   /** @internal */
-  private readonly d$           = new BehaviorSubject<Day>(<NumericDay>currDate.getUTCDate());
+  private readonly d$ = new BehaviorSubject<Day>(<NumericDay>currDate.getUTCDate());
 
   /** @internal */
   private readonly fetcher: CalendarFetcher;
@@ -77,10 +77,10 @@ export class GhContribCalendarComponent implements OnDestroy, OnInit {
   private readonly formatterFn$ = new BehaviorSubject<ProxyURLFormatterFunction>(null);
 
   /** @internal */
-  private readonly m$           = new BehaviorSubject<Month>(<NumericMonth>(currDate.getUTCMonth() + 1));
+  private readonly m$ = new BehaviorSubject<Month>(<NumericMonth>(currDate.getUTCMonth() + 1));
 
   /** @internal */
-  private readonly y$           = new BehaviorSubject<number | string>(currDate.getUTCFullYear());
+  private readonly y$ = new BehaviorSubject<number | string>(currDate.getUTCFullYear());
 
   public constructor(@Inject(ChangeDetectorRef) cdr,
                      @Inject(CalendarFetcher) fetcher: CalendarFetcher,
@@ -135,8 +135,8 @@ export class GhContribCalendarComponent implements OnDestroy, OnInit {
     if (typeof v === 'string' && /^[0-9]{4}\-[0-9]{2}\-[0-9]{2}$/.test(v)) {
       const spl: string[] = v.split('-');
       this.year           = spl[0];
-      this.month          = <Month>spl[2]; // tslint:disable-line:no-magic-numbers
-      this.day            = <Day>spl[3]; // tslint:disable-line:no-magic-numbers
+      this.month          = <Month>spl[1]; // tslint:disable-line:no-magic-numbers
+      this.day            = <Day>spl[2]; // tslint:disable-line:no-magic-numbers
     } else if (v instanceof Date) {
       this.year  = v.getFullYear();
       this.month = <Month>(v.getMonth() + 1);

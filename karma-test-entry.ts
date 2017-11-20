@@ -10,8 +10,8 @@ import 'zone.js/dist/proxy';
 import 'zone.js/dist/jasmine-patch';
 import {TestBed} from '@angular/core/testing';
 import {BrowserDynamicTestingModule, platformBrowserDynamicTesting} from '@angular/platform-browser-dynamic/testing';
-
 import './src/index';
+//tslint:enable
 
 TestBed.initTestEnvironment(
   BrowserDynamicTestingModule,
