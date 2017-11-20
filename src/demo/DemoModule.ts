@@ -21,31 +21,31 @@ import {GhContribCalendarIcon} from './Icon/GhContribCalendarIcon';
 import {GitHubIcon} from './Icon/GitHubIcon';
 
 @NgModule({
-  bootstrap: [DemoComponent],
-  declarations: [
-    DemoComponent,
-    GitHubIcon,
-    GhContribCalendarIcon,
-    Flag
-  ],
-  entryComponents: [DemoComponent],
-  imports: [
-    BrowserModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSnackBarModule,
-    FormsModule,
-    BrowserAnimationsModule,
-    GhContribCalendarModule,
-    MatTooltipModule,
-    MatCardModule,
-    MatToolbarModule,
-    MatMenuModule,
-    MatButtonModule,
-    MatRadioModule,
-    NgForageModule
-  ]
-})
+            bootstrap:       [DemoComponent],
+            declarations:    [
+              DemoComponent,
+              GitHubIcon,
+              GhContribCalendarIcon,
+              Flag
+            ],
+            entryComponents: [DemoComponent],
+            imports:         [
+              BrowserModule,
+              MatFormFieldModule,
+              MatInputModule,
+              MatSnackBarModule,
+              FormsModule,
+              BrowserAnimationsModule,
+              GhContribCalendarModule,
+              MatTooltipModule,
+              MatCardModule,
+              MatToolbarModule,
+              MatMenuModule,
+              MatButtonModule,
+              MatRadioModule,
+              NgForageModule
+            ]
+          })
 export class DemoModule {
 
 }

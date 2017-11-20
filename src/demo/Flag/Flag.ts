@@ -1,10 +1,10 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'gh-demo-flag',
-  templateUrl: './Flag.pug'
-})
+             changeDetection: ChangeDetectionStrategy.OnPush,
+             selector:        'gh-demo-flag',
+             templateUrl:     './Flag.pug'
+           })
 export class Flag {
 
   @Input('flag')

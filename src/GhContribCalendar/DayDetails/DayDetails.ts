@@ -4,11 +4,11 @@ import {Translator} from '../Translate/Translator';
 import {ContributionCountElement} from '../Translate/types/ContributionCountElement';
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'gh-contrib-calendar-details',
-  styleUrls: ['./DayDetails.scss'],
-  templateUrl: './DayDetails.pug'
-})
+             changeDetection: ChangeDetectionStrategy.OnPush,
+             selector:        'gh-contrib-calendar-details',
+             styleUrls:       ['./DayDetails.scss'],
+             templateUrl:     './DayDetails.pug'
+           })
 export class DayDetails {
 
   @Proto(ContributionCountElement)

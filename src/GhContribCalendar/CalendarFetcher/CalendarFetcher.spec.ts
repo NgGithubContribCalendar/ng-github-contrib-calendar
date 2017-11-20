@@ -1,23 +1,28 @@
+import {HttpClientModule} from '@angular/common/http';
 //tslint:disable:no-magic-numbers
-import {TestBed} from '@angular/core/testing';
+import {TestBed, TestModuleMetadata} from '@angular/core/testing';
+import {NgForageModule} from '@ngforage/ngforage-ng5';
 import {isArray} from 'lodash';
-import {def} from '../../../karma-test-entry';
 import {CalendarFetcher} from './CalendarFetcher';
 import {defaultFormatterFunction} from './defaultFormatterFunction';
 import {FormattedPayload} from './Formatted';
 
 describe('CalendarFetcher', () => {
   let inst: CalendarFetcher;
+  let data: FormattedPayload;
 
-  beforeAll(() => {
+  const createInst = () => {
+    const def: TestModuleMetadata = {
+      imports:   [NgForageModule, HttpClientModule],
+      providers: [CalendarFetcher]
+    };
     TestBed.configureTestingModule(def);
     inst = TestBed.get(CalendarFetcher);
-  });
+  };
 
   describe('No fn, no date', () => {
-    let data: FormattedPayload;
-
     beforeAll(async done => {
+      createInst();
       data = await inst.fetch('Alorel').toPromise();
       done();
     });
@@ -32,9 +37,8 @@ describe('CalendarFetcher', () => {
   });
 
   describe('Fn, no date', () => {
-    let data: FormattedPayload;
-
     beforeAll(async done => {
+      createInst();
       data = await inst.fetch('Alorel', defaultFormatterFunction).toPromise();
       done();
     });
@@ -49,9 +53,8 @@ describe('CalendarFetcher', () => {
   });
 
   describe('No fn, with string year', () => {
-    let data: FormattedPayload;
-
     beforeAll(async done => {
+      createInst();
       data = await inst.fetch('Alorel', '1111', '11', '11').toPromise();
       done();
     });
@@ -66,11 +69,10 @@ describe('CalendarFetcher', () => {
   });
 
   describe('Fn, with string year', () => {
-    let data: FormattedPayload;
-
     beforeAll(async done => {
+      createInst();
       data = await inst.fetch('Alorel', '1111', '11', '11', defaultFormatterFunction)
-        .toPromise();
+                       .toPromise();
       done();
     });
 
@@ -84,9 +86,8 @@ describe('CalendarFetcher', () => {
   });
 
   describe('No fn, with num year', () => {
-    let data: FormattedPayload;
-
     beforeAll(async done => {
+      createInst();
       data = await inst.fetch('Alorel', 1111, '11', '11').toPromise();
       done();
     });
@@ -101,11 +102,10 @@ describe('CalendarFetcher', () => {
   });
 
   describe('Fn, with num year', () => {
-    let data: FormattedPayload;
-
     beforeAll(async done => {
+      createInst();
       data = await inst.fetch('Alorel', 1111, '11', '11', defaultFormatterFunction)
-        .toPromise();
+                       .toPromise();
       done();
     });
 
@@ -120,6 +120,7 @@ describe('CalendarFetcher', () => {
 
   it('Nonexistent user', async done => {
     try {
+      createInst();
       await inst.fetch(`${Math.random()}-${new Date().toLocaleString()}`).toPromise();
     } catch (e) {
       done();

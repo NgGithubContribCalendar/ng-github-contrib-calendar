@@ -8,21 +8,21 @@ import {DayDetails} from './DayDetails/DayDetails';
 import {LoadingBar} from './LoadingBar/LoadingBar';
 
 @NgModule({
-  declarations: [
-    GhContribCalendarComponent,
-    Chevron,
-    DayDetails,
-    LoadingBar
-  ],
-  exports: [
-    GhContribCalendarComponent
-  ],
-  imports: [
-    CommonModule,
-    HttpClientModule,
-    NgForageModule
-  ]
-})
+            declarations: [
+              GhContribCalendarComponent,
+              Chevron,
+              DayDetails,
+              LoadingBar
+            ],
+            exports:      [
+              GhContribCalendarComponent
+            ],
+            imports:      [
+              CommonModule,
+              HttpClientModule,
+              NgForageModule
+            ]
+          })
 export class GhContribCalendarModule {
 
 }

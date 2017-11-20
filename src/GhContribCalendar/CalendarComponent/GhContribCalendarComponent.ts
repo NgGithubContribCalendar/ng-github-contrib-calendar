@@ -36,47 +36,58 @@ const currDate = new Date();
 currDate.setUTCHours(0, 0, 0, 0);
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [Translator, CalendarFetcher],
-  selector: 'gh-contrib-calendar',
-  styleUrls: ['./GhContribCalendarComponent.scss'],
-  templateUrl: './GhContribCalendarComponent.pug'
-})
+             changeDetection: ChangeDetectionStrategy.OnPush,
+             providers:       [Translator, CalendarFetcher],
+             selector:        'gh-contrib-calendar',
+             styleUrls:       ['./GhContribCalendarComponent.scss'],
+             templateUrl:     './GhContribCalendarComponent.pug'
+           })
 export class GhContribCalendarComponent implements OnDestroy, OnInit {
 
   /** @internal */
   public _enteredRect: IRect;
-  /** @internal */
-  public data: Observable<FormattedPayload>;
-  @Output('error')
-  public readonly error = new EventEmitter<HttpErrorResponse>();
-  @Input('show-controls')
-  public showControls = true;
 
   /** @internal */
-  public _numLoading = 0;
+  public _numLoading            = 0;
+
+  /** @internal */
+  public data: Observable<FormattedPayload>;
+
+  @Output('error')
+  public readonly error = new EventEmitter<HttpErrorResponse>();
+
+  @Input('show-controls')
+  public showControls   = true;
+
   /** @internal */
   public readonly tr: Translator;
-  public readonly user$ = new BehaviorSubject<string>(null);
+
+  public readonly user$         = new BehaviorSubject<string>(null);
+
   /** @internal */
   private readonly cdr: ChangeDetectorRef;
+
   /** @internal */
-  private readonly d$ = new BehaviorSubject<Day>(<NumericDay>currDate.getUTCDate());
+  private readonly d$           = new BehaviorSubject<Day>(<NumericDay>currDate.getUTCDate());
+
   /** @internal */
   private readonly fetcher: CalendarFetcher;
+
   /** @internal */
   private readonly formatterFn$ = new BehaviorSubject<ProxyURLFormatterFunction>(null);
+
   /** @internal */
-  private readonly m$ = new BehaviorSubject<Month>(<NumericMonth>(currDate.getUTCMonth() + 1));
+  private readonly m$           = new BehaviorSubject<Month>(<NumericMonth>(currDate.getUTCMonth() + 1));
+
   /** @internal */
-  private readonly y$ = new BehaviorSubject<number | string>(currDate.getUTCFullYear());
+  private readonly y$           = new BehaviorSubject<number | string>(currDate.getUTCFullYear());
 
   public constructor(@Inject(ChangeDetectorRef) cdr,
                      @Inject(CalendarFetcher) fetcher: CalendarFetcher,
                      @Inject(Translator) tr: Translator) {
-    this.tr = tr;
+    this.tr      = tr;
     this.fetcher = fetcher;
-    this.cdr = cdr;
+    this.cdr     = cdr;
   }
 
   public get atMaxRange(): boolean {
@@ -123,13 +134,13 @@ export class GhContribCalendarComponent implements OnDestroy, OnInit {
   public set to(v: Date | string) {
     if (typeof v === 'string' && /^[0-9]{4}\-[0-9]{2}\-[0-9]{2}$/.test(v)) {
       const spl: string[] = v.split('-');
-      this.year = spl[0];
-      this.month = <Month>spl[2]; // tslint:disable-line:no-magic-numbers
-      this.day = <Day>spl[3]; // tslint:disable-line:no-magic-numbers
+      this.year           = spl[0];
+      this.month          = <Month>spl[2]; // tslint:disable-line:no-magic-numbers
+      this.day            = <Day>spl[3]; // tslint:disable-line:no-magic-numbers
     } else if (v instanceof Date) {
-      this.year = v.getFullYear();
+      this.year  = v.getFullYear();
       this.month = <Month>(v.getMonth() + 1);
-      this.day = <Day>v.getDate();
+      this.day   = <Day>v.getDate();
     }
   }
 
@@ -241,7 +252,7 @@ export class GhContribCalendarComponent implements OnDestroy, OnInit {
         this.user$.next(null);
         setTimeout(() => {
           this.setupData();
-        }, 0);
+        },         0);
 
         return of(null);
       });

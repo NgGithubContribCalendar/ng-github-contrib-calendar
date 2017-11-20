@@ -1,7 +1,7 @@
 :host {
   max-width: 820px;
-  margin: auto;
-  display: block;
+  margin:    auto;
+  display:   block;
 }
 
 gh-contrib-calendar {
@@ -9,8 +9,8 @@ gh-contrib-calendar {
 }
 
 .flex {
-  display: flex;
-  flex-wrap: wrap;
+  display:        flex;
+  flex-wrap:      wrap;
   flex-direction: row;
 
   &.sp {

@@ -48,8 +48,8 @@ export class Translator {
   public registerTranslations(tr: Partial<TranslationSpec>) {
     if (tr !== this.previousRegistration) {
       this.previousRegistration = tr;
-      this.result = Object.assign({}, englishTranslations, tr || {});
-      this.order = calculateOrder(this.result.order);
+      this.result               = Object.assign({}, englishTranslations, tr || {});
+      this.order                = calculateOrder(this.result.order);
       Object.freeze(this.order);
     }
   }

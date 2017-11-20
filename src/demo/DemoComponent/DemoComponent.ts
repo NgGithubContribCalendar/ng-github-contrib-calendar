@@ -6,12 +6,12 @@ import {Locale} from '../../GhContribCalendar/Translate/types/Locale';
 import {DemoConf} from '../DemoConf';
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [NgForage],
-  selector: 'gh-calendar-demo',
-  styleUrls: ['./DemoComponent.scss'],
-  templateUrl: './DemoComponent.pug'
-})
+             changeDetection: ChangeDetectionStrategy.OnPush,
+             providers:       [NgForage],
+             selector:        'gh-calendar-demo',
+             styleUrls:       ['./DemoComponent.scss'],
+             templateUrl:     './DemoComponent.pug'
+           })
 export class DemoComponent implements OnInit {
 
   public userToFetch = 'Alorel';
@@ -32,7 +32,7 @@ export class DemoComponent implements OnInit {
   public set locale(loc: Locale) {
     this._locale = loc;
     this.ngf.setItem(DemoConf.LOCALE_KEY, loc)
-      .catch(console.error); // tslint:disable-line:no-unbound-method
+        .catch(console.error); // tslint:disable-line:no-unbound-method
   }
 
   public get selectedTheme(): string {
@@ -42,7 +42,7 @@ export class DemoComponent implements OnInit {
   public set selectedTheme(theme: string) {
     this._selectedTheme = theme;
     this.ngf.setItem(DemoConf.THEME_KEY, theme)
-      .catch(console.error); // tslint:disable-line:no-unbound-method
+        .catch(console.error); // tslint:disable-line:no-unbound-method
   }
 
   public handleError(e: HttpErrorResponse) {
@@ -54,11 +54,11 @@ export class DemoComponent implements OnInit {
   }
 
   public async ngOnInit() {
-    this.ngf.name = DemoConf.THEME_STORE;
+    this.ngf.name      = DemoConf.THEME_STORE;
     this.ngf.storeName = DemoConf.THEME_STORE;
 
     const prev$ = this.ngf.getItem<string>(DemoConf.THEME_KEY);
-    const loc$ = this.ngf.getItem<Locale>(DemoConf.LOCALE_KEY);
+    const loc$  = this.ngf.getItem<Locale>(DemoConf.LOCALE_KEY);
 
     const prev = await prev$;
 
