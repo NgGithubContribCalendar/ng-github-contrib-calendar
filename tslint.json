@@ -62,7 +62,8 @@
     "unified-signatures":               true,
     "await-promise":                    [
       true,
-      "Thenable"
+      "Thenable",
+      "Bluebird"
     ],
     "curly":                            [
       true,

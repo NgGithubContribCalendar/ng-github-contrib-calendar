@@ -4,6 +4,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {DebugElement} from '@angular/core';
 import {ComponentFixture, TestBed, TestModuleMetadata} from '@angular/core/testing';
 import {NgForageModule} from '@ngforage/ngforage-ng5';
+import * as Bluebird from 'bluebird';
 import {Chevron} from '../Chevron/Chevron';
 import {DayDetails} from '../DayDetails/DayDetails';
 import {LoadingBar} from '../LoadingBar/LoadingBar';
@@ -18,7 +19,6 @@ import {GhContribCalendarComponent} from './GhContribCalendarComponent';
 /*
  todo:
  props
- numLoading
  html
  */
 
@@ -29,7 +29,15 @@ describe('GhContribCalendarComponent', () => {
   let tr: Translator;
 
   const privates = {
-    toDate: (): Date => inst['toDate']
+    get toDate(): Date {
+      return inst['toDate'];
+    },
+    get numLoading(): number {
+      return inst['numLoading'];
+    },
+    set numLoading(num: number) {
+      inst['numLoading'] = num;
+    }
   };
 
   beforeEach(async done => {
@@ -139,12 +147,12 @@ describe('GhContribCalendarComponent', () => {
     let initialTo: Date;
 
     beforeEach(() => {
-      initialTo = privates.toDate();
+      initialTo = privates.toDate;
     });
 
     it('Invalid string', () => {
       inst.to = 'foo';
-      expect(privates.toDate()).toEqual(initialTo);
+      expect(privates.toDate).toEqual(initialTo);
     });
 
     describe('valid string', () => {
@@ -166,7 +174,7 @@ describe('GhContribCalendarComponent', () => {
       d2.setUTCFullYear(initialTo.getUTCFullYear() + 1);
       inst.to = d2;
 
-      expect(privates.toDate()).toEqual(d1);
+      expect(privates.toDate).toEqual(d1);
     });
   });
 
@@ -195,30 +203,30 @@ describe('GhContribCalendarComponent', () => {
     it('falsy user', () => {
       inst.user = '';
       expect(inst.user).toBe('');
-      expect(privates.toDate()).toEqual(past);
+      expect(privates.toDate).toEqual(past);
     });
 
     it('regular user', () => {
       inst.user = __filename;
       expect(inst.user).toBe(__filename);
-      expect(privates.toDate()).toEqual(past);
+      expect(privates.toDate).toEqual(past);
     });
 
     it('duplicate user', () => {
       inst.user = __filename;
 
       expect(inst.user).toBe(__filename);
-      expect(privates.toDate()).toEqual(past);
+      expect(privates.toDate).toEqual(past);
 
       setDate();
-      expect(privates.toDate()).toEqual(past);
+      expect(privates.toDate).toEqual(past);
 
       inst.user = __filename;
-      expect(privates.toDate()).toEqual(past);
+      expect(privates.toDate).toEqual(past);
 
       inst.user = __dirname;
       expect(inst.user).toBe(__dirname);
-      expect(privates.toDate()).toEqual(now);
+      expect(privates.toDate).toEqual(now);
     });
   });
 
@@ -266,5 +274,19 @@ describe('GhContribCalendarComponent', () => {
         expect(inst.year).toBe(initial - 4);
       });
     });
+  });
+
+  it('numLoading', async done => {
+    expect(privates.numLoading).toBe(0, 'initial');
+    inst.user = 'Alorel';
+    fx.detectChanges();
+    await Bluebird.delay(StaticConf.FETCH_DEBOUNCE_TIME + 5);
+    expect(privates.numLoading).toBe(1, 'post-CD');
+    await fx.whenStable();
+
+    fx.detectChanges();
+    expect(privates.numLoading).toBe(0, 'whenStable');
+
+    done();
   });
 });
