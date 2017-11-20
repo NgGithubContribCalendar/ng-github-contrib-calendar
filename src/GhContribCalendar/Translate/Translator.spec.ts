@@ -12,8 +12,8 @@ describe('Translator', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-                                     providers: [Translator]
-                                   });
+      providers: [Translator]
+    });
 
     inst = TestBed.get(Translator);
   });

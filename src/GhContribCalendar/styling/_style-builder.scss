@@ -16,8 +16,8 @@
 ) {
   gh-contrib-calendar {
     border-color: $borderColour;
-    background:   $backgroundColour;
-    color:        $textColour;
+    background: $backgroundColour;
+    color: $textColour;
 
     .gh-calendar-month, .gh-calendar-wday {
       fill: $textColour;

@@ -14,19 +14,19 @@ describe('DayDetails', () => {
 
   beforeEach(async done => {
     await TestBed.configureTestingModule({
-                                           declarations: [DayDetails]
-                                         })
-                 .compileComponents();
+        declarations: [DayDetails]
+      })
+      .compileComponents();
 
     fixture = TestBed.createComponent(DayDetails);
-    inst    = fixture.componentInstance;
-    debug   = fixture.debugElement;
+    inst = fixture.componentInstance;
+    debug = fixture.debugElement;
 
-    date  = new Date();
+    date = new Date();
     count = Math.random();
 
-    inst.tr    = new Translator();
-    inst.date  = date;
+    inst.tr = new Translator();
+    inst.date = date;
     inst.count = count;
 
     done();

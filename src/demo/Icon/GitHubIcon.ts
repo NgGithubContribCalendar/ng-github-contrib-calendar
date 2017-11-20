@@ -3,10 +3,10 @@ import {Proto} from 'typescript-proto-decorator';
 import {DemoConf} from '../DemoConf';
 
 @Component({
-             changeDetection: ChangeDetectionStrategy.OnPush,
-             selector:        'gh-icon',
-             templateUrl:     './GitHubIcon.pug'
-           })
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'gh-icon',
+  templateUrl: './GitHubIcon.pug'
+})
 export class GitHubIcon {
 
   @Proto(DemoConf.HOMEPAGE)

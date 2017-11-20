@@ -70,7 +70,7 @@ describe('CalendarFetcher', () => {
 
     beforeAll(async done => {
       data = await inst.fetch('Alorel', '1111', '11', '11', defaultFormatterFunction)
-                       .toPromise();
+        .toPromise();
       done();
     });
 
@@ -105,7 +105,7 @@ describe('CalendarFetcher', () => {
 
     beforeAll(async done => {
       data = await inst.fetch('Alorel', 1111, '11', '11', defaultFormatterFunction)
-                       .toPromise();
+        .toPromise();
       done();
     });
 

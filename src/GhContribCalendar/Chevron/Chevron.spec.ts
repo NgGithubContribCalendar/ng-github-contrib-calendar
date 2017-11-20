@@ -18,12 +18,12 @@ method('Chevron', () => {
 
   beforeEach(async done => {
     await TestBed.configureTestingModule({
-                                           declarations: [Chevron]
-                                         })
-                 .compileComponents();
+        declarations: [Chevron]
+      })
+      .compileComponents();
 
     fixture = TestBed.createComponent(Chevron);
-    inst    = fixture.componentInstance;
+    inst = fixture.componentInstance;
 
     done();
   });

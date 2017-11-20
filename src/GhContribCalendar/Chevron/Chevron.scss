@@ -1,20 +1,20 @@
 :host {
-  border:     none;
-  color:      inherit;
-  padding:    0;
+  border: none;
+  color: inherit;
+  padding: 0;
   background: transparent;
-  cursor:     pointer;
+  cursor: pointer;
 
   &[disabled] {
     opacity: .5 !important;
-    cursor:  default;
+    cursor: default;
   }
 }
 
 svg {
   height: 21px;
-  width:  21px;
-  fill:   currentColor;
+  width: 21px;
+  fill: currentColor;
 }
 
 .left {

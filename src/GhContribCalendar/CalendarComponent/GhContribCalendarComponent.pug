@@ -1,8 +1,5 @@
 .flex.col
-  .gh-load-bar-container([style.visibility]='_numLoading > 0 ? "visible" : "hidden"')
-    .gh-bar-inner
-    .gh-bar-inner
-    .gh-bar-inner
+  gh-loading-bar([style.visibility]='_numLoading > 0 ? "visible" : "hidden"')
   ng-container(*ngIf='data|async as data')
     .gh-calendar-container
       svg.gh-calendar
