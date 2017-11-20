@@ -6,7 +6,7 @@ export const englishTranslations: TranslationSpec = {
   Apr: 'Apr',
   Aug: 'Aug',
   contributions: {
-    0: 'no contributions on',
+    0: 'No contributions on',
     1: 'contribution on',
     other: 'contributions on'
   },

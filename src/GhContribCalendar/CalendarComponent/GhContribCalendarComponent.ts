@@ -144,6 +144,10 @@ export class GhContribCalendarComponent implements OnDestroy, OnInit {
 
   @Input('user')
   public set user(user: string) {
+    if (this.user && user !== this.user) {
+      this.to = currDate;
+    }
+
     this.user$.next(user);
   }
 
@@ -237,12 +241,12 @@ export class GhContribCalendarComponent implements OnDestroy, OnInit {
         this.user$.next(null);
         setTimeout(() => {
           this.setupData();
-        },         0);
+        }, 0);
 
         return of(null);
       });
 
-    this.data = data.filter(v => !!v);
+    this.data = data.filter(v => !!v).share();
   }
 }
 
