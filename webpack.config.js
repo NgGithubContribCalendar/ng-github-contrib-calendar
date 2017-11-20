@@ -20,6 +20,7 @@ const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plug
 const WebpackPwaManifest             = require('webpack-pwa-manifest');
 const FaviconsWebpackPlugin          = require('favicons-webpack-plugin');
 const WorkboxPlugin                  = require('workbox-webpack-plugin');
+const ExecUtils                      = require('./build/execUtils');
 
 class WebpackFactory {
   
@@ -103,6 +104,12 @@ class WebpackFactory {
     }
   }
   
+  get env() {
+    const value = JSON.stringify(this.mode === MODE.DEMO_JIT ? 'development' : 'production');
+    Object.defineProperty(this, 'env', {value});
+    return value;
+  }
+  
   get externals() {
     return this.mode === MODE.DIST_UMD ? [
       'tslib',
@@ -159,16 +166,16 @@ class WebpackFactory {
       out.push(new CheckerPlugin());
     }
     
-    if (this.mode !== MODE.DEMO_JIT) {
-      out.push(new webpack.DefinePlugin({
-                                          'process.env': {
-                                            'NODE_ENV': JSON.stringify('production')
-                                          }
-                                        }));
-    }
-    
     if ([MODE.DEMO_JIT, MODE.DEMO_AOT].includes(this.mode)) {
       out.push(
+        new webpack.DefinePlugin({
+                                   'process.env': {
+                                     NODE_ENV:    this.env,
+                                     ENVIRONMENT: this.env,
+                                     GIT_TAG:     JSON.stringify(ExecUtils.tagName),
+                                     GIT_BRANCH:  JSON.stringify(ExecUtils.branchName)
+                                   }
+                                 }),
         new webpack.optimize.CommonsChunkPlugin({
                                                   name:     'vendor',
                                                   filename: `[name]${this.mode ===
