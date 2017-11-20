@@ -51,7 +51,7 @@ describe('GhContribCalendarComponent', () => {
     fx   = TestBed.createComponent(GhContribCalendarComponent);
     inst = fx.componentInstance;
     dbg  = fx.debugElement;
-    tr   = inst['tr'];
+    tr   = inst.tr;
 
     done();
   });

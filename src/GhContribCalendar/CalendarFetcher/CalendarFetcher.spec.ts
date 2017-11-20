@@ -9,21 +9,23 @@ import {FormattedPayload} from './Formatted';
 
 describe('CalendarFetcher', () => {
   let inst: CalendarFetcher;
-  let data: FormattedPayload;
 
-  const createInst = () => {
+  beforeEach(() => {
     const def: TestModuleMetadata = {
       imports:   [NgForageModule, HttpClientModule],
       providers: [CalendarFetcher]
     };
     TestBed.configureTestingModule(def);
     inst = TestBed.get(CalendarFetcher);
-  };
+  });
 
   describe('No fn, no date', () => {
-    beforeAll(async done => {
-      createInst();
-      data = await inst.fetch('Alorel').toPromise();
+    let data: FormattedPayload;
+
+    beforeEach(async done => {
+      if (!data) {
+        data = await inst.fetch('Alorel').toPromise();
+      }
       done();
     });
 
@@ -37,9 +39,12 @@ describe('CalendarFetcher', () => {
   });
 
   describe('Fn, no date', () => {
-    beforeAll(async done => {
-      createInst();
-      data = await inst.fetch('Alorel', defaultFormatterFunction).toPromise();
+    let data: FormattedPayload;
+
+    beforeEach(async done => {
+      if (!data) {
+        data = await inst.fetch('Alorel', defaultFormatterFunction).toPromise();
+      }
       done();
     });
 
@@ -53,9 +58,12 @@ describe('CalendarFetcher', () => {
   });
 
   describe('No fn, with string year', () => {
-    beforeAll(async done => {
-      createInst();
-      data = await inst.fetch('Alorel', '1111', '11', '11').toPromise();
+    let data: FormattedPayload;
+
+    beforeEach(async done => {
+      if (!data) {
+        data = await inst.fetch('Alorel', '1111', '11', '11').toPromise();
+      }
       done();
     });
 
@@ -69,10 +77,13 @@ describe('CalendarFetcher', () => {
   });
 
   describe('Fn, with string year', () => {
-    beforeAll(async done => {
-      createInst();
-      data = await inst.fetch('Alorel', '1111', '11', '11', defaultFormatterFunction)
-                       .toPromise();
+    let data: FormattedPayload;
+
+    beforeEach(async done => {
+      if (!data) {
+        data = await inst.fetch('Alorel', '1111', '11', '11', defaultFormatterFunction)
+                         .toPromise();
+      }
       done();
     });
 
@@ -86,9 +97,12 @@ describe('CalendarFetcher', () => {
   });
 
   describe('No fn, with num year', () => {
-    beforeAll(async done => {
-      createInst();
-      data = await inst.fetch('Alorel', 1111, '11', '11').toPromise();
+    let data: FormattedPayload;
+
+    beforeEach(async done => {
+      if (!data) {
+        data = await inst.fetch('Alorel', 1111, '11', '11').toPromise();
+      }
       done();
     });
 
@@ -102,10 +116,13 @@ describe('CalendarFetcher', () => {
   });
 
   describe('Fn, with num year', () => {
-    beforeAll(async done => {
-      createInst();
-      data = await inst.fetch('Alorel', 1111, '11', '11', defaultFormatterFunction)
-                       .toPromise();
+    let data: FormattedPayload;
+
+    beforeEach(async done => {
+      if (!data) {
+        data = await inst.fetch('Alorel', 1111, '11', '11', defaultFormatterFunction)
+                         .toPromise();
+      }
       done();
     });
 
@@ -120,7 +137,6 @@ describe('CalendarFetcher', () => {
 
   it('Nonexistent user', async done => {
     try {
-      createInst();
       await inst.fetch(`${Math.random()}-${new Date().toLocaleString()}`).toPromise();
     } catch (e) {
       done();
