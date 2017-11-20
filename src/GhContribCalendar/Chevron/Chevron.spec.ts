@@ -4,7 +4,8 @@ import {Chevron} from './Chevron';
 
 let method: typeof describe | typeof xdescribe;
 
-if (process.env.CI_NG_VERSION === '4') {
+// tslint:disable-next-line:no-var-requires
+if (require('../../../package.json').name.indexOf('ng4') !== -1) {
   console.warn('TestBed doesn\'t have all the features in ng4 - skipping');
   method = xdescribe;
 } else {
