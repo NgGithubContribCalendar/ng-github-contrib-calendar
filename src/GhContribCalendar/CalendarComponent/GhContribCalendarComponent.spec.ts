@@ -1,7 +1,7 @@
 //tslint:disable:no-magic-numbers max-file-line-count
 import {HttpClientModule} from '@angular/common/http';
 import {DebugElement} from '@angular/core';
-import {async, ComponentFixture, TestBed, TestModuleMetadata} from '@angular/core/testing';
+import {ComponentFixture, TestBed, TestModuleMetadata} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {IParsedPayload} from '@ng-github-contrib-calendar/common-types';
 import {NgForageModule} from '@ngforage/ngforage-ng5';
@@ -294,26 +294,30 @@ describe('GhContribCalendarComponent', () => {
     });
   });
 
-  it('fetch', async(async() => {
+  it('fetch', async done => {
     const visibility = () => dbg.query(By.css('gh-loading-bar')).styles.visibility;
+    const container  = () => dbg.query(By.css('.gh-calendar-container'));
 
-    const fetcher: CalendarFetcher = inst['fetcher'];
-    spyOn(fetcher, 'fetch').and.returnValue(of(fixture).delay(100));
+    spyOn(privates.fetcher, 'fetch').and.returnValue(of(fixture).delay(100));
 
     inst.user = 'Alorel';
     fx.detectChanges();
 
     expect(visibility()).toBe('hidden', 'Loader initially absent');
     expect(privates.numLoading).toBe(0, 'Initially 0');
+    expect(container()).toBeFalsy('Container initially absent');
 
     await Bluebird.delay(250);
     fx.detectChanges();
     expect(privates.numLoading).toBe(1, '1 when loading');
     expect(visibility()).toBe('visible', 'Loader showing when loading');
+    expect(container()).toBeFalsy('Container still absent while loading');
 
     await fx.whenStable();
     fx.detectChanges();
     expect(privates.numLoading).toBe(0, '0 again in the end');
     expect(visibility()).toBe('hidden', 'Loader absent again');
-  }));
+    expect(container()).toBeTruthy('Container now visible');
+    done();
+  });
 });
