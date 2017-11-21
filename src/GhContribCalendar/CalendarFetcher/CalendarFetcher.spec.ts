@@ -3,6 +3,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {TestBed, TestModuleMetadata} from '@angular/core/testing';
 import {NgForageModule} from '@ngforage/ngforage-ng5';
 import {isArray} from 'lodash';
+import {testFormatterFn} from '../../../test-fixtures/testFormatterFn';
 import {CalendarFetcher} from './CalendarFetcher';
 import {defaultFormatterFunction} from './defaultFormatterFunction';
 import {FormattedPayload} from './Formatted';
@@ -13,7 +14,10 @@ describe('CalendarFetcher', () => {
   beforeEach(() => {
     const def: TestModuleMetadata = {
       imports:   [NgForageModule, HttpClientModule],
-      providers: [CalendarFetcher]
+      providers: [
+        {provide: defaultFormatterFunction, useValue: testFormatterFn},
+        CalendarFetcher
+      ]
     };
     TestBed.configureTestingModule(def);
     inst = TestBed.get(CalendarFetcher);
@@ -43,7 +47,7 @@ describe('CalendarFetcher', () => {
 
     beforeEach(async done => {
       if (!data) {
-        data = await inst.fetch('Alorel', defaultFormatterFunction).toPromise();
+        data = await inst.fetch('Alorel', testFormatterFn).toPromise();
       }
       done();
     });
@@ -81,7 +85,7 @@ describe('CalendarFetcher', () => {
 
     beforeEach(async done => {
       if (!data) {
-        data = await inst.fetch('Alorel', '1111', '11', '11', defaultFormatterFunction)
+        data = await inst.fetch('Alorel', '1111', '11', '11', testFormatterFn)
                          .toPromise();
       }
       done();
@@ -120,7 +124,7 @@ describe('CalendarFetcher', () => {
 
     beforeEach(async done => {
       if (!data) {
-        data = await inst.fetch('Alorel', 1111, '11', '11', defaultFormatterFunction)
+        data = await inst.fetch('Alorel', 1111, '11', '11', testFormatterFn)
                          .toPromise();
       }
       done();

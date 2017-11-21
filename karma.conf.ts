@@ -1,6 +1,8 @@
+//tslint:disable
+import {Application, Request, Response} from 'express';
+import {cpus} from 'os';
 import * as puppeteer from 'puppeteer';
 
-// tslint:disable-next-line:no-default-export
 export default config => {
   process.env.CHROME_BIN           = puppeteer.executablePath();
   process.env.WEBPACK_COMPILE_MODE = require('./build/util/compile-mode').TEST;
@@ -17,9 +19,30 @@ export default config => {
                // Base path that will be used to resolve all patterns (eg. files, exclude).
                basePath: './',
 
+               concurrency: cpus().length,
+
+               port: 9876,
+
                // Frameworks to use.
                // Available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-               frameworks: ['jasmine'],
+               frameworks: ['expressServer', 'jasmine'],
+
+               expressServer: {
+                 extensions: [
+                   (app: Application) => {
+                     const fixture = require('./test-fixtures/server-response.json');
+
+                     app.get('/fetch/:user', (req: Request, res: Response) => {
+                       console.debug(`Received request on ${req.url}`);
+                       setTimeout(() => {
+                         console.debug(`Responded to ${req.url}`);
+                         res.json(fixture);
+                       }, 200);
+                     });
+                   }
+                 ],
+                 serverPort: 5000
+               },
 
                // List of files to load in the browser.
                files: [
@@ -29,7 +52,7 @@ export default config => {
                // Preprocess matching files before serving them to the browser.
                // Available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
                preprocessors: {
-                 'karma-test-entry.ts': ['webpack', 'sourcemap']
+                 'karma-test-entry.ts':      ['webpack', 'sourcemap']
                },
 
                webpack: require('./webpack.config.js'),

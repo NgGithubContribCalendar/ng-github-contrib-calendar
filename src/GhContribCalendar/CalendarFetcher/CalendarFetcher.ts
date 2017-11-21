@@ -64,6 +64,7 @@ function formatPayload(input: IParsedPayload): FormattedPayload {
 export class CalendarFetcher {
 
   public constructor(@Inject(NgForageCache) private readonly cache: NgForageCache,
+                     @Inject(defaultFormatterFunction) private readonly fn: ProxyURLFormatterFunction,
                      @Inject(HttpClient) private readonly http: HttpClient) {
     cache.cacheTime   = StaticConf.CACHE_TIME;
     cache.name        = StaticConf.STORE_NAME;
@@ -90,7 +91,7 @@ export class CalendarFetcher {
 
     const actualFn: ProxyURLFormatterFunction = fnOrYearIsFunction ?
                                                 <ProxyURLFormatterFunction>fnOrYear :
-                                                possibleFn || defaultFormatterFunction;
+                                                possibleFn || this.fn;
 
     const actualYear: string | number = fnOrYearIsFunction ? undefined : <string | number>fnOrYear;
 

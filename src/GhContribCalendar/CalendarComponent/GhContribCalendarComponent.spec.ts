@@ -1,10 +1,16 @@
-//tslint:disable:no-magic-numbers
-import {CommonModule} from '@angular/common';
+//tslint:disable:no-magic-numbers max-file-line-count
 import {HttpClientModule} from '@angular/common/http';
 import {DebugElement} from '@angular/core';
-import {ComponentFixture, TestBed, TestModuleMetadata} from '@angular/core/testing';
+import {async, ComponentFixture, TestBed, TestModuleMetadata} from '@angular/core/testing';
+import {By} from '@angular/platform-browser';
+import {IParsedPayload} from '@ng-github-contrib-calendar/common-types';
 import {NgForageModule} from '@ngforage/ngforage-ng5';
 import * as Bluebird from 'bluebird';
+import 'rxjs/add/operator/delay';
+import {of} from 'rxjs/observable/of';
+import {testFormatterFn} from '../../../test-fixtures/testFormatterFn';
+import {CalendarFetcher} from '../CalendarFetcher/CalendarFetcher';
+import {defaultFormatterFunction} from '../CalendarFetcher/defaultFormatterFunction';
 import {Chevron} from '../Chevron/Chevron';
 import {DayDetails} from '../DayDetails/DayDetails';
 import {LoadingBar} from '../LoadingBar/LoadingBar';
@@ -27,8 +33,12 @@ describe('GhContribCalendarComponent', () => {
   let inst: GhContribCalendarComponent;
   let dbg: DebugElement;
   let tr: Translator;
+  let fixture: IParsedPayload;
 
   const privates = {
+    get fetcher(): CalendarFetcher {
+      return inst['fetcher'];
+    },
     get toDate(): Date {
       return inst['toDate'];
     },
@@ -40,6 +50,10 @@ describe('GhContribCalendarComponent', () => {
     }
   };
 
+  beforeAll(() => {
+    fixture = require('../../../test-fixtures/server-response.json');
+  });
+
   beforeEach(async done => {
     const def: TestModuleMetadata = {
       declarations: [
@@ -50,8 +64,10 @@ describe('GhContribCalendarComponent', () => {
       ],
       imports:      [
         HttpClientModule,
-        CommonModule,
         NgForageModule
+      ],
+      providers:    [
+        {provide: defaultFormatterFunction, useValue: testFormatterFn}
       ]
     };
 
@@ -61,6 +77,8 @@ describe('GhContribCalendarComponent', () => {
     dbg  = fx.debugElement;
     tr   = inst.tr;
 
+    await fx.whenStable();
+    await fx.whenRenderingDone();
     done();
   });
 
@@ -276,17 +294,26 @@ describe('GhContribCalendarComponent', () => {
     });
   });
 
-  it('numLoading', async done => {
-    expect(privates.numLoading).toBe(0, 'initial');
+  it('fetch', async(async () => {
+    const visibility = () => dbg.query(By.css('gh-loading-bar')).styles.visibility;
+
+    const fetcher: CalendarFetcher = inst['fetcher'];
+    spyOn(fetcher, 'fetch').and.returnValue(of(fixture).delay(100));
+
     inst.user = 'Alorel';
     fx.detectChanges();
-    await Bluebird.delay(StaticConf.FETCH_DEBOUNCE_TIME + 5);
-    expect(privates.numLoading).toBe(1, 'post-CD');
-    await fx.whenStable();
 
+    expect(visibility()).toBe('hidden', 'Loader initially absent');
+    expect(privates.numLoading).toBe(0, 'Initially 0');
+
+    await Bluebird.delay(250);
     fx.detectChanges();
-    expect(privates.numLoading).toBe(0, 'whenStable');
+    expect(privates.numLoading).toBe(1, '1 when loading');
+    expect(visibility()).toBe('visible', 'Loader showing when loading');
 
-    done();
-  });
+    await fx.whenStable();
+    fx.detectChanges();
+    expect(privates.numLoading).toBe(0, '0 again in the end');
+    expect(visibility()).toBe('hidden', 'Loader absent again');
+  }));
 });
