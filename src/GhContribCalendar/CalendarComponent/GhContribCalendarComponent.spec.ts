@@ -294,7 +294,7 @@ describe('GhContribCalendarComponent', () => {
     });
   });
 
-  it('fetch', async(async () => {
+  it('fetch', async(async() => {
     const visibility = () => dbg.query(By.css('gh-loading-bar')).styles.visibility;
 
     const fetcher: CalendarFetcher = inst['fetcher'];
