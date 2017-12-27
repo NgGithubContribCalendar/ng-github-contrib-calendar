@@ -1,5 +1,6 @@
 sudo: false
 language: node_js
+group: travis_latest
 node_js: 9
 
 cache:
