@@ -1,5 +1,5 @@
 const gulp = require('gulp');
-const seq  = require('gulp-sequence');
+const seq = require('gulp-sequence');
 
 gulp.task('build', cb => {
   seq(
@@ -8,7 +8,8 @@ gulp.task('build', cb => {
       'compile:esm5',
       'compile:es5',
       'compile:esm2015',
-      'compile:umd'
+      'compile:umd',
+      'compile:styles'
     ],
     cb
   );
