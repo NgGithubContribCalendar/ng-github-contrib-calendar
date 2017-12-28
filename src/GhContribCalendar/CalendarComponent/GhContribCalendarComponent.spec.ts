@@ -22,12 +22,6 @@ import {Day, Month} from '../util/CalendarTypes';
 import {StaticConf} from '../util/StaticConf';
 import {GhContribCalendarComponent} from './GhContribCalendarComponent';
 
-/*
- todo:
- props
- html
- */
-
 describe('GhContribCalendarComponent', () => {
   let fx: ComponentFixture<GhContribCalendarComponent>;
   let inst: GhContribCalendarComponent;
@@ -62,20 +56,20 @@ describe('GhContribCalendarComponent', () => {
         DayDetails,
         LoadingBar
       ],
-      imports:      [
+      imports: [
         HttpClientModule,
         NgForageModule
       ],
-      providers:    [
+      providers: [
         {provide: defaultFormatterFunction, useValue: testFormatterFn}
       ]
     };
 
     await TestBed.configureTestingModule(def).compileComponents();
-    fx   = TestBed.createComponent(GhContribCalendarComponent);
+    fx = TestBed.createComponent(GhContribCalendarComponent);
     inst = fx.componentInstance;
-    dbg  = fx.debugElement;
-    tr   = inst.tr;
+    dbg = fx.debugElement;
+    tr = inst.tr;
 
     await fx.whenStable();
     await fx.whenRenderingDone();
@@ -105,7 +99,7 @@ describe('GhContribCalendarComponent', () => {
 
   it('day', () => {
     const tomorrow = new Date(Date.now() + 3600 * 24 * 1000);
-    const day      = <Day>tomorrow.getUTCDate();
+    const day = <Day>tomorrow.getUTCDate();
 
     inst.day = day;
     expect(inst.day).toBe(day);
@@ -126,7 +120,7 @@ describe('GhContribCalendarComponent', () => {
 
     it('Actual fn', () => {
       // tslint:disable-next-line:no-empty
-      const fn: any    = () => {
+      const fn: any = () => {
       };
       inst.formatterFn = fn;
 
@@ -255,12 +249,12 @@ describe('GhContribCalendarComponent', () => {
 
   describe('transformAtIndex', () => {
     const multiplier = 13;
-    const lower      = -1;
-    const upper      = 1;
+    const lower = -1;
+    const upper = 1;
 
     for (let i = lower; i <= upper; i++) {
       it(`At index ${i}`, () => {
-        const r        = inst.transformAtIndex(i);
+        const r = inst.transformAtIndex(i);
         const expected = `translate(${i * multiplier},0)`;
 
         expect(r).toBe(expected);
@@ -296,7 +290,7 @@ describe('GhContribCalendarComponent', () => {
 
   it('fetch', async done => {
     const visibility = () => dbg.query(By.css('gh-loading-bar')).styles.visibility;
-    const container  = () => dbg.query(By.css('.gh-calendar-container'));
+    const container = () => dbg.query(By.css('.gh-calendar-container'));
 
     spyOn(privates.fetcher, 'fetch').and.returnValue(of(fixture).delay(100));
 

@@ -19,11 +19,11 @@ import {ProxyURLFormatterFunction} from './ProxyURLFormatterFunction';
 /** @internal */
 function makeCacheKey(user: string, y?: string | number, m?: string, d?: string): string {
   return JSON.stringify({
-                          d,
-                          m,
-                          user,
-                          y: y ? parseInt(<string>y, StaticConf.STD_RADIX) : undefined
-                        });
+    d,
+    m,
+    user,
+    y: y ? parseInt(<string>y, StaticConf.STD_RADIX) : undefined
+  });
 }
 
 /** @internal */
@@ -34,7 +34,7 @@ function intifyStr(str: string): number {
 /** @internal */
 function formatRect(rect: IRect): FormattedRect {
   const split: number[] = rect.date.split('-').map(intifyStr);
-  const date            = new Date();
+  const date = new Date();
 
   date.setUTCHours(0, 0, 0, 0);
   // tslint:disable-next-line:no-magic-numbers
@@ -43,7 +43,7 @@ function formatRect(rect: IRect): FormattedRect {
   return {
     count: rect.count,
     date,
-    fill:  rect.fill
+    fill: rect.fill
   };
 }
 
@@ -55,32 +55,61 @@ function formatRects(rects: IRect[]): FormattedRect[] {
 /** @internal */
 function formatPayload(input: IParsedPayload): FormattedPayload {
   return {
-    gs:     input.gs.map(formatRects),
+    gs: input.gs.map(formatRects),
     months: input.months
   };
 }
 
+/** Fetches and formats the calendar via a CORS proxy */
 @Injectable()
 export class CalendarFetcher {
 
   public constructor(@Inject(NgForageCache) private readonly cache: NgForageCache,
                      @Inject(defaultFormatterFunction) private readonly fn: ProxyURLFormatterFunction,
                      @Inject(HttpClient) private readonly http: HttpClient) {
-    cache.cacheTime   = StaticConf.CACHE_TIME;
-    cache.name        = StaticConf.STORE_NAME;
-    cache.storeName   = StaticConf.STORE_NAME;
-    cache.description = 'GhContribCalendar store';
+    cache.cacheTime = StaticConf.CACHE_TIME;
+    cache.name = StaticConf.STORE_NAME;
+    cache.storeName = StaticConf.STORE_NAME;
+    cache.description = StaticConf.STORE_DESCRIPTION;
   }
 
+  /**
+   * Fetch a user
+   * @param user The username
+   */
   public fetch(user: string): Observable<FormattedPayload>;
+
+  /**
+   * Fetch a user
+   * @param user The username
+   * @param formatterFn A URL formatter function override
+   */
   public fetch(user: string, formatterFn: ProxyURLFormatterFunction): Observable<FormattedPayload>;
+
+  /**
+   * Fetch a user
+   * @param user The username
+   * @param toYear The cutoff year
+   * @param toMonth The cutoff month
+   * @param toDay The cutoff day
+   */
   public fetch(user: string, toYear: string | number, toMonth: string, toDay: string): Observable<FormattedPayload>;
+
+  /**
+   * Fetch a user
+   * @param user The username
+   * @param toYear The cutoff year
+   * @param toMonth The cutoff month
+   * @param toDay The cutoff day
+   * @param formatterFn A URL formatter function override
+   */
   public fetch(user: string,
                toYear: string | number,
                toMonth: string,
                toDay: string,
                formatterFn: ProxyURLFormatterFunction): Observable<FormattedPayload>;
 
+  /** @internal */
   public fetch(user: string,
                fnOrYear?: ProxyURLFormatterFunction | string | number,
                month?: string,
@@ -90,8 +119,8 @@ export class CalendarFetcher {
     const fnOrYearIsFunction = typeof fnOrYear === 'function';
 
     const actualFn: ProxyURLFormatterFunction = fnOrYearIsFunction ?
-                                                <ProxyURLFormatterFunction>fnOrYear :
-                                                possibleFn || this.fn;
+      <ProxyURLFormatterFunction>fnOrYear :
+      possibleFn || this.fn;
 
     const actualYear: string | number = fnOrYearIsFunction ? undefined : <string | number>fnOrYear;
 
@@ -104,17 +133,18 @@ export class CalendarFetcher {
         }
 
         const url: string = actualFn(user, actualYear, month, day);
-        const subj        = new BehaviorSubject<IParsedPayload>(cached.hasData ? cached.data : null);
+        const subj = new BehaviorSubject<IParsedPayload>(cached.hasData ? cached.data : null);
 
-        setTimeout(() => {
-          this.http.get<IParsedPayload>(
-            url,
-            {
-              observe:         'body',
-              reportProgress:  false,
-              responseType:    'json',
-              withCredentials: false
-            }
+        setTimeout(
+          () => {
+            this.http.get<IParsedPayload>(
+              url,
+              {
+                observe: 'body',
+                reportProgress: false,
+                responseType: 'json',
+                withCredentials: false
+              }
               )
               .switchMap(v => this.cache.setCached(cacheKey, v))
               .toPromise()
@@ -126,7 +156,9 @@ export class CalendarFetcher {
                 subj.error(e);
                 subj.complete();
               });
-        },         0);
+          },
+          0
+        );
 
         return subj.filter(v => !!v).map(formatPayload);
       });

@@ -32,16 +32,18 @@ import {TranslationSpec} from '../Translate/types/TranslationSpec';
 import {Day, Month, NumericDay, NumericMonth} from '../util/CalendarTypes';
 import {StaticConf} from '../util/StaticConf';
 
+/** @internal */
 const currDate = new Date();
 currDate.setUTCHours(0, 0, 0, 0);
 
+/** The main calendar component */
 @Component({
-             changeDetection: ChangeDetectionStrategy.OnPush,
-             providers:       [Translator, CalendarFetcher],
-             selector:        'gh-contrib-calendar',
-             styleUrls:       ['./GhContribCalendarComponent.scss'],
-             templateUrl:     './GhContribCalendarComponent.pug'
-           })
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [Translator, CalendarFetcher],
+  selector: 'gh-contrib-calendar',
+  styleUrls: ['./GhContribCalendarComponent.scss'],
+  templateUrl: './GhContribCalendarComponent.pug'
+})
 export class GhContribCalendarComponent implements OnDestroy, OnInit {
 
   /** @internal */
@@ -53,15 +55,18 @@ export class GhContribCalendarComponent implements OnDestroy, OnInit {
   /** @internal */
   public data: Observable<FormattedPayload>;
 
+  /** Any errors that occurred */
   @Output('error')
   public readonly error = new EventEmitter<HttpErrorResponse>();
 
+  /** Whether or not the controls for changing the year should be shown */
   @Input('show-controls')
   public showControls = true;
 
   /** @internal */
   public readonly tr: Translator;
 
+  /** @internal */
   public readonly user$ = new BehaviorSubject<string>(null);
 
   /** @internal */
@@ -85,28 +90,33 @@ export class GhContribCalendarComponent implements OnDestroy, OnInit {
   public constructor(@Inject(ChangeDetectorRef) cdr,
                      @Inject(CalendarFetcher) fetcher: CalendarFetcher,
                      @Inject(Translator) tr: Translator) {
-    this.tr      = tr;
+    this.tr = tr;
     this.fetcher = fetcher;
-    this.cdr     = cdr;
+    this.cdr = cdr;
   }
 
+  /** Whether or not the entered date is today */
   public get atMaxRange(): boolean {
     return currDate.getTime() === this.toDate.getTime();
   }
 
+  /** The entered day getter */
   public get day(): Day {
     return this.d$.value;
   }
 
+  /** The entered day setter */
   @Input('d')
   public set day(v: Day) {
     this.d$.next(v);
   }
 
+  /** Proxy formatter function getter */
   public get formatterFn(): ProxyURLFormatterFunction {
     return this.formatterFn$.value;
   }
 
+  /** Proxy formatter function setter */
   @Input('formatter-fn')
   public set formatterFn(fn: ProxyURLFormatterFunction) {
     if (!fn || typeof fn === 'function') {
@@ -116,43 +126,50 @@ export class GhContribCalendarComponent implements OnDestroy, OnInit {
     }
   }
 
+  /** Locale setter */
   @Input('locale')
   public set locale(val: Locale) {
     this.tr.setLocale(val);
   }
 
+  /** Entered month getter */
   public get month(): Month {
     return this.m$.value;
   }
 
+  /** Entered month setter */
   @Input('m')
   public set month(v: Month) {
     this.m$.next(v);
   }
 
+  /** Entered date setter */
   @Input('to')
   public set to(v: Date | string) {
     if (typeof v === 'string' && /^[0-9]{4}\-[0-9]{2}\-[0-9]{2}$/.test(v)) {
       const spl: string[] = v.split('-');
-      this.year           = spl[0];
-      this.month          = <Month>spl[1]; // tslint:disable-line:no-magic-numbers
-      this.day            = <Day>spl[2]; // tslint:disable-line:no-magic-numbers
+      this.year = spl[0];
+      this.month = <Month>spl[1]; // tslint:disable-line:no-magic-numbers
+      this.day = <Day>spl[2]; // tslint:disable-line:no-magic-numbers
     } else if (v instanceof Date) {
-      this.year  = v.getFullYear();
-      this.month = <Month>(v.getMonth() + 1);
-      this.day   = <Day>v.getDate();
+      this.year = v.getUTCFullYear();
+      this.month = <Month>(v.getUTCMonth() + 1);
+      this.day = <Day>v.getUTCDate();
     }
   }
 
+  /** Custom translations setter */
   @Input('translations')
   public set translations(val: Partial<TranslationSpec>) {
     this.tr.registerTranslations(val);
   }
 
+  /** Entered user getter */
   public get user(): string {
     return this.user$.value;
   }
 
+  /** Entered user setter */
   @Input('user')
   public set user(user: string) {
     if (this.user && user !== this.user) {
@@ -162,10 +179,12 @@ export class GhContribCalendarComponent implements OnDestroy, OnInit {
     this.user$.next(user);
   }
 
+  /** Entered year getter */
   public get year(): number | string {
     return this.y$.value;
   }
 
+  /** Entered year setter */
   @Input('y')
   public set year(v: number | string) {
     this.y$.next(v);
@@ -186,7 +205,7 @@ export class GhContribCalendarComponent implements OnDestroy, OnInit {
   private get toDate(): Date {
     const d = new Date();
     d.setUTCHours(0, 0, 0, 0);
-    d.setFullYear(
+    d.setUTCFullYear(
       parseInt(<string>this.year, StaticConf.STD_RADIX),
       parseInt(<string>this.month, StaticConf.STD_RADIX) - 1,
       parseInt(<string>this.day, StaticConf.STD_RADIX)
@@ -200,6 +219,11 @@ export class GhContribCalendarComponent implements OnDestroy, OnInit {
       s.complete();
       s.unsubscribe();
     }
+  }
+
+  /** @internal */
+  public ngOnInit(): void {
+    this.setupData();
   }
 
   /** @internal */
@@ -217,11 +241,6 @@ export class GhContribCalendarComponent implements OnDestroy, OnInit {
 
       this.to = td > currDate ? currDate : td;
     }
-  }
-
-  /** @internal */
-  public ngOnInit(): void {
-    this.setupData();
   }
 
   private setupData(): void {
@@ -250,9 +269,12 @@ export class GhContribCalendarComponent implements OnDestroy, OnInit {
       .catch((e: HttpErrorResponse) => {
         this.error.emit(e);
         this.user$.next(null);
-        setTimeout(() => {
-          this.setupData();
-        },         0);
+        setTimeout(
+          () => {
+            this.setupData();
+          },
+          0
+        );
 
         return of(null);
       });

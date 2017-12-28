@@ -27,9 +27,11 @@ function calculateOrder(input: ContributionCountOrder): ReadonlyArray<Contributi
   }
 }
 
+/** A basic UI translator */
 @Injectable()
 export class Translator {
 
+  /** Elements order */
   public order: ReadonlyArray<ContributionCountElement>;
 
   /** @internal */
@@ -41,19 +43,29 @@ export class Translator {
     this.registerTranslations(englishTranslations);
   }
 
+  /** Whether or not the number 0 should be hidden if there are no contributions on the given day */
   public get hideZero(): boolean {
     return this.result.hideZero;
   }
 
+  /**
+   * Register custom translations
+   * @param tr The translations
+   */
   public registerTranslations(tr: Partial<TranslationSpec>) {
     if (tr !== this.previousRegistration) {
       this.previousRegistration = tr;
-      this.result               = Object.assign({}, englishTranslations, tr || {});
-      this.order                = calculateOrder(this.result.order);
+      this.result = Object.assign({}, englishTranslations, tr || {});
+      this.order = calculateOrder(this.result.order);
       Object.freeze(this.order);
     }
   }
 
+  /**
+   * Set a predefined locale
+   * @param locale The locale
+   * @throws {Error} If the locale is unknown
+   */
   public setLocale(locale: Locale) {
     switch (locale) {
       case 'en':
@@ -70,6 +82,13 @@ export class Translator {
     }
   }
 
+  /**
+   * Translate a string
+   * @param key The code/id to translate
+   * @param qty If the translation is countable, the quantity
+   * @returns The translated string
+   * @throws {Error} If the key is unknown
+   */
   public translate(key: keyof Translations, qty?: number): string {
     const tr: Translation = this.result[key];
 

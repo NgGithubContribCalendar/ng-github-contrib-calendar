@@ -8,28 +8,29 @@ import {Chevron} from './Chevron/Chevron';
 import {DayDetails} from './DayDetails/DayDetails';
 import {LoadingBar} from './LoadingBar/LoadingBar';
 
+/** The main module */
 @NgModule({
-            declarations: [
-              GhContribCalendarComponent,
-              Chevron,
-              DayDetails,
-              LoadingBar
-            ],
-            exports:      [
-              GhContribCalendarComponent
-            ],
-            imports:      [
-              CommonModule,
-              HttpClientModule,
-              NgForageModule
-            ],
-            providers:    [
-              {
-                provide:  defaultFormatterFunction,
-                useValue: defaultFormatterFunction
-              }
-            ]
-          })
+  declarations: [
+    GhContribCalendarComponent,
+    Chevron,
+    DayDetails,
+    LoadingBar
+  ],
+  exports: [
+    GhContribCalendarComponent
+  ],
+  imports: [
+    CommonModule,
+    HttpClientModule,
+    NgForageModule
+  ],
+  providers: [
+    {
+      provide: defaultFormatterFunction,
+      useValue: defaultFormatterFunction
+    }
+  ]
+})
 export class GhContribCalendarModule {
 
 }
