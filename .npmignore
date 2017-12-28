@@ -3,7 +3,8 @@
 /.tmp/
 /.demo/
 /*.tgz
-/dist/
+/dist/styling/dark-theme.scss
+/dist/styling/light-theme.scss
 /.awcache
 /*.tmp.js
 /*.tmp.json
@@ -21,7 +22,7 @@
 /gulpfile.js
 /karma.conf.ts
 /karma-test-entry.ts
-/tscofig*
+/tsconfig*
 /tslint.json
 /webpack.config.js
 /src/
