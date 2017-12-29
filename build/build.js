@@ -36,7 +36,7 @@ const aotTask = isProd => {
       'inline-templates',
       'copy:demo-to-pre-aot',
       'compile:demo:aot:prepare',
-      `compile:demo:aot:finalise${isProd ? ':prod' : ''}`,
+      `compile:demo:aot:finalise`,
       lastStep,
       cb
     );

@@ -62,14 +62,6 @@ gulp.task('compile:demo:aot:finalise', () => {
   );
 });
 
-gulp.task('compile:demo:aot:finalise:prod', () => {
-  return spawn(
-    webpackPath,
-    ['--color', '--config', 'webpack.config.js'],
-    webpackEnv(MODE.DEMO_AOT, true)
-  );
-});
-
 gulp.task('compile:umd', ['clean:dist:umd'], () => {
   return spawn(
     webpackPath,
