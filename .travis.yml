@@ -14,7 +14,9 @@ std_job: &std_job
 
 stages:
   - *std_stage_name
-  - name: &deploy_stage_name Deploy
+  - name: GitHub Deploy
+    if: tag IS present
+  - name: NPM Deploy
     if: tag IS present
 
 before_install: &wake_server curl https://gh-contrib-parser-public.herokuapp.com/ping &
@@ -24,7 +26,7 @@ lint_job: &lint_job
   script: npm run tslint
 
 npm_deploy: &npm_deploy
-  stage: *deploy_stage_name
+  stage: NPM Deploy
   script: gulp build
   before_install: node ./ci/TravisMgr.js set-version
   deploy:
@@ -65,15 +67,7 @@ jobs:
         - gulp build
         - tsc -p tsconfig.json
         - npm test
-    - <<: *npm_deploy
-      env:
-        - CI_NG_VERSION=5
-        - PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1
-    - <<: *npm_deploy
-      env:
-        - CI_NG_VERSION=4
-        - PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1
-    - stage: *deploy_stage_name
+    - stage: GitHub Deploy
       before_install: node ./ci/TravisMgr.js set-version
       env:
         - CI_NG_VERSION=5
@@ -94,3 +88,11 @@ jobs:
             tags: true
           api_key: *gh_token_noenv
           file: documentation.tar.gz
+    - <<: *npm_deploy
+      env:
+        - CI_NG_VERSION=5
+        - PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1
+    - <<: *npm_deploy
+      env:
+        - CI_NG_VERSION=4
+        - PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1

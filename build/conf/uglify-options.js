@@ -26,7 +26,6 @@ Object.defineProperty(module, 'exports', {
         hoist_vars:    false,
         if_return:     true,
         join_vars:     true,
-        cascade:       true,
         collapse_vars: true,
         reduce_vars:   true,
         pure_getters:  false,
