@@ -9,15 +9,7 @@ cache:
 
 std_job: &std_job
   stage: &std_stage_name Test & Lint
-  addons:
-    apt:
-      packages:
-        - libnss3
-
-  before_install:
-    - "export DISPLAY=:99.0"
-    - "sh -e /etc/init.d/xvfb start"
-    - node ./ci/TravisMgr.js set-version
+  before_install: node ./ci/TravisMgr.js set-version
   after_success: cat ./coverage/lcov.info | coveralls
 
 stages:
