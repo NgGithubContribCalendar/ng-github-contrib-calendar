@@ -10,6 +10,7 @@ export default config => {
   const finalConfig: any = {
     // Base path that will be used to resolve all patterns (eg. files, exclude).
     basePath: './',
+    browserNoActivityTimeout: 30000,
 
     concurrency: cpus().length,
 
