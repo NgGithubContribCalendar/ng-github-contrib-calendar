@@ -1,0 +1,325 @@
+<!doctype html> <html class="no-js" lang=""> <head> <meta charset="utf-8"> <meta http-equiv="x-ua-compatible" content="ie=edge"> <title>GitHub Contrib Calendar</title> <meta name="description" content=""> <meta name="viewport" content="width=device-width,initial-scale=1"> <link rel="icon" type="image/x-icon" href="../images/favicon.ico"> <link rel="stylesheet" href="../styles/style.css"> <link rel="stylesheet" href="../styles/laravel.css"> </head> <body> <div class="navbar navbar-default navbar-fixed-top visible-xs"> <a href="../" class="navbar-brand">GitHub Contrib Calendar</a> <button type="button" class="btn btn-default btn-menu fa fa-bars" id="btn-menu"></button> </div> <div class="xs-menu menu" id="mobile-menu"> <div id="book-search-input" role="search"> <input type="text" placeholder="Type to search"> </div> <nav> <ul class="list"> <li class="title"> <a href="../index.html">GitHub Contrib Calendar</a> </li> <li class="divider"></li> <li class="chapter"> <a data-type="chapter-link" href="../index.html"><span class="fa fa-home"></span>Getting started</a> <ul class="links"> <li class="link"> <a href="../overview.html" href="../overview.html"> <span class="fa fa-th"></span>Overview </a> </li> <li class="link"> <a href="../index.html"><span class="fa fa-file-text-o"></span>README</a> </li> <li class="link"> <a href="../license.html"> <span class="fa fa-file-text-o"></span>LICENSE </a> </li> </ul> </li> <li class="chapter"> <a data-type="chapter-link" href="../modules.html"> <div class="menu-toggler linked" data-toggle="collapse" data-target="#xs-modules-links"> <span class="fa fa-archive"></span> <span class="link-name">Modules</span> <span class="fa fa-angle-down"></span> </div> </a> <ul class="links collapse" id="xs-modules-links"> <li class="link"> <a href="../modules/GhContribCalendarModule.html">GhContribCalendarModule</a> </li> </ul> </li> <li class="chapter"> <div class="simple menu-toggler" data-toggle="collapse" data-target="#xs-components-links"> <span class="fa fa-cogs"></span> <span>Components</span> <span class="fa fa-angle-down"></span> </div> <ul class="links collapse" id="xs-components-links"> <li class="link"> <a href="../components/Chevron.html">Chevron</a> </li> <li class="link"> <a href="../components/DayDetails.html">DayDetails</a> </li> <li class="link"> <a href="../components/GhContribCalendarComponent.html" data-type="entity-link" class="active">GhContribCalendarComponent</a> </li> <li class="link"> <a href="../components/LoadingBar.html">LoadingBar</a> </li> </ul> </li> <li class="chapter"> <div class="simple menu-toggler" data-toggle="collapse" data-target="#xs-injectables-links"> <span class="fa fa-long-arrow-down"></span> <span>Injectables</span> <span class="fa fa-angle-down"></span> </div> <ul class="links collapse" id="xs-injectables-links"> <li class="link"> <a href="../injectables/CalendarFetcher.html">CalendarFetcher</a> </li> <li class="link"> <a href="../injectables/Translator.html">Translator</a> </li> </ul> </li> <li class="chapter"> <div class="simple menu-toggler" data-toggle="collapse" data-target="#xs-interfaces-links"> <span class="fa fa-info"></span> <span>Interfaces</span> <span class="fa fa-angle-down"></span> </div> <ul class="links collapse" id="xs-interfaces-links"> <li class="link"> <a href="../interfaces/DynamicTranslation.html">DynamicTranslation</a> </li> <li class="link"> <a href="../interfaces/FormattedPayload.html">FormattedPayload</a> </li> <li class="link"> <a href="../interfaces/FormattedRect.html">FormattedRect</a> </li> <li class="link"> <a href="../interfaces/ProxyURLFormatterFunction.html">ProxyURLFormatterFunction</a> </li> <li class="link"> <a href="../interfaces/TranslationSpec.html">TranslationSpec</a> </li> <li class="link"> <a href="../interfaces/Translations.html">Translations</a> </li> </ul> </li> <li class="chapter"> <div class="simple menu-toggler" data-toggle="collapse" data-target="#xs-miscellaneous-links"> <span class="fa fa-cubes"></span> <span>Miscellaneous</span> <span class="fa fa-angle-down"></span> </div> <ul class="links collapse" id="xs-miscellaneous-links"> <li class="link"> <a href="../miscellaneous/enumerations.html" data-type="entity-link">Enums</a> </li> <li class="link"> <a href="../miscellaneous/typealiases.html" data-type="entity-link">Type aliases</a> </li> <li class="link"> <a href="../miscellaneous/variables.html" data-type="entity-link">Variables</a> </li> </ul> </li> <li class="chapter"> <a data-type="chapter-link" href="../coverage.html"><span class="fa fa-tasks"></span>Documentation coverage</a> </li> </ul> </nav> </div> <div class="container-fluid main"> <div class="row main"> <div class="hidden-xs menu"> <nav> <ul class="list"> <li class="title"> <a href="../index.html">GitHub Contrib Calendar</a> </li> <li class="divider"></li> <div id="book-search-input" role="search"> <input type="text" placeholder="Type to search"> </div> <li class="chapter"> <a data-type="chapter-link" href="../index.html"><span class="fa fa-home"></span>Getting started</a> <ul class="links"> <li class="link"> <a href="../overview.html" href="../overview.html"> <span class="fa fa-th"></span>Overview </a> </li> <li class="link"> <a href="../index.html"><span class="fa fa-file-text-o"></span>README</a> </li> <li class="link"> <a href="../license.html"> <span class="fa fa-file-text-o"></span>LICENSE </a> </li> </ul> </li> <li class="chapter"> <a data-type="chapter-link" href="../modules.html"> <div class="menu-toggler linked" data-toggle="collapse" data-target="#modules-links"> <span class="fa fa-archive"></span> <span class="link-name">Modules</span> <span class="fa fa-angle-down"></span> </div> </a> <ul class="links collapse" id="modules-links"> <li class="link"> <a href="../modules/GhContribCalendarModule.html">GhContribCalendarModule</a> </li> </ul> </li> <li class="chapter"> <div class="simple menu-toggler" data-toggle="collapse" data-target="#components-links"> <span class="fa fa-cogs"></span> <span>Components</span> <span class="fa fa-angle-down"></span> </div> <ul class="links collapse" id="components-links"> <li class="link"> <a href="../components/Chevron.html">Chevron</a> </li> <li class="link"> <a href="../components/DayDetails.html">DayDetails</a> </li> <li class="link"> <a href="../components/GhContribCalendarComponent.html" data-type="entity-link" class="active">GhContribCalendarComponent</a> </li> <li class="link"> <a href="../components/LoadingBar.html">LoadingBar</a> </li> </ul> </li> <li class="chapter"> <div class="simple menu-toggler" data-toggle="collapse" data-target="#injectables-links"> <span class="fa fa-long-arrow-down"></span> <span>Injectables</span> <span class="fa fa-angle-down"></span> </div> <ul class="links collapse" id="injectables-links"> <li class="link"> <a href="../injectables/CalendarFetcher.html">CalendarFetcher</a> </li> <li class="link"> <a href="../injectables/Translator.html">Translator</a> </li> </ul> </li> <li class="chapter"> <div class="simple menu-toggler" data-toggle="collapse" data-target="#interfaces-links"> <span class="fa fa-info"></span> <span>Interfaces</span> <span class="fa fa-angle-down"></span> </div> <ul class="links collapse" id="interfaces-links"> <li class="link"> <a href="../interfaces/DynamicTranslation.html">DynamicTranslation</a> </li> <li class="link"> <a href="../interfaces/FormattedPayload.html">FormattedPayload</a> </li> <li class="link"> <a href="../interfaces/FormattedRect.html">FormattedRect</a> </li> <li class="link"> <a href="../interfaces/ProxyURLFormatterFunction.html">ProxyURLFormatterFunction</a> </li> <li class="link"> <a href="../interfaces/TranslationSpec.html">TranslationSpec</a> </li> <li class="link"> <a href="../interfaces/Translations.html">Translations</a> </li> </ul> </li> <li class="chapter"> <div class="simple menu-toggler" data-toggle="collapse" data-target="#miscellaneous-links"> <span class="fa fa-cubes"></span> <span>Miscellaneous</span> <span class="fa fa-angle-down"></span> </div> <ul class="links collapse" id="miscellaneous-links"> <li class="link"> <a href="../miscellaneous/enumerations.html" data-type="entity-link">Enums</a> </li> <li class="link"> <a href="../miscellaneous/typealiases.html" data-type="entity-link">Type aliases</a> </li> <li class="link"> <a href="../miscellaneous/variables.html" data-type="entity-link">Variables</a> </li> </ul> </li> <li class="chapter"> <a data-type="chapter-link" href="../coverage.html"><span class="fa fa-tasks"></span>Documentation coverage</a> </li> </ul> </nav> </div> <div class="content component"> <div class="content-data"> <ol class="breadcrumb"> <li>Components</li> <li>GhContribCalendarComponent</li> </ol> <ul class="nav nav-tabs" role="tablist"> <li class="active"> <a href="#info" id="info-tab" role="tab" data-toggle="tab" data-link="info">Info</a> </li> <li> <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a> </li> <li> <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a> </li> <li> <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a> </li> </ul> <div class="tab-content"> <div class="tab-pane fade active in" id="c-info"><p class="comment"> </p><h3>File</h3> <p></p> <p class="comment"> <code>src/GhContribCalendar/CalendarComponent/GhContribCalendarComponent.ts</code> </p> <p class="comment"> </p><h3>Description</h3> <p></p> <p class="comment"> </p><p>The main calendar component </p> <p></p> <p class="comment"> </p><h3>Implements</h3> <p></p> <p class="comment"> <code><a href="https://angular.io/api/core/OnDestroy" target="_blank">OnDestroy</a></code> <code><a href="https://angular.io/api/core/OnInit" target="_blank">OnInit</a></code> </p> <section> <h3>Metadata</h3> <table class="table table-sm table-hover"> <tbody> <tr> <td class="col-md-3">changeDetection</td> <td class="col-md-9"><code>ChangeDetectionStrategy.OnPush</code></td> </tr> <tr> <td class="col-md-3">providers</td> <td class="col-md-9"> <code> Translator CalendarFetcher </code> </td> </tr> <tr> <td class="col-md-3">selector</td> <td class="col-md-9"><code>gh-contrib-calendar</code></td> </tr> <tr> <td class="col-md-3">styleUrls</td> <td class="col-md-9"><code>GhContribCalendarComponent.scss</code></td> </tr> <tr> <td class="col-md-3">templateUrl</td> <td class="col-md-9"><code>./GhContribCalendarComponent.pug</code></td> </tr> </tbody> </table> </section> <section> <h3 id="index">Index</h3> <table class="table table-sm table-bordered index-table"> <tbody> <tr> <td class="col-md-4"> <h6><b>Methods</b></h6> </td> </tr> <tr> <td class="col-md-4"> <ul class="index-list"> <li> <span class="modifier">Public</span> <a href="#ngOnDestroy">ngOnDestroy</a> </li> </ul> </td> </tr> <tr> <td class="col-md-4"> <h6><b>Inputs</b></h6> </td> </tr> <tr> <td class="col-md-4"> <ul class="index-list"> <li> <a href="#d">d</a> </li> <li> <a href="#formatter-fn">formatter-fn</a> </li> <li> <a href="#locale">locale</a> </li> <li> <a href="#m">m</a> </li> <li> <a href="#show-controls">show-controls</a> </li> <li> <a href="#to">to</a> </li> <li> <a href="#translations">translations</a> </li> <li> <a href="#user">user</a> </li> <li> <a href="#y">y</a> </li> </ul> </td> </tr> <tr> <td class="col-md-4"> <h6><b>Outputs</b></h6> </td> </tr> <tr> <td class="col-md-4"> <ul class="index-list"> <li> <a href="#error">error</a> </li> </ul> </td> </tr> <tr> <td class="col-md-4"> <h6><b>Accessors</b></h6> </td> </tr> <tr> <td class="col-md-4"> <ul class="index-list"> <li> <a href="#atMaxRange">atMaxRange</a> </li> <li> <a href="#day">day</a> </li> <li> <a href="#formatterFn">formatterFn</a> </li> <li> <a href="#locale">locale</a> </li> <li> <a href="#month">month</a> </li> <li> <a href="#to">to</a> </li> <li> <a href="#translations">translations</a> </li> <li> <a href="#user">user</a> </li> <li> <a href="#year">year</a> </li> </ul> </td> </tr> </tbody> </table> </section> <section> <h3 id="constructor">Constructor</h3> <table class="table table-sm table-bordered"> <tbody> <tr> <td class="col-md-4"> <code>constructor(cdr: , fetcher: <a href="../injectables/CalendarFetcher.html">CalendarFetcher</a>, tr: <a href="../injectables/Translator.html">Translator</a>)</code> </td> </tr> <tr> <td class="col-md-4"> <div class="io-line">Defined in <a href="" data-line="88" class="link-to-prism">src/GhContribCalendar/CalendarComponent/GhContribCalendarComponent.ts:88</a></div> </td> </tr> <tr> <td class="col-md-4"> <div> <b>Parameters :</b> <table class="params"> <thead> <tr> <td>Name</td> <td>Type</td> <td>Optional</td> <td>Description</td> </tr> </thead> <tbody> <tr> <td>cdr</td> <td> </td> <td> </td> <td></td> </tr> <tr> <td>fetcher</td> <td> <code><a href="../injectables/CalendarFetcher.html" target="_self">CalendarFetcher</a></code> </td> <td> </td> <td></td> </tr> <tr> <td>tr</td> <td> <code><a href="../injectables/Translator.html" target="_self">Translator</a></code> </td> <td> </td> <td></td> </tr> </tbody> </table> </div> </td> </tr> </tbody> </table> </section> <section> <h3 id="inputs">Inputs</h3> <table class="table table-sm table-bordered"> <tbody> <tr> <td class="col-md-2"> <a name="d"></a> <code>d</code> </td> <td class="col-md-10"> <div><p>The entered day setter </p> </div> </td> </tr> <tr> <td class="col-md-2" colspan="2"> <div class="io-line">Defined in <a href="" data-line="110" class="link-to-prism">src/GhContribCalendar/CalendarComponent/GhContribCalendarComponent.ts:110</a></div> </td> </tr> </tbody> </table> <table class="table table-sm table-bordered"> <tbody> <tr> <td class="col-md-2"> <a name="formatter-fn"></a> <code>formatter-fn</code> </td> <td class="col-md-10"> <div><p>Proxy formatter function setter </p> </div> </td> </tr> <tr> <td class="col-md-2" colspan="2"> <div class="io-line">Defined in <a href="" data-line="121" class="link-to-prism">src/GhContribCalendar/CalendarComponent/GhContribCalendarComponent.ts:121</a></div> </td> </tr> </tbody> </table> <table class="table table-sm table-bordered"> <tbody> <tr> <td class="col-md-2"> <a name="locale"></a> <code>locale</code> </td> <td class="col-md-10"> <div><p>Locale setter </p> </div> </td> </tr> <tr> <td class="col-md-2" colspan="2"> <div class="io-line">Defined in <a href="" data-line="131" class="link-to-prism">src/GhContribCalendar/CalendarComponent/GhContribCalendarComponent.ts:131</a></div> </td> </tr> </tbody> </table> <table class="table table-sm table-bordered"> <tbody> <tr> <td class="col-md-2"> <a name="m"></a> <code>m</code> </td> <td class="col-md-10"> <div><p>Entered month setter </p> </div> </td> </tr> <tr> <td class="col-md-2" colspan="2"> <div class="io-line">Defined in <a href="" data-line="142" class="link-to-prism">src/GhContribCalendar/CalendarComponent/GhContribCalendarComponent.ts:142</a></div> </td> </tr> </tbody> </table> <table class="table table-sm table-bordered"> <tbody> <tr> <td class="col-md-2"> <a name="show-controls"></a> <code>show-controls</code> </td> <td class="col-md-10"> <div><p>Whether or not the controls for changing the year should be shown </p> </div> <p> <em>Default value: </em><code>true</code> </p> </td> </tr> <tr> <td class="col-md-2" colspan="2"> <div class="io-line">Defined in <a href="" data-line="64" class="link-to-prism">src/GhContribCalendar/CalendarComponent/GhContribCalendarComponent.ts:64</a></div> </td> </tr> </tbody> </table> <table class="table table-sm table-bordered"> <tbody> <tr> <td class="col-md-2"> <a name="to"></a> <code>to</code> </td> <td class="col-md-10"> <div><p>Entered date setter </p> </div> </td> </tr> <tr> <td class="col-md-2" colspan="2"> <div class="io-line">Defined in <a href="" data-line="148" class="link-to-prism">src/GhContribCalendar/CalendarComponent/GhContribCalendarComponent.ts:148</a></div> </td> </tr> </tbody> </table> <table class="table table-sm table-bordered"> <tbody> <tr> <td class="col-md-2"> <a name="translations"></a> <code>translations</code> </td> <td class="col-md-10"> <div><p>Custom translations setter </p> </div> </td> </tr> <tr> <td class="col-md-2" colspan="2"> <div class="io-line">Defined in <a href="" data-line="163" class="link-to-prism">src/GhContribCalendar/CalendarComponent/GhContribCalendarComponent.ts:163</a></div> </td> </tr> </tbody> </table> <table class="table table-sm table-bordered"> <tbody> <tr> <td class="col-md-2"> <a name="user"></a> <code>user</code> </td> <td class="col-md-10"> <div><p>Entered user setter </p> </div> <p> <em>Type:</em> <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a></code> </p> </td> </tr> <tr> <td class="col-md-2" colspan="2"> <div class="io-line">Defined in <a href="" data-line="174" class="link-to-prism">src/GhContribCalendar/CalendarComponent/GhContribCalendarComponent.ts:174</a></div> </td> </tr> </tbody> </table> <table class="table table-sm table-bordered"> <tbody> <tr> <td class="col-md-2"> <a name="y"></a> <code>y</code> </td> <td class="col-md-10"> <div><p>Entered year setter </p> </div> </td> </tr> <tr> <td class="col-md-2" colspan="2"> <div class="io-line">Defined in <a href="" data-line="189" class="link-to-prism">src/GhContribCalendar/CalendarComponent/GhContribCalendarComponent.ts:189</a></div> </td> </tr> </tbody> </table> </section> <section> <h3 id="outputs">Outputs</h3> <table class="table table-sm table-bordered"> <tbody> <tr> <td class="col-md-2"> <a name="error"></a> <code>error</code> </td> <td class="col-md-10"> <div><p>Any errors that occurred </p> </div> <em><code>$event</code> type:</em> <code><a href="https://angular.io/api/core/EventEmitter" target="_blank">EventEmitter</a></code> </td> </tr> <tr> <td class="col-md-2" colspan="2"> <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/GhContribCalendar/CalendarComponent/GhContribCalendarComponent.ts:60</a></div> </td> </tr> </tbody> </table> </section> <section> <h3 id="methods"> Methods </h3> <table class="table table-sm table-bordered"> <tbody> <tr> <td class="col-md-4"> <a name="ngOnDestroy"></a> <span class="name"> <b> <span class="modifier">Public</span> ngOnDestroy </b> <a href="#ngOnDestroy"><span class="fa fa-link"></span></a> </span> </td> </tr> <tr> <td class="col-md-4"> <span class="modifier-icon fa fa-reset"></span> <code>ngOnDestroy()</code> </td> </tr> <tr> <td class="col-md-4"> <div class="io-line">Defined in <a href="" data-line="217" class="link-to-prism">src/GhContribCalendar/CalendarComponent/GhContribCalendarComponent.ts:217</a></div> </td> </tr> <tr> <td class="col-md-4"> <div class="io-description"> <b>Returns : </b> <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">void</a></code> </div> </td> </tr> </tbody> </table> </section> <section> <h3 id="accessors"> Accessors </h3> <table class="table table-sm table-bordered"> <tbody> <tr> <td class="col-md-4"> <a name="atMaxRange"></a> <span class="name"><b>atMaxRange</b><a href="#atMaxRange"><span class="fa fa-link"></span></a></span> </td> </tr> <tr> <td class="col-md-4"> <span class="accessor"><b>get</b><code>atMaxRange()</code></span> </td> </tr> <tr> <td class="col-md-4"> <div class="io-line">Defined in <a href="" data-line="99" class="link-to-prism">src/GhContribCalendar/CalendarComponent/GhContribCalendarComponent.ts:99</a></div> </td> </tr> <tr> <td class="col-md-4"> <div class="io-description"><p>Whether or not the entered date is today </p> </div> <div class="io-description"> <b>Returns : </b> <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a></code> </div> </td> </tr> </tbody> </table> <table class="table table-sm table-bordered"> <tbody> <tr> <td class="col-md-4"> <a name="day"></a> <span class="name"><b>day</b><a href="#day"><span class="fa fa-link"></span></a></span> </td> </tr> <tr> <td class="col-md-4"> <span class="accessor"><b>get</b><code>day()</code></span> </td> </tr> <tr> <td class="col-md-4"> <div class="io-line">Defined in <a href="" data-line="104" class="link-to-prism">src/GhContribCalendar/CalendarComponent/GhContribCalendarComponent.ts:104</a></div> </td> </tr> <tr> <td class="col-md-4"> <div class="io-description"><p>The entered day getter </p> </div> <div class="io-description"> <b>Returns : </b> <code><a href="../miscellaneous/typealiases.html#Day" target="_self">Day</a></code> </div> </td> </tr> <tr> <td class="col-md-4"> <span class="accessor"><b>set</b><code>day(v: )</code></span> </td> </tr> <tr> <td class="col-md-4"> <div class="io-line">Defined in <a href="" data-line="110" class="link-to-prism">src/GhContribCalendar/CalendarComponent/GhContribCalendarComponent.ts:110</a></div> </td> </tr> <tr> <td class="col-md-4"> <div class="io-description"><p>The entered day setter </p> </div> <div class="io-description"> <b>Parameters :</b> <table class="params"> <thead> <tr> <td>Name</td> <td>Type</td> <td>Optional</td> <td>Description</td> </tr> </thead> <tbody> <tr> <td>v</td> <td> </td> <td> </td> <td></td> </tr> </tbody> </table> </div> <div> </div> <div class="io-description"> <b>Returns : </b> <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">void</a></code> </div> </td> </tr> </tbody> </table> <table class="table table-sm table-bordered"> <tbody> <tr> <td class="col-md-4"> <a name="formatterFn"></a> <span class="name"><b>formatterFn</b><a href="#formatterFn"><span class="fa fa-link"></span></a></span> </td> </tr> <tr> <td class="col-md-4"> <span class="accessor"><b>get</b><code>formatterFn()</code></span> </td> </tr> <tr> <td class="col-md-4"> <div class="io-line">Defined in <a href="" data-line="115" class="link-to-prism">src/GhContribCalendar/CalendarComponent/GhContribCalendarComponent.ts:115</a></div> </td> </tr> <tr> <td class="col-md-4"> <div class="io-description"><p>Proxy formatter function getter </p> </div> <div class="io-description"> <b>Returns : </b> <code><a href="../interfaces/ProxyURLFormatterFunction.html" target="_self">ProxyURLFormatterFunction</a></code> </div> </td> </tr> <tr> <td class="col-md-4"> <span class="accessor"><b>set</b><code>formatterFn(fn: )</code></span> </td> </tr> <tr> <td class="col-md-4"> <div class="io-line">Defined in <a href="" data-line="121" class="link-to-prism">src/GhContribCalendar/CalendarComponent/GhContribCalendarComponent.ts:121</a></div> </td> </tr> <tr> <td class="col-md-4"> <div class="io-description"><p>Proxy formatter function setter </p> </div> <div class="io-description"> <b>Parameters :</b> <table class="params"> <thead> <tr> <td>Name</td> <td>Type</td> <td>Optional</td> <td>Description</td> </tr> </thead> <tbody> <tr> <td>fn</td> <td> </td> <td> </td> <td></td> </tr> </tbody> </table> </div> <div> </div> <div class="io-description"> <b>Returns : </b> <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">void</a></code> </div> </td> </tr> </tbody> </table> <table class="table table-sm table-bordered"> <tbody> <tr> <td class="col-md-4"> <a name="locale"></a> <span class="name"><b>locale</b><a href="#locale"><span class="fa fa-link"></span></a></span> </td> </tr> <tr> <td class="col-md-4"> <span class="accessor"><b>set</b><code>locale(val: )</code></span> </td> </tr> <tr> <td class="col-md-4"> <div class="io-line">Defined in <a href="" data-line="131" class="link-to-prism">src/GhContribCalendar/CalendarComponent/GhContribCalendarComponent.ts:131</a></div> </td> </tr> <tr> <td class="col-md-4"> <div class="io-description"><p>Locale setter </p> </div> <div class="io-description"> <b>Parameters :</b> <table class="params"> <thead> <tr> <td>Name</td> <td>Type</td> <td>Optional</td> <td>Description</td> </tr> </thead> <tbody> <tr> <td>val</td> <td> </td> <td> </td> <td></td> </tr> </tbody> </table> </div> <div> </div> <div class="io-description"> <b>Returns : </b> <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">void</a></code> </div> </td> </tr> </tbody> </table> <table class="table table-sm table-bordered"> <tbody> <tr> <td class="col-md-4"> <a name="month"></a> <span class="name"><b>month</b><a href="#month"><span class="fa fa-link"></span></a></span> </td> </tr> <tr> <td class="col-md-4"> <span class="accessor"><b>get</b><code>month()</code></span> </td> </tr> <tr> <td class="col-md-4"> <div class="io-line">Defined in <a href="" data-line="136" class="link-to-prism">src/GhContribCalendar/CalendarComponent/GhContribCalendarComponent.ts:136</a></div> </td> </tr> <tr> <td class="col-md-4"> <div class="io-description"><p>Entered month getter </p> </div> <div class="io-description"> <b>Returns : </b> <code><a href="../miscellaneous/typealiases.html#Month" target="_self">Month</a></code> </div> </td> </tr> <tr> <td class="col-md-4"> <span class="accessor"><b>set</b><code>month(v: )</code></span> </td> </tr> <tr> <td class="col-md-4"> <div class="io-line">Defined in <a href="" data-line="142" class="link-to-prism">src/GhContribCalendar/CalendarComponent/GhContribCalendarComponent.ts:142</a></div> </td> </tr> <tr> <td class="col-md-4"> <div class="io-description"><p>Entered month setter </p> </div> <div class="io-description"> <b>Parameters :</b> <table class="params"> <thead> <tr> <td>Name</td> <td>Type</td> <td>Optional</td> <td>Description</td> </tr> </thead> <tbody> <tr> <td>v</td> <td> </td> <td> </td> <td></td> </tr> </tbody> </table> </div> <div> </div> <div class="io-description"> <b>Returns : </b> <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">void</a></code> </div> </td> </tr> </tbody> </table> <table class="table table-sm table-bordered"> <tbody> <tr> <td class="col-md-4"> <a name="to"></a> <span class="name"><b>to</b><a href="#to"><span class="fa fa-link"></span></a></span> </td> </tr> <tr> <td class="col-md-4"> <span class="accessor"><b>set</b><code>to(v: )</code></span> </td> </tr> <tr> <td class="col-md-4"> <div class="io-line">Defined in <a href="" data-line="148" class="link-to-prism">src/GhContribCalendar/CalendarComponent/GhContribCalendarComponent.ts:148</a></div> </td> </tr> <tr> <td class="col-md-4"> <div class="io-description"><p>Entered date setter </p> </div> <div class="io-description"> <b>Parameters :</b> <table class="params"> <thead> <tr> <td>Name</td> <td>Type</td> <td>Optional</td> <td>Description</td> </tr> </thead> <tbody> <tr> <td>v</td> <td> </td> <td> </td> <td></td> </tr> </tbody> </table> </div> <div> </div> <div class="io-description"> <b>Returns : </b> <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">void</a></code> </div> </td> </tr> </tbody> </table> <table class="table table-sm table-bordered"> <tbody> <tr> <td class="col-md-4"> <a name="translations"></a> <span class="name"><b>translations</b><a href="#translations"><span class="fa fa-link"></span></a></span> </td> </tr> <tr> <td class="col-md-4"> <span class="accessor"><b>set</b><code>translations(val: )</code></span> </td> </tr> <tr> <td class="col-md-4"> <div class="io-line">Defined in <a href="" data-line="163" class="link-to-prism">src/GhContribCalendar/CalendarComponent/GhContribCalendarComponent.ts:163</a></div> </td> </tr> <tr> <td class="col-md-4"> <div class="io-description"><p>Custom translations setter </p> </div> <div class="io-description"> <b>Parameters :</b> <table class="params"> <thead> <tr> <td>Name</td> <td>Type</td> <td>Optional</td> <td>Description</td> </tr> </thead> <tbody> <tr> <td>val</td> <td> </td> <td> </td> <td></td> </tr> </tbody> </table> </div> <div> </div> <div class="io-description"> <b>Returns : </b> <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">void</a></code> </div> </td> </tr> </tbody> </table> <table class="table table-sm table-bordered"> <tbody> <tr> <td class="col-md-4"> <a name="user"></a> <span class="name"><b>user</b><a href="#user"><span class="fa fa-link"></span></a></span> </td> </tr> <tr> <td class="col-md-4"> <span class="accessor"><b>get</b><code>user()</code></span> </td> </tr> <tr> <td class="col-md-4"> <div class="io-line">Defined in <a href="" data-line="168" class="link-to-prism">src/GhContribCalendar/CalendarComponent/GhContribCalendarComponent.ts:168</a></div> </td> </tr> <tr> <td class="col-md-4"> <div class="io-description"><p>Entered user getter </p> </div> <div class="io-description"> <b>Returns : </b> <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a></code> </div> </td> </tr> <tr> <td class="col-md-4"> <span class="accessor"><b>set</b><code>user(user: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code></span> </td> </tr> <tr> <td class="col-md-4"> <div class="io-line">Defined in <a href="" data-line="174" class="link-to-prism">src/GhContribCalendar/CalendarComponent/GhContribCalendarComponent.ts:174</a></div> </td> </tr> <tr> <td class="col-md-4"> <div class="io-description"><p>Entered user setter </p> </div> <div class="io-description"> <b>Parameters :</b> <table class="params"> <thead> <tr> <td>Name</td> <td>Type</td> <td>Optional</td> <td>Description</td> </tr> </thead> <tbody> <tr> <td>user</td> <td> <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a></code> </td> <td> </td> <td></td> </tr> </tbody> </table> </div> <div> </div> <div class="io-description"> <b>Returns : </b> <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">void</a></code> </div> </td> </tr> </tbody> </table> <table class="table table-sm table-bordered"> <tbody> <tr> <td class="col-md-4"> <a name="year"></a> <span class="name"><b>year</b><a href="#year"><span class="fa fa-link"></span></a></span> </td> </tr> <tr> <td class="col-md-4"> <span class="accessor"><b>get</b><code>year()</code></span> </td> </tr> <tr> <td class="col-md-4"> <div class="io-line">Defined in <a href="" data-line="183" class="link-to-prism">src/GhContribCalendar/CalendarComponent/GhContribCalendarComponent.ts:183</a></div> </td> </tr> <tr> <td class="col-md-4"> <div class="io-description"><p>Entered year getter </p> </div> <div class="io-description"> <b>Returns : </b> <code>number | string</code> </div> </td> </tr> <tr> <td class="col-md-4"> <span class="accessor"><b>set</b><code>year(v: )</code></span> </td> </tr> <tr> <td class="col-md-4"> <div class="io-line">Defined in <a href="" data-line="189" class="link-to-prism">src/GhContribCalendar/CalendarComponent/GhContribCalendarComponent.ts:189</a></div> </td> </tr> <tr> <td class="col-md-4"> <div class="io-description"><p>Entered year setter </p> </div> <div class="io-description"> <b>Parameters :</b> <table class="params"> <thead> <tr> <td>Name</td> <td>Type</td> <td>Optional</td> <td>Description</td> </tr> </thead> <tbody> <tr> <td>v</td> <td> </td> <td> </td> <td></td> </tr> </tbody> </table> </div> <div> </div> <div class="io-description"> <b>Returns : </b> <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">void</a></code> </div> </td> </tr> </tbody> </table> </section> </div> <div class="tab-pane fade tab-source-code" id="c-source"> <pre class="line-numbers"><code class="language-typescript">import {HttpErrorResponse} from '@angular/common/http';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output
+} from '@angular/core';
+import {IRect} from '@ng-github-contrib-calendar/common-types';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/share';
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/toPromise';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {Observable} from 'rxjs/Observable';
+import {combineLatest} from 'rxjs/observable/combineLatest';
+import {of} from 'rxjs/observable/of';
+import {CalendarFetcher} from '../CalendarFetcher/CalendarFetcher';
+import {FormattedPayload} from '../CalendarFetcher/Formatted';
+import {ProxyURLFormatterFunction} from '../CalendarFetcher/ProxyURLFormatterFunction';
+import {Translator} from '../Translate/Translator';
+import {Locale} from '../Translate/types/Locale';
+import {TranslationSpec} from '../Translate/types/TranslationSpec';
+import {Day, Month, NumericDay, NumericMonth} from '../util/CalendarTypes';
+import {StaticConf} from '../util/StaticConf';
+
+/** @internal */
+const currDate = new Date();
+currDate.setUTCHours(0, 0, 0, 0);
+
+/** The main calendar component */
+@Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [Translator, CalendarFetcher],
+  selector: 'gh-contrib-calendar',
+  styleUrls: ['./GhContribCalendarComponent.scss'],
+  templateUrl: './GhContribCalendarComponent.pug'
+})
+export class GhContribCalendarComponent implements OnDestroy, OnInit {
+
+  /** @internal */
+  public _enteredRect: IRect;
+
+  /** @internal */
+  public _numLoading = 0;
+
+  /** @internal */
+  public data: Observable&lt;FormattedPayload>;
+
+  /** Any errors that occurred */
+  @Output('error')
+  public readonly error = new EventEmitter&lt;HttpErrorResponse>();
+
+  /** Whether or not the controls for changing the year should be shown */
+  @Input('show-controls')
+  public showControls = true;
+
+  /** @internal */
+  public readonly tr: Translator;
+
+  /** @internal */
+  public readonly user$ = new BehaviorSubject&lt;string>(null);
+
+  /** @internal */
+  private readonly cdr: ChangeDetectorRef;
+
+  /** @internal */
+  private readonly d$ = new BehaviorSubject&lt;Day>(&lt;NumericDay>currDate.getUTCDate());
+
+  /** @internal */
+  private readonly fetcher: CalendarFetcher;
+
+  /** @internal */
+  private readonly formatterFn$ = new BehaviorSubject&lt;ProxyURLFormatterFunction>(null);
+
+  /** @internal */
+  private readonly m$ = new BehaviorSubject&lt;Month>(&lt;NumericMonth>(currDate.getUTCMonth() + 1));
+
+  /** @internal */
+  private readonly y$ = new BehaviorSubject&lt;number | string>(currDate.getUTCFullYear());
+
+  public constructor(@Inject(ChangeDetectorRef) cdr,
+                     @Inject(CalendarFetcher) fetcher: CalendarFetcher,
+                     @Inject(Translator) tr: Translator) {
+    this.tr = tr;
+    this.fetcher = fetcher;
+    this.cdr = cdr;
+  }
+
+  /** Whether or not the entered date is today */
+  public get atMaxRange(): boolean {
+    return currDate.getTime() === this.toDate.getTime();
+  }
+
+  /** The entered day getter */
+  public get day(): Day {
+    return this.d$.value;
+  }
+
+  /** The entered day setter */
+  @Input('d')
+  public set day(v: Day) {
+    this.d$.next(v);
+  }
+
+  /** Proxy formatter function getter */
+  public get formatterFn(): ProxyURLFormatterFunction {
+    return this.formatterFn$.value;
+  }
+
+  /** Proxy formatter function setter */
+  @Input('formatter-fn')
+  public set formatterFn(fn: ProxyURLFormatterFunction) {
+    if (!fn || typeof fn === 'function') {
+      this.formatterFn$.next(fn);
+    } else {
+      throw new Error('formatter-fn must be falsy or a function');
+    }
+  }
+
+  /** Locale setter */
+  @Input('locale')
+  public set locale(val: Locale) {
+    this.tr.setLocale(val);
+  }
+
+  /** Entered month getter */
+  public get month(): Month {
+    return this.m$.value;
+  }
+
+  /** Entered month setter */
+  @Input('m')
+  public set month(v: Month) {
+    this.m$.next(v);
+  }
+
+  /** Entered date setter */
+  @Input('to')
+  public set to(v: Date | string) {
+    if (typeof v === 'string' && /^[0-9]{4}\-[0-9]{2}\-[0-9]{2}$/.test(v)) {
+      const spl: string[] = v.split('-');
+      this.year = spl[0];
+      this.month = &lt;Month>spl[1]; // tslint:disable-line:no-magic-numbers
+      this.day = &lt;Day>spl[2]; // tslint:disable-line:no-magic-numbers
+    } else if (v instanceof Date) {
+      this.year = v.getUTCFullYear();
+      this.month = &lt;Month>(v.getUTCMonth() + 1);
+      this.day = &lt;Day>v.getUTCDate();
+    }
+  }
+
+  /** Custom translations setter */
+  @Input('translations')
+  public set translations(val: Partial&lt;TranslationSpec>) {
+    this.tr.registerTranslations(val);
+  }
+
+  /** Entered user getter */
+  public get user(): string {
+    return this.user$.value;
+  }
+
+  /** Entered user setter */
+  @Input('user')
+  public set user(user: string) {
+    if (this.user && user !== this.user) {
+      this.to = currDate;
+    }
+
+    this.user$.next(user);
+  }
+
+  /** Entered year getter */
+  public get year(): number | string {
+    return this.y$.value;
+  }
+
+  /** Entered year setter */
+  @Input('y')
+  public set year(v: number | string) {
+    this.y$.next(v);
+  }
+
+  /** @internal */
+  private get numLoading(): number {
+    return this._numLoading;
+  }
+
+  /** @internal */
+  private set numLoading(num: number) {
+    this._numLoading = num;
+    this.cdr.detectChanges();
+  }
+
+  /** @internal */
+  private get toDate(): Date {
+    const d = new Date();
+    d.setUTCHours(0, 0, 0, 0);
+    d.setUTCFullYear(
+      parseInt(&lt;string>this.year, StaticConf.STD_RADIX),
+      parseInt(&lt;string>this.month, StaticConf.STD_RADIX) - 1,
+      parseInt(&lt;string>this.day, StaticConf.STD_RADIX)
+    );
+
+    return d;
+  }
+
+  public ngOnDestroy(): void {
+    for (const s of [this.user$, this.y$, this.m$, this.d$, this.formatterFn$]) {
+      s.complete();
+      s.unsubscribe();
+    }
+  }
+
+  /** @internal */
+  public ngOnInit(): void {
+    this.setupData();
+  }
+
+  /** @internal */
+  public transformAtIndex(index: number): string {
+    return `translate(${index * StaticConf.OUTER_G_TRANSFORM_MULTIPLIER},0)`;
+  }
+
+  /** @internal */
+  public updateRange(dir: 1 | -1) {
+    if (dir === -1) {
+      this.y$.next(parseInt(&lt;string>this.year, StaticConf.STD_RADIX) - 1);
+    } else {
+      const td = this.toDate;
+      td.setUTCFullYear(td.getUTCFullYear() + 1);
+
+      this.to = td > currDate ? currDate : td;
+    }
+  }
+
+  private setupData(): void {
+    const decrease = () => {
+      this.numLoading--;
+    };
+
+    const data = combineLatest(
+      this.user$.distinctUntilChanged(),
+      this.y$.distinctUntilChanged(),
+      this.m$.map(formatAndPad).distinctUntilChanged(),
+      this.d$.map(formatAndPad).distinctUntilChanged(),
+      this.formatterFn$
+    )
+      .filter((v: any[]) => !!v[0])
+      .debounceTime(StaticConf.FETCH_DEBOUNCE_TIME)
+      .switchMap((v: [string, string | number, string, string, ProxyURLFormatterFunction]) => {
+        this.numLoading++;
+        // tslint:disable-next-line:no-magic-numbers
+        const r = this.fetcher.fetch(v[0], v[1], v[2], v[3], v[4]).share();
+
+        r.toPromise().then(decrease).catch(decrease);
+
+        return r;
+      })
+      .catch((e: HttpErrorResponse) => {
+        this.error.emit(e);
+        this.user$.next(null);
+        setTimeout(
+          () => {
+            this.setupData();
+          },
+          0
+        );
+
+        return of(null);
+      });
+
+    this.data = data.filter(v => !!v).share();
+  }
+}
+
+/** @internal */
+function formatAndPad(v: Month | Day): string {
+  const stringified: string = v.toString();
+
+  return stringified.length === 1 ? '0' + stringified : stringified;
+}
+</code></pre> </div> <div class="tab-pane fade" id="c-templateData"> <pre class="line-numbers"><code class="language-html">.flex.col
+  gh-loading-bar([style.visibility]='_numLoading > 0 ? "visible" : "hidden"')
+  ng-container(*ngIf='data|async as data')
+    .gh-calendar-container
+      svg.gh-calendar
+        g(transform='translate(16,20)')
+          g([attr.transform]='transformAtIndex(gi)', *ngFor='let g of data.gs; index as gi')
+            rect.gh-calendar-day(
+            *ngFor='let rect of g; index as ri',
+            [attr.x]='13 - gi',
+            [attr.y]='12 * ri',
+            [ngClass]="'l-' + rect.fill",
+            (mouseenter)='_enteredRect=rect',
+            (mouseleave)='_enteredRect=null'
+            )
+          text.gh-calendar-month(y='-10', [attr.x]='mth.x', *ngFor='let mth of data.months') {{tr.translate(mth.txt)}}
+          text.gh-calendar-wday(text-anchor='start', dx='-14', dy='20') {{tr.translate('Monday')}}
+          text.gh-calendar-wday(text-anchor='start', dx='-14', dy='44') {{tr.translate('Wednesday')}}
+          text.gh-calendar-wday(text-anchor='start', dx='-14', dy='69') {{tr.translate('Friday')}}
+    .gh-footer.flex.row.sp-bw
+      div
+        button(*ngIf='showControls', chevron-btn, chevron='left', (click)='updateRange(-1)')
+      gh-contrib-calendar-details(
+      *ngIf='_enteredRect',
+      [tr]='tr',
+      [date]='_enteredRect.date',
+      [count]='_enteredRect.count'
+      )
+      div
+        button(*ngIf='showControls', chevron-btn, chevron='right', (click)='updateRange(1)', [disabled]='atMaxRange')
+</code></pre> </div> <div class="tab-pane fade" id="c-tree"> <div id="tree-container"></div> <div class="tree-legend"> <div class="title"> <b>Legend</b> </div> <div> <div class="color htmlelement"></div><span>Html element</span> </div> <div> <div class="color component"></div><span>Component</span> </div> <div> <div class="color directive"></div><span>Html element with directive</span> </div> </div> </div> </div> <script src="../js/libs/vis.min.js"></script> <script src="../js/libs/htmlparser.js"></script> <script src="../js/libs/deep-iterator.js"></script> <script> var COMPONENT_TEMPLATE = '<div>.flex.col  gh-loading-bar([style.visibility]=\'_numLoading > 0 ? "visible" : "hidden"\')  ng-container(*ngIf=\'data|async as data\')    .gh-calendar-container      svg.gh-calendar        g(transform=\'translate(16,20)\')          g([attr.transform]=\'transformAtIndex(gi)\', *ngFor=\'let g of data.gs; index as gi\')            rect.gh-calendar-day(            *ngFor=\'let rect of g; index as ri\',            [attr.x]=\'13 - gi\',            [attr.y]=\'12 * ri\',            [ngClass]="\'l-\' + rect.fill",            (mouseenter)=\'_enteredRect=rect\',            (mouseleave)=\'_enteredRect=null\'            )          text.gh-calendar-month(y=\'-10\', [attr.x]=\'mth.x\', *ngFor=\'let mth of data.months\') {{tr.translate(mth.txt)}}          text.gh-calendar-wday(text-anchor=\'start\', dx=\'-14\', dy=\'20\') {{tr.translate(\'Monday\')}}          text.gh-calendar-wday(text-anchor=\'start\', dx=\'-14\', dy=\'44\') {{tr.translate(\'Wednesday\')}}          text.gh-calendar-wday(text-anchor=\'start\', dx=\'-14\', dy=\'69\') {{tr.translate(\'Friday\')}}    .gh-footer.flex.row.sp-bw      div        button(*ngIf=\'showControls\', chevron-btn, chevron=\'left\', (click)=\'updateRange(-1)\')      gh-contrib-calendar-details(      *ngIf=\'_enteredRect\',      [tr]=\'tr\',      [date]=\'_enteredRect.date\',      [count]=\'_enteredRect.count\'      )      div        button(*ngIf=\'showControls\', chevron-btn, chevron=\'right\', (click)=\'updateRange(1)\', [disabled]=\'atMaxRange\')</div>'
+    var COMPONENTS = [{'name': 'Chevron', 'selector': 'button[chevron-btn]'},{'name': 'DayDetails', 'selector': 'gh-contrib-calendar-details'},{'name': 'GhContribCalendarComponent', 'selector': 'gh-contrib-calendar'},{'name': 'LoadingBar', 'selector': 'gh-loading-bar'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'GhContribCalendarComponent'}; </script> <script src="../js/tree.js"></script> </div><div class="search-results"> <div class="has-results"> <h1 class="search-results-title"><span class="search-results-count"></span> results matching "<span class="search-query"></span>"</h1> <ul class="search-results-list"></ul> </div> <div class="no-results"> <h1 class="search-results-title">No results matching "<span class="search-query"></span>"</h1> </div> </div> </div> </div> </div> <script src="../js/libs/bootstrap-native.js"></script> <script src="../js/libs/es6-shim.min.js"></script> <script src="../js/libs/EventDispatcher.js"></script> <script src="../js/libs/promise.min.js"></script> <script src="../js/libs/zepto.min.js"></script> <script src="../js/compodoc.js"></script> <script>var COMPODOC_CURRENT_PAGE_DEPTH = 1;</script> <script src="../js/search/search.js"></script> <script src="../js/search/lunr.min.js"></script> <script src="../js/search/search-lunr.js"></script> <script src="../js/tabs.js"></script> <script src="../js/menu.js"></script> <script src="../js/libs/prism.js"></script> <script src="../js/sourceCode.js"></script> <script src="../js/search/search_index.js"></script> </body> </html> 

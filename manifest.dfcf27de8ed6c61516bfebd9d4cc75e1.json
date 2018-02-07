@@ -1,0 +1,52 @@
+{
+  "icons": [
+    {
+      "src": "icon_64x64.36a5318334b82cf8b41b79b2a82497fb.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    },
+    {
+      "src": "icon_512x512.15e92e6458e3ae655674169a10c728af.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "icon_32x32.d4a616e8b743136717f38bacbf6e5d1e.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "icon_256x256.6aec2b6b2c4c30e64ec46372a35424b8.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "icon_2048x2048.f68dfe36715aa80a995823cb27e51c60.png",
+      "sizes": "2048x2048",
+      "type": "image/png"
+    },
+    {
+      "src": "icon_16x16.3be9e2630d7fd2905af0f036ee796abc.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "icon_128x128.a2b76f7deb2e7ccf49da06a083c51fab.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "icon_1024x1024.8b2c91eda5fc74d8b7b616f7f8c63b93.png",
+      "sizes": "1024x1024",
+      "type": "image/png"
+    }
+  ],
+  "name": "Angular GitHub contrib calendar",
+  "short_name": "GH Calendar",
+  "orientation": "portrait",
+  "display": "standalone",
+  "start_url": ".",
+  "description": "An Angular 4 & 5 component for displaying a GitHub contributions calendar",
+  "background_color": "#ffffff",
+  "theme_color": "#4caf50"
+}
