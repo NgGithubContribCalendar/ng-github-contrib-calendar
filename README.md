@@ -4,10 +4,11 @@
 [![Demo and documentation](https://img.shields.io/badge/Documentation-demo-brightgreen.svg?style=flat-square)](https://nggithubcontribcalendar.github.io/ng-github-contrib-calendar/)
 [![Coverage Status](https://coveralls.io/repos/github/NgGithubContribCalendar/ng-github-contrib-calendar/badge.svg?branch=master)](https://coveralls.io/github/NgGithubContribCalendar/ng-github-contrib-calendar?branch=master)
 [![Build Status](https://travis-ci.org/NgGithubContribCalendar/ng-github-contrib-calendar.svg?branch=master)](https://travis-ci.org/NgGithubContribCalendar/ng-github-contrib-calendar)
-[![Dependencies](https://img.shields.io/david/NgGithubContribCalendar/ng-github-contrib-calendar.svg?style=flat-square)](https://github.com/NgGithubContribCalendar/ng-github-contrib-calendar/blob/master/package.json)
-[![Peer Dependencies](https://img.shields.io/david/peer/NgGithubContribCalendar/ng-github-contrib-calendar.svg?style=flat-square)](https://github.com/NgGithubContribCalendar/ng-github-contrib-calendar/blob/master/package.json)
 [![Greenkeeper badge](https://badges.greenkeeper.io/NgGithubContribCalendar/ng-github-contrib-calendar.svg)](https://greenkeeper.io/)
 
+![Tested on Safari](https://img.shields.io/badge/Safari-tested-brightgreen.svg)
+![Tested on Chrome](https://img.shields.io/badge/Chrome-tested-brightgreen.svg)
+![Tested on Firefox](https://img.shields.io/badge/Firefox-tested-brightgreen.svg)
 
 -----
 
@@ -47,7 +48,7 @@ The metadata version for Angular's AOT compiler differs between Angular 4.x and 
 | *Flavour* | **Angular 4**                                                                              | **Angular 5**                                                                              |
 |-----------|--------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------|
 | **Local** | npm install [@ng-github-contrib-calendar/calendar-ng4](https://www.npmjs.com/package/@ng-github-contrib-calendar/calendar-ng4) | npm install [@ng-github-contrib-calendar/calendar-ng5](https://www.npmjs.com/package/@ng-github-contrib-calendar/calendar-ng5) |
-| **CDN**   | [![CDN link](https://data.jsdelivr.com/v1/package/npm/@ng-github-contrib-calendar/calendar-ng4/badge)](https://www.jsdelivr.com/package/npm/@ng-github-contrib-calendar/calendar-ng4)                   | [![CDN link](https://data.jsdelivr.com/v1/package/npm/@ng-github-contrib-calendar/calendar-ng5/badge)](https://www.jsdelivr.com/package/npm/@ng-github-contrib-calendar/calendar-ng5)                   |
+| **CDN**   | [Package](https://www.jsdelivr.com/package/npm/@ng-github-contrib-calendar/calendar-ng4)                   | [Package](https://www.jsdelivr.com/package/npm/@ng-github-contrib-calendar/calendar-ng5)                   |
 
 The UMD global name is `ghContribCalendar`.
 

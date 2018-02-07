@@ -1,10 +1,8 @@
 //tslint:disable
 import {Application, Request, Response} from 'express';
 import {cpus} from 'os';
-import * as puppeteer from 'puppeteer';
 
 export default config => {
-  process.env.CHROME_BIN           = puppeteer.executablePath();
   process.env.WEBPACK_COMPILE_MODE = require('./build/util/compile-mode').TEST;
 
   const reports = ['text-summary'];
@@ -90,22 +88,27 @@ export default config => {
 
     colors: true,
 
-    singleRun: true
+    singleRun: true,
+
+    customLaunchers: {
+      FirefoxHeadless: {
+        base: 'Firefox',
+        flags: ['-headless']
+      }
+    },
+
+    browsers: ['FirefoxHeadless']
   };
 
   if (!process.env.CI) {
     reports.push('html');
-
-    finalConfig.browsers = ['ChromeHeadless'];
+    finalConfig.browsers.push('ChromeHeadless');
   } else {
     reports.push('lcovonly');
-
-    finalConfig.browsers        = ['ChromeHeadlessTravis'];
-    finalConfig.customLaunchers = {
-      ChromeHeadlessTravis: {
-        base:  'ChromeHeadless',
-        flags: ['--no-sandbox']
-      }
+    finalConfig.browsers.push('ChromeHeadlessTravis');
+    finalConfig.customLaunchers.ChromeHeadlessTravis = {
+      base: 'ChromeHeadless',
+      flags: ['--no-sandbox']
     };
   }
 
