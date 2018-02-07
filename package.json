@@ -6,7 +6,7 @@
   "jsdelivr": "dist/umd/index.min.js",
   "main": "dist/es5/index.js",
   "es2015": "dist/esm2015/index.js",
-  "module": "dist/esm5/index.js",
+  "module": "dist/esm5/indexgit.js",
   "types": "dist/esm2015/index.d.ts",
   "scripts": {
     "reinstall": "rm -rf node_modules package-lock.json && npm install",

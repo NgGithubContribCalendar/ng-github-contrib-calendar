@@ -17,7 +17,6 @@ Object.defineProperty(module, 'exports', {
         typeofs: true,
         loops: true,
         unsafe: false,
-        unsafe_Func: false,
         unsafe_proto: false,
         unsafe_regexp: false,
         unused: true,
