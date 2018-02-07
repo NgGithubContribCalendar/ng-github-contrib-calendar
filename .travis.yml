@@ -74,10 +74,9 @@ jobs:
       env:
         - CI_NG_VERSION=5
       script:
-        - gulp build
         - tsc -p tsconfig.json
         - npm test
-        - if [ $TRAVIS_TAG ]; then gulp site; else build:demo:aot; fi;
+        - if [ $TRAVIS_TAG ]; then gulp site; else guild build:demo:aot; fi;
     - <<: *std_job
       env:
         - CI_NG_VERSION=4
