@@ -165,6 +165,10 @@ const TravisMgr = (() => {
         const json = this.pkgJsonContents;
         
         for (const k of this.keys) {
+          if (!json[k]) {
+            continue;
+          }
+          
           for (const pkgName of Object.keys(json[k])) {
             if (pkgName.startsWith('@ngforage')) {
               json[k][this.ngForagePkgName] = json[k][pkgName];
