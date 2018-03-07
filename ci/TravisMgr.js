@@ -28,7 +28,7 @@ const TravisMgr = (() => {
         return '^2.0.0-beta.12';
       }
       
-      return '^5.0.0-rc0';
+      return '^5.2.3';
     }
     
     get ngForagePkgName() {
@@ -120,6 +120,10 @@ const TravisMgr = (() => {
     writeMat() {
       const json = this.pkgJsonContents;
       for (const k of this.keys) {
+        if (!json[k]) {
+          continue;
+        }
+
         for (const pkgName of Object.keys(json[k])) {
           if (pkgName === '@angular/material' || pkgName === '@angular/cdk') {
             json[k][pkgName] = this.matVersion;
@@ -142,6 +146,10 @@ const TravisMgr = (() => {
     writeNg() {
       const json = this.pkgJsonContents;
       for (const k of this.keys) {
+        if (!json[k]) {
+          continue;
+        }
+
         for (const pkgName of Object.keys(json[k])) {
           if (pkgName.startsWith('@angular') && pkgName !== '@angular/material' && pkgName !== '@angular/cdk') {
             json[k][pkgName] = this.ngVersion;
@@ -157,6 +165,10 @@ const TravisMgr = (() => {
         const json = this.pkgJsonContents;
         
         for (const k of this.keys) {
+          if (!json[k]) {
+            continue;
+          }
+          
           for (const pkgName of Object.keys(json[k])) {
             if (pkgName.startsWith('@ngforage')) {
               json[k][this.ngForagePkgName] = json[k][pkgName];
