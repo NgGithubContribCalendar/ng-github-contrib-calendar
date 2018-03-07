@@ -191,12 +191,12 @@ export class GhContribCalendarComponent implements OnDestroy, OnInit {
   }
 
   /** @internal */
-  private get numLoading(): number {
+  public get numLoading(): number {
     return this._numLoading;
   }
 
   /** @internal */
-  private set numLoading(num: number) {
+  public set numLoading(num: number) {
     this._numLoading = num;
     this.cdr.detectChanges();
   }

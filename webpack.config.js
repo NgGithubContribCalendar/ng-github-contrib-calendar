@@ -2,25 +2,21 @@ if (!('WEBPACK_COMPILE_MODE') in process.env) {
   throw new Error('Webpack compile mode not found');
 }
 
-const forceUglify = 'WEBPACK_FORCE_UGLIFY' in process.env;
-
 process.chdir(__dirname);
 require('tmp').setGracefulCleanup();
 
-const MODE                           = require('./build/util/compile-mode');
-const TsConfigFactory                = require('./build/util/tsconfig-factory');
-const {CheckerPlugin}                = require('awesome-typescript-loader');
-const HtmlWebpackPlugin              = require('html-webpack-plugin');
-const ResourceHintWebpackPlugin      = require('resource-hints-webpack-plugin');
-const CopyWebpackPlugin              = require('copy-webpack-plugin');
-const path                           = require('path');
-const webpack                        = require('webpack');
-const ExtractTextPlugin              = require('extract-text-webpack-plugin');
+const MODE = require('./build/util/compile-mode');
+const TsConfigFactory = require('./build/util/tsconfig-factory');
+const {CheckerPlugin} = require('awesome-typescript-loader');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const path = require('path');
+const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
-const WebpackPwaManifest             = require('webpack-pwa-manifest');
-const FaviconsWebpackPlugin          = require('favicons-webpack-plugin');
-const WorkboxPlugin                  = require('workbox-webpack-plugin');
-const ExecUtils                      = require('./build/execUtils');
+const WebpackPwaManifest = require('webpack-pwa-manifest');
+const WorkboxPlugin = require('workbox-webpack-plugin');
+const ExecUtils = require('./build/execUtils');
 
 class WebpackFactory {
   
@@ -30,7 +26,7 @@ class WebpackFactory {
   
   get banner() {
     const pkg = require('./package.json');
-    const _   = require('lodash');
+    const _ = require('lodash');
     
     return `
 /**
@@ -43,12 +39,26 @@ class WebpackFactory {
 `.trim();
   }
   
+  get webpackMode() {
+    switch (this.mode) {
+      case MODE.DIST_UMD:
+      case MODE.DIST_ES5:
+      case MODE.DIST_ESM5:
+      case MODE.DIST_ESM2015:
+      case MODE.DEMO_AOT:
+        return 'production';
+      default:
+        return 'development';
+    }
+  }
+  
   get conf() {
     const out = {
-      devtool:   this.devtool,
-      cache:     true,
+      devtool: this.devtool,
+      cache: true,
+      mode: this.webpackMode,
       externals: this.externals,
-      resolve:   {
+      resolve: {
         mainFields: ['module', 'browser', 'main'],
         extensions: [
           '.ts',
@@ -59,9 +69,29 @@ class WebpackFactory {
           '.pug'
         ]
       },
-      plugins:   this.plugins,
-      module:    {
+      plugins: this.plugins,
+      module: {
         rules: this.rules
+      },
+      optimization: {
+        splitChunks: {
+          chunks: 'all',
+          maxAsyncRequests: Number.MAX_VALUE,
+          maxInitialRequests: Number.MAX_VALUE,
+          minSize: 10 * 1024,
+          name: true,
+          cacheGroups: {
+            default: {
+              minChunks: 2,
+              priority: -20,
+              reuseExistingChunk: true,
+            },
+            vendors: {
+              test: /[\\/]node_modules[\\/]/,
+              priority: -10
+            }
+          }
+        }
       }
     };
     
@@ -90,7 +120,7 @@ class WebpackFactory {
     switch (this.mode) {
       case MODE.DIST_UMD:
         return {
-          index:       './src/index.ts',
+          index: './src/index.ts',
           'index.min': './src/index.ts'
         };
       case MODE.DEMO_JIT:
@@ -123,43 +153,40 @@ class WebpackFactory {
     switch (this.mode) {
       case MODE.DIST_UMD:
         return {
-          path:          path.join(__dirname, 'dist', 'umd'),
-          filename:      '[name].js',
+          path: path.join(__dirname, 'dist', 'umd'),
+          filename: '[name].js',
           libraryTarget: 'umd',
-          library:       'ghContribCalendar'
+          library: 'ghContribCalendar'
         };
       case MODE.DEMO_JIT:
         return {
-          path:     path.join(__dirname, '.demo'),
+          path: path.join(__dirname, '.demo'),
           filename: '[name].js'
         };
       case MODE.DEMO_AOT:
         return {
-          path:     path.join(__dirname, '.demo'),
+          path: path.join(__dirname, '.demo'),
           filename: '[name].[chunkhash].js'
         };
     }
   }
   
   get plugins() {
+    
     const out = [
       new webpack.LoaderOptionsPlugin({
-                                        options: {
-                                          progress: true
-                                        }
-                                      })
+        options: {
+          progress: true
+        }
+      })
     ];
-    
-    if (this.mode === MODE.DIST_UMD || forceUglify) {
-      out.push(this.uglifyJSPlugin);
-    }
     
     if (this.mode === MODE.DIST_UMD) {
       out.push(new webpack.BannerPlugin({
-                                          banner:    this.banner,
-                                          raw:       true,
-                                          entryOnly: true
-                                        }));
+        banner: this.banner,
+        raw: true,
+        entryOnly: true
+      }));
     }
     
     if (this.mode !== MODE.DEMO_AOT) {
@@ -169,135 +196,123 @@ class WebpackFactory {
     if ([MODE.DEMO_JIT, MODE.DEMO_AOT].includes(this.mode)) {
       out.push(
         new webpack.DefinePlugin({
-                                   'process.env': {
-                                     NODE_ENV:    this.env,
-                                     ENVIRONMENT: this.env,
-                                     GIT_TAG:     JSON.stringify(ExecUtils.tagName),
-                                     GIT_BRANCH:  JSON.stringify(ExecUtils.branchName)
-                                   }
-                                 }),
-        new webpack.optimize.CommonsChunkPlugin({
-                                                  name:     'vendor',
-                                                  filename: `[name]${this.mode ===
-                                                                     MODE.DEMO_AOT ?
-                                                                     '.[chunkhash]' :
-                                                                     ''}.js`,
-                                                  minChunks(module, count) {
-                                                    return module.context &&
-                                                           module.context.indexOf('node_modules') !==
-                                                           -1;
-                                                  }
-                                                }),
+          'process.env': {
+            NODE_ENV: this.env,
+            ENVIRONMENT: this.env,
+            GIT_TAG: JSON.stringify(ExecUtils.tagName),
+            GIT_BRANCH: JSON.stringify(ExecUtils.branchName)
+          }
+        }),
         new CopyWebpackPlugin([
-                                {
-                                  from:  path.join(__dirname, 'documentation', '**', '*'),
-                                  force: true
-                                }
-                              ]),
+          {
+            from: path.join(__dirname, 'documentation', '**', '*'),
+            force: true
+          }
+        ]),
         new ExtractTextPlugin(`[name]${this.mode === MODE.DEMO_JIT ? '' : '.[contenthash]'}.css`),
         new WebpackPwaManifest({
-                                 name:             'Angular GitHub contrib calendar',
-                                 short_name:       'GH Calendar',
-                                 description:      'An Angular 4 & 5 component for displaying a GitHub contributions calendar',
-                                 background_color: '#ffffff',
-                                 'theme_color':    '#4caf50',
-                                 ios:              true,
-                                 fingerprints:     this.mode !== MODE.DEMO_JIT,
-                                 icons:            (() => {
-                                   const fs  = require('fs');
-                                   const dir = path.join(__dirname, 'src', 'demo', 'img');
+          name: 'Angular GitHub contrib calendar',
+          short_name: 'GH Calendar',
+          description: 'An Angular 4 & 5 component for displaying a GitHub contributions calendar',
+          background_color: '#ffffff',
+          'theme_color': '#4caf50',
+          ios: true,
+          fingerprints: this.mode !== MODE.DEMO_JIT,
+          icons: (() => {
+            const fs = require('fs');
+            const dir = path.join(__dirname, 'src', 'demo', 'img');
             
-                                   return fs.readdirSync(dir, 'utf8')
-                                            .filter(p => /\d+x\d+\.png$/.test(p))
-                                            .map(f => {
-                                              const match = f.match(/(\d+x\d+)/);
-                                              return {
-                                                src:  path.join(dir, f),
-                                                size: match[1] || match[0]
-                                              };
-                                            });
-                                 })()
-                               }),
-        new FaviconsWebpackPlugin({
-                                    logo:            require.resolve('./src/demo/img/64x64.png'),
-                                    inject:          true,
-                                    prefix:          this.mode === MODE.DEMO_JIT ? 'ico-' : 'ico-[hash]-',
-                                    persistentCache: true,
-                                    icons:           {
-                                      android:      false,
-                                      appleIcon:    false,
-                                      appleStartup: false,
-                                      coast:        false,
-                                      favicons:     true,
-                                      firefox:      false,
-                                      opengraph:    false,
-                                      twitter:      false,
-                                      yandex:       false,
-                                      windows:      false
-                                    }
-                                  }),
+            return fs.readdirSync(dir, 'utf8')
+              .filter(p => /\d+x\d+\.png$/.test(p))
+              .map(f => {
+                const match = f.match(/(\d+x\d+)/);
+                return {
+                  src: path.join(dir, f),
+                  size: match[1] || match[0]
+                };
+              });
+          })()
+        }),
+        // new FaviconsWebpackPlugin({
+        //                             logo:            require.resolve('./src/demo/img/64x64.png'),
+        //                             inject:          true,
+        //                             prefix:          this.mode === MODE.DEMO_JIT ? 'ico-' : 'ico-[hash]-',
+        //                             persistentCache: true,
+        //                             icons:           {
+        //                               android:      false,
+        //                               appleIcon:    false,
+        //                               appleStartup: false,
+        //                               coast:        false,
+        //                               favicons:     true,
+        //                               firefox:      false,
+        //                               opengraph:    false,
+        //                               twitter:      false,
+        //                               yandex:       false,
+        //                               windows:      false
+        //                             }
+        //                           }),
         new HtmlWebpackPlugin({
-                                filename: 'index.html',
-                                template: require.resolve('./src/demo/demo.pug'),
-                                minify:   false,
-                                inject:   'body',
-                                preload:  ['**/*.*'],
-                                prefetch: []
-                              }),
+          filename: 'index.html',
+          template: require.resolve('./src/demo/demo.pug'),
+          minify: false,
+          inject: 'body',
+          preload: ['**/*.*'],
+          prefetch: []
+        }),
         new HtmlWebpackIncludeAssetsPlugin({
-                                             assets: {
-                                               path: '',
-                                               glob: '**demo.css'
-                                             },
-                                             append: true
-                                           }),
-        new ResourceHintWebpackPlugin(),
+          assets: {
+            path: '',
+            glob: '**demo.css'
+          },
+          append: true
+        }),
+        // new ResourceHintWebpackPlugin(),
         new WorkboxPlugin({
-                            globDirectory:                 path.join(__dirname, '.demo'),
-                            globPatterns:                  ['**/*.{html,js,css,png,json,svg,ico,otf,eot,ttf,woff,woff2}'],
-                            maximumFileSizeToCacheInBytes: Number.MAX_VALUE,
-                            directoryIndex:                'index.html',
-                            globIgnores:                   [
-                              '**/bootstrap.min.css',
-                              '**/bootstrap-card.css',
-                              '**/compodoc.css',
-                              '**/font-awesome.min.css',
-                              '**/original.css',
-                              '**/postmark.css',
-                              '**/prism.css',
-                              '**/readthedocs.css',
-                              '**/reset.css',
-                              '**/stripe.css',
-                              '**/tablesort.css',
-                              '**/vagrant.css'
-                            ],
-                            runtimeCaching:                (() => {
-                              const _      = require('lodash');
-                              const caches = {
-                                cacheFirst:           [
-                                  /cdn\.polyfill\.io/i,
-                                  /fonts\.googleapis\.com/i
-                                ],
-                                staleWhileRevalidate: [
-                                  /fonts\.gstatic\.com/i
-                                ],
-                                networkFirst:         [
-                                  /travis-ci\.org\/Alorel\/ngforage/i,
-                                  /img\.shields\.io/i,
-                                  /coveralls\.io/i,
-                                  /badges\.greenkeeper\.io/i
-                                ]
-                              };
+          globDirectory: path.join(__dirname, '.demo'),
+          globPatterns: ['**/*.{html,js,css,png,json,svg,ico,otf,eot,ttf,woff,woff2}'],
+          maximumFileSizeToCacheInBytes: Number.MAX_VALUE,
+          directoryIndex: 'index.html',
+          globIgnores: [
+            '**/bootstrap.min.css',
+            '**/bootstrap-card.css',
+            '**/compodoc.css',
+            '**/font-awesome.min.css',
+            '**/original.css',
+            '**/postmark.css',
+            '**/prism.css',
+            '**/readthedocs.css',
+            '**/reset.css',
+            '**/stripe.css',
+            '**/tablesort.css',
+            '**/vagrant.css'
+          ],
+          runtimeCaching: (() => {
+            const _ = require('lodash');
+            const caches = {
+              cacheFirst: [
+                /cdn\.polyfill\.io/i,
+                /fonts\.googleapis\.com/i
+              ],
+              staleWhileRevalidate: [
+                /fonts\.gstatic\.com/i
+              ],
+              networkFirst: [
+                /travis-ci\.org\/Alorel\/ngforage/i,
+                /img\.shields\.io/i,
+                /coveralls\.io/i,
+                /badges\.greenkeeper\.io/i
+              ]
+            };
             
-                              return _.reduce(caches, (out, urls, handler) => {
-                                for (const urlPattern of urls) {
-                                  out.push({urlPattern, handler});
-                                }
-                                return out;
-                              }, []);
-                            })(),
-                            swDest:                        path.join(__dirname, '.demo', 'sw.js')
-                          })
+            return _.reduce(caches, (out, urls, handler) => {
+              for (const urlPattern of urls) {
+                out.push({urlPattern, handler});
+              }
+              return out;
+            }, []);
+          })(),
+          swDest: path.join(__dirname, '.demo', 'sw.js')
+        })
       );
     }
     
@@ -313,9 +328,9 @@ class WebpackFactory {
     if (this.mode === MODE.TEST) {
       out.push(
         new webpack.SourceMapDevToolPlugin({
-                                             filename: null,
-                                             test:     /\.(ts|js)($|\?)/i
-                                           })
+          filename: null,
+          test: /\.(ts|js)($|\?)/i
+        })
       );
       
       out.push(new webpack.NoEmitOnErrorsPlugin());
@@ -327,16 +342,16 @@ class WebpackFactory {
   get rules() {
     const scssLoaderBase = [
       {
-        loader:  'postcss-loader',
+        loader: 'postcss-loader',
         options: {
           plugins: () => [require('autoprefixer')({
-                                                    browsers: 'last 1000 versions',
-                                                    grid:     true
-                                                  })]
+            browsers: 'last 1000 versions',
+            grid: true
+          })]
         }
       },
       {
-        loader:  'sass-loader',
+        loader: 'sass-loader',
         options: {outputStyle: 'compressed'}
       }
     ];
@@ -344,14 +359,14 @@ class WebpackFactory {
     const rules = [
       {
         test: /\.svg$/,
-        use:  'raw-loader'
+        use: 'raw-loader'
       },
       {
         test: /\.pug$/,
-        use:  [
+        use: [
           'raw-loader',
           {
-            loader:  'pug-html-loader',
+            loader: 'pug-html-loader',
             options: {
               doctype: 'html'
             }
@@ -359,19 +374,25 @@ class WebpackFactory {
         ]
       },
       {
-        test:   path => path.endsWith('demo.scss'),
+        test: path => path.endsWith('demo.scss'),
         loader: ExtractTextPlugin.extract({
-                                            use: ['css-loader'].concat(scssLoaderBase)
-                                          })
+          use: ['css-loader'].concat(scssLoaderBase)
+        })
       },
       {
         test: path => /\.s?css$/i.test(path) && !path.endsWith('demo.scss'),
-        use:  ['raw-loader'].concat(scssLoaderBase)
+        use: ['raw-loader'].concat(scssLoaderBase)
       },
       {
-        test:    /\.ts$/,
-        use:     [
-          `awesome-typescript-loader?configFileName=${this.tsConfigFileName}`,
+        test: /\.ts$/,
+        use: [
+          {
+            loader: 'awesome-typescript-loader',
+            options: {
+              configFileName: this.tsConfigFileName,
+              useCache: true
+            }
+          },
           'angular2-template-loader',
           'angular-router-loader'
         ],
@@ -384,17 +405,17 @@ class WebpackFactory {
     
     if (this.mode === MODE.TEST) {
       rules.push({
-                   test:    /.ts$/,
-                   exclude: [
-                     /node_modules/,
-                     /\.spec\.ts/,
-                     /\.e2e\.ts/,
-                     /karma\.conf\.ts/,
-                     /karma-test-entry\.ts/
-                   ],
-                   loader:  'istanbul-instrumenter-loader',
-                   enforce: 'post'
-                 });
+        test: /.ts$/,
+        exclude: [
+          /node_modules/,
+          /\.spec\.ts/,
+          /\.e2e\.ts/,
+          /karma\.conf\.ts/,
+          /karma-test-entry\.ts/
+        ],
+        loader: 'istanbul-instrumenter-loader',
+        enforce: 'post'
+      });
     }
     
     return rules;
@@ -408,18 +429,6 @@ class WebpackFactory {
   
   get tsConfigFileName() {
     return this.mode === MODE.TEST ? 'tsconfig.json' : new TsConfigFactory(this.mode).file;
-  }
-  
-  get uglifyJSPlugin() {
-    const include = this.mode === MODE.DEMO_AOT ? /\.js$/ : /\.min\.js$/;
-    
-    return new webpack.optimize.UglifyJsPlugin({
-                                                 include,
-                                                 sourceMap:     true,
-                                                 cache:         true,
-                                                 parallel:      require('os').cpus().length,
-                                                 uglifyOptions: require('./build/conf/uglify-options')
-                                               });
   }
 }
 

@@ -155,7 +155,7 @@ gulp.task('doc', cb => {
 gulp.task('site', cb => {
   seq(
     'doc',
-    'build:demo:aot:prod',
+    'build:demo:aot',
     cb
   );
 });
