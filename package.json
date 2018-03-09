@@ -139,5 +139,12 @@
   "publishConfig": {
     "access": "public"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "greenkeeper": {
+    "ignore": [
+      "webpack",
+      "@types/webpack",
+      "awesome-typescript-loader"
+    ]
+  }
 }
