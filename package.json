@@ -144,7 +144,8 @@
     "ignore": [
       "webpack",
       "@types/webpack",
-      "awesome-typescript-loader"
+      "awesome-typescript-loader",
+      "jasmine-core"
     ]
   }
 }
