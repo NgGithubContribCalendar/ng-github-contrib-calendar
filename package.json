@@ -110,7 +110,7 @@
     "tslint": "^5.8.0",
     "typescript": ">=2.4.2 <2.5",
     "typescript-lazy-get-decorator": "^1.1.0",
-    "typescript-proto-decorator": "^1.0.1",
+    "typescript-proto-decorator": "^2.0.0",
     "uglify-es": "^3.3.3",
     "uuid": "^3.1.0",
     "webpack": "^3.8",
