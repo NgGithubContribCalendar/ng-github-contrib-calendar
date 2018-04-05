@@ -73,7 +73,7 @@
     "gulp-inline-ng2-template": "^4.0",
     "gulp-postcss": "^7.0.0",
     "gulp-rename": "^1.2",
-    "gulp-sass": "^3.1.0",
+    "gulp-sass": "^4.0.0",
     "gulp-sequence": "^1.0.0",
     "gulp-tar": "^2.0.0",
     "html-webpack-include-assets-plugin": "^1.0.2",
