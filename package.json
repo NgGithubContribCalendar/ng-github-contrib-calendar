@@ -82,7 +82,7 @@
     "jasmine-core": "^2.8",
     "karma": "^2.0.0",
     "karma-chrome-launcher": "^2.2",
-    "karma-coverage-istanbul-reporter": "^1.3",
+    "karma-coverage-istanbul-reporter": "^2.0.0",
     "karma-express-server": "^0.1.4",
     "karma-firefox-launcher": "^1.1.0",
     "karma-jasmine": "^1.1",
