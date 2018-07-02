@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "@angular/animations": "^5.0.0",
-    "@angular/cdk": "^5.0.0-rc.1",
+    "@angular/cdk": "^6.3.2",
     "@angular/common": "^5.0",
     "@angular/compiler": "^5.0",
     "@angular/compiler-cli": "^5.0",
