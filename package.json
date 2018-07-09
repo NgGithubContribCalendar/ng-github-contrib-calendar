@@ -60,7 +60,7 @@
     "core.js": "^0.4.2",
     "coveralls": "^3.0",
     "cross-spawn": "^6.0.0",
-    "css-loader": "^0.28.7",
+    "css-loader": "^1.0.0",
     "custom-tslint-formatters": "^2.1.1",
     "express": "^4.16.2",
     "extract-text-webpack-plugin": "^3.0.2",
