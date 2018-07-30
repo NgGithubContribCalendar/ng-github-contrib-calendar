@@ -143,6 +143,7 @@
   "greenkeeper": {
     "ignore": [
       "webpack",
+      "angular2",
       "@types/webpack",
       "awesome-typescript-loader",
       "jasmine-core"
