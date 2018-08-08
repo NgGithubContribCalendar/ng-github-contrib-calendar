@@ -93,7 +93,7 @@
     "lodash": "^4.17.4",
     "node-sass": "^4.5",
     "postcss": "^7.0.0",
-    "postcss-loader": "^2.0",
+    "postcss-loader": "^3.0.0",
     "pug": "^2.0.0-rc.4",
     "pug-html-loader": "^1.1",
     "raw-loader": "^0.5.1",
