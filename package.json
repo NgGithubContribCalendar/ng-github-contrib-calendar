@@ -80,7 +80,7 @@
     "html-webpack-plugin": "^3.0.0",
     "istanbul-instrumenter-loader": "^3.0",
     "jasmine-core": "^2.8",
-    "karma": "^2.0.0",
+    "karma": "^3.0.0",
     "karma-chrome-launcher": "^2.2",
     "karma-coverage-istanbul-reporter": "^2.0.0",
     "karma-express-server": "^0.1.4",
