@@ -143,9 +143,10 @@
   "greenkeeper": {
     "ignore": [
       "webpack",
+      "angular2",
       "@angular/cdk",
       "@angular/common",
-      "@angular/coompiler",
+      "@angular/compiler",
       "@angular/compiler-cli",
       "@angular/core",
       "@angular/forms",
