@@ -144,6 +144,7 @@
     "ignore": [
       "webpack",
       "angular2",
+      "karma-webpack"
       "@angular/cdk",
       "@angular/common",
       "@angular/compiler",
